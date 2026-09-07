@@ -91,6 +91,17 @@
                     loading="lazy"
                   />
                 </div>
+                <div v-else-if="b.type === 'grid'" class="entry-grid" :style="{ gridTemplateColumns: 'repeat(' + (b.cols || 1) + ', 1fr)' }">
+                  <div
+                    v-for="(g, gi) in b.items"
+                    :key="gi"
+                    class="entry-grid-cell"
+                    :style="{ aspectRatio: (b.aspect || '1:1').replace(':', '/') }"
+                  >
+                    <video v-if="g.type === 'video'" :src="g.src" :poster="posterFor(g.src || '')" controls preload="metadata" class="entry-video"></video>
+                    <img v-else :src="g.src" :alt="cases[expandedCase].title" class="entry-img" loading="lazy" />
+                  </div>
+                </div>
                 <p v-else class="entry-caption">{{ b.text }}</p>
               </template>
             </template>
@@ -233,10 +244,19 @@ const overlayVisible = computed(() => expandedCase.value !== null || transitioni
 
 const totalCases = computed(() => cases.value.length)
 
+interface MediaItem {
+  type: 'video' | 'image'
+  src?: string
+}
+
 interface MediaBlock {
-  type: 'video' | 'image' | 'text'
+  type: 'video' | 'image' | 'text' | 'grid'
   src?: string
   text?: string
+  cols?: number
+  rows?: number
+  aspect?: string
+  items?: MediaItem[]
 }
 
 interface CaseItem {
@@ -300,12 +320,16 @@ const cases = ref<CaseItem[]>([
     description: "Mapped unofficial footpath shortcuts across the Netherlands and cross-referenced them with McDonald's locations. I built the interactive map (React, Vercel) using OpenPath data and Google Street View to verify paths that pass McDonald's poles. Confirmed paths were photographed by interns.",
     tags: ['Interactive Map', 'React', 'Geo Data'],
     projectUrl: 'https://mcd-pad.vercel.app/',
-    images: [
-      '/images/olifantenpaadjes1.jpeg',
-      '/images/olifantenpaadjes2.jpeg',
-      '/images/olifantenpaadjes3.jpeg',
-      '/images/olifantenpaadjes4.jpeg',
-      '/images/olifantenpaadjes5.jpeg'
+    blocks: [
+      { type: 'image', src: '/images/olifantenpaadjes2.jpeg' },
+      { type: 'grid', cols: 2, rows: 1, aspect: '9:16', items: [
+        { type: 'image', src: '/images/olifantenpaadjes1.jpeg' },
+        { type: 'image', src: '/images/olifantenpaadjes4.jpeg' }
+      ] },
+      { type: 'text', text: 'I simply cross referenced the shortcut map data with all of the mcdonalds locations. Which lead to this interactive map. We then went to google maps and looked at satalite images to confirm, after which we send interns to photograph to the locations. And lastly the photographer.  https://mcd-pad.vercel.app/' },
+      { type: 'image', src: '/images/olifantenpaadjes_map.webp' },
+      { type: 'image', src: '/images/olifantenpaadjes3.jpeg' },
+      { type: 'image', src: '/images/olifantenpaadjes5.jpeg' }
     ]
   },
   {
@@ -313,16 +337,24 @@ const cases = ref<CaseItem[]>([
     client: "McDonald's Netherlands — TBWA\\NEBOKO",
     description: "I built the entire 3D world — all characters, items, clothing, all packaged in a .glb file. All animations in Cinema 4D and Blender. Over half a million avatars were made.",
     tags: ['3D', 'AR', 'App Feature', 'Webby Winner 2024'],
-    video: '/cases/videos/AvatarCreator.mp4',
-    images: [
-      img('imgi_1_hero.webp'),
-      img('imgi_2_family_mode2.webp'),
-      img('imgi_3_scene1.webp'),
-      img('imgi_4_family_mode3.webp'),
-      img('imgi_5_room1.webp'),
-      img('imgi_6_room2.webp'),
-      img('imgi_7_scene2.webp'),
-      img('familymode1.webp')
+    blocks: [
+      { type: 'image', src: img('imgi_1_hero.webp') },
+      { type: 'text', text: 'Family Mode is a avatar builder and game platform that lives within the McDonalds app. My responsibility in this project was the entire 3D asset creation of the world, characters, animations as well as packaging this in a format that worked on hundreds of thousands of phone. Everything had to be low-poly. This was the first time attempting such a thing, and we absolutely aced it. With eventually more than 300k avatars made and an app that is still used and sold across other markets globally.' },
+      { type: 'image', src: img('imgi_2_family_mode2.webp') },
+      { type: 'text', text: 'UX and UI done by the TBWA\\X team. My role was limited to everything 3D.' },
+      { type: 'grid', cols: 2, rows: 1, aspect: '1:1', items: [
+        { type: 'video', src: '/cases/videos/AvatarCreator.mp4' },
+        { type: 'image', src: img('imgi_5_room1.webp') }
+      ] },
+      { type: 'text', text: 'I used primarly Cinema4d for the rendering and rigging. The final .GLB file was exported and optimised within Blender.' },
+      { type: 'grid', cols: 2, rows: 2, aspect: '1:1', items: [
+        { type: 'image', src: img('imgi_3_scene1.webp') },
+        { type: 'image', src: img('imgi_4_family_mode3.webp') },
+        { type: 'image', src: img('imgi_6_room2.webp') },
+        { type: 'image', src: img('imgi_7_scene2.webp') }
+      ] },
+      { type: 'text', text: 'We turned the happy meal placemat into a boardgame. So you could play with your characters in the app.' },
+      { type: 'image', src: img('familymode1.webp') }
     ]
   },
   {
@@ -330,8 +362,17 @@ const cases = ref<CaseItem[]>([
     client: "McDonald's Netherlands — TBWA\\NEBOKO",
     description: "A limited-edition 3D-printed smoke alarm shaped like a Big Mac that auto-ordered McDonald's when it detected smoke. I designed the full product as a printable device from concept to production files. Covered by Adweek, Highsnobiety and B&T.",
     tags: ['3D Product Design', '3D Printing', 'Campaign', 'ADCN Nominated'],
-    video: '/cases/videos/mcdeliverydetector.mp4',
-    images: [img('mcdeliverydetector.avif'), img('burger1.webp'), img('burger2.webp'), img('burger3.webp')]
+    blocks: [
+      { type: 'video', src: '/cases/videos/mcdeliverydetector.mp4' },
+      { type: 'text', text: 'The product went viral. Which was a blast.' },
+      { type: 'image', src: img('mcdeliverydetector.avif') },
+      { type: 'text', text: 'Here you can see one of the printed smoke detectors. I designed the entire thing in Cinam4D, as well as the locking system in which each piece fits together. The electronics inside were designed by Robot Kittens.' },
+      { type: 'grid', cols: 2, rows: 1, aspect: '1:1', items: [
+        { type: 'image', src: img('burger1.webp') },
+        { type: 'image', src: img('burger3.webp') }
+      ] },
+      { type: 'image', src: img('burger2.webp') }
+    ]
   },
   {
     title: 'SS26 New Amsterdam Surf Association',
@@ -746,6 +787,27 @@ watch(() => route.hash, (hash) => {
   color: var(--ink-muted);
   margin: 0 0 var(--space-md);
   padding: 0 2px;
+}
+
+.entry-grid {
+  display: grid;
+  gap: 10px;
+  margin-bottom: var(--space-md);
+}
+
+.entry-grid-cell {
+  position: relative;
+  overflow: hidden;
+  border-radius: 3px;
+  background: var(--ink);
+}
+
+.entry-grid-cell video,
+.entry-grid-cell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .arrow {
