@@ -269,11 +269,15 @@ const cases = ref<CaseItem[]>([
       { type: 'image', src: img('fanfavorites.webp') },
       { type: 'text', text: 'Final batch of 4 million for Spain. Each card consists of individually generated products, combined and placed together using python. Hardest part uploading and serving 4 million images in gcloud.' },
       { type: 'image', src: img('fanfavo1.webp') },
+      { type: 'text', text: "All the custom designed personlised fan menu's lived in the mcdonalds app" },
       { type: 'image', src: img('fanfavo4.webp') },
       { type: 'text', text: 'The initial million images used in the dutch market used the image model Flux. We later switched to GPT-Image.' },
       { type: 'image', src: img('fanfavo2.webp') },
+      { type: 'text', text: 'A handful of the different burgers we proposed. Only a select few made it past the brand police.' },
       { type: 'image', src: img('fanfavo3.webp') },
-      { type: 'text', text: 'A handful of the different burgers we proposed. Only a select few made it past the brand police.' }
+      { type: 'text', text: 'Mcdonalds was very pleased with the results so we rolled out the campaign to Spain and Portugal.' },
+      { type: 'image', src: img('fanfavo5.webp') },
+      { type: 'text', text: 'Each market has its own range of products, and product photography which I ran through multiple art styles. Which we then handpicked and edited manually.' }
     ]
   },
   {
@@ -281,7 +285,14 @@ const cases = ref<CaseItem[]>([
     client: 'LG Electronics — Global',
     description: "I was in charge of the thumbnail album covers for each custom AI-generated song. Used Adobe Firefly to generate thousands of assets, stress-testing every language and prompt type. Built the pipeline in n8n with a custom testing frontend. Songs and covers were generated live — each listener got something unique. LG in collaboration with Adobe Firefly. Reached over a million users.",
     tags: ['AI', 'Real-time', 'Global Campaign'],
-    images: [img('lg.webp'), '/images/lgradio1.webp', '/images/lgradio2.webp']
+    blocks: [
+      { type: 'image', src: img('lg.webp') },
+      { type: 'text', text: 'We built this for LG in collaboration with Adobe Firefly. I must have generated atleast 100k thumbnails in testing.' },
+      { type: 'image', src: img('lg2.webp') },
+      { type: 'text', text: 'Since its launch atleast a million songs and album covers have been generated in realtime following my pipeline and system prompt' },
+      { type: 'image', src: '/images/lgradio1.webp' },
+      { type: 'image', src: '/images/lgradio2.webp' }
+    ]
   },
   {
     title: "McDonald's Olifantenpaadjes",
