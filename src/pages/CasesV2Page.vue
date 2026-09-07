@@ -379,24 +379,50 @@ const cases = ref<CaseItem[]>([
     client: 'New Amsterdam Surf Association — Sabatoka',
     description: "A mobile web app for Paris Fashion Week 2025: upload a selfie and get dropped into a Palm Beach scene. I built the entire thing end-to-end. Backend on n8n with Replicate for AI, AWS for NSFW detection. Frontend in React. Cloudflare Workers, R2 storage, Hetzner server scaling to 500 concurrent executions.",
     tags: ['AI', 'React', 'n8n', 'Fashion', 'Web App'],
-    video: '/cases/videos/nasa_ss26.mp4',
-    images: [img('nasa2.webp')]
+    blocks: [
+      { type: 'video', src: '/cases/videos/nasa_ss26.mp4' },
+      { type: 'text', text: 'See below the N8N flow.' },
+      { type: 'image', src: img('nasa_n8n_flow.webp') },
+      { type: 'text', text: 'You take a selfie, and your transported to Palm Beach' },
+      { type: 'image', src: img('nasa2.webp') }
+    ]
   },
   {
     title: 'Abdulla Al Ghurair Foundation',
     client: 'Abdulla Al Ghurair Foundation — We Are Anatomy / Sabatoka',
     description: "Built the software for an interactive touchscreen installation at an exhibition. Users selected options and the screen displayed AI-generated videos. The full app ran locally without internet. React frontend, custom offline video pipeline. UI/UX by Rex Amesbury.",
     tags: ['AI', 'React', 'Video Gen', 'Installation'],
-    videos: ['/cases/videos/abdul_ui.mp4', '/cases/videos/abdul_ai.mp4'],
-    images: [img('abdul_thumb.webp')]
+    blocks: [
+      { type: 'video', src: '/cases/videos/abdul_ui.mp4' },
+      { type: 'grid', cols: 2, rows: 1, aspect: '9:16', items: [
+        { type: 'video', src: '/cases/videos/abdul_ai.mp4' },
+        { type: 'image', src: img('abdul_thumb.webp') }
+      ] }
+    ]
   },
   {
     title: 'New Care Supplements',
     client: 'New Care — Sabatoka',
     description: "Created social content and animations for New Care over several years. Built a 3D + AI pipeline: AI generation (nano-banana, seedream) composited with 3D product renders in Cinema 4D. Modelled the entire product catalog — over 100 products — in 3D.",
     tags: ['3D', 'AI', 'Social', 'Animation', 'Content Pipeline'],
-    videos: ['/cases/videos/newcare1.mp4', '/cases/videos/newcare2.mp4', '/cases/videos/newcare3.mp4', '/cases/videos/newcare4.mp4', '/cases/videos/newcare5.mp4', '/cases/videos/newcare6.mp4', '/cases/videos/newcare7.mp4'],
-    images: [img('newcare1.webp'), img('newcare2.webp'), img('newcare3.webp')]
+    blocks: [
+      { type: 'grid', cols: 3, rows: 1, aspect: '9:16', items: [
+        { type: 'video', src: '/cases/videos/newcare1.mp4' },
+        { type: 'video', src: '/cases/videos/newcare2.mp4' },
+        { type: 'video', src: '/cases/videos/newcare3.mp4' }
+      ] },
+      { type: 'grid', cols: 3, rows: 1, aspect: '9:16', items: [
+        { type: 'video', src: '/cases/videos/newcare4.mp4' },
+        { type: 'video', src: '/cases/videos/newcare5.mp4' },
+        { type: 'video', src: '/cases/videos/newcare6.mp4' }
+      ] },
+      { type: 'grid', cols: 2, rows: 1, aspect: '1:1', items: [
+        { type: 'video', src: '/cases/videos/newcare7.mp4' },
+        { type: 'image', src: img('newcare1.webp') }
+      ] },
+      { type: 'image', src: img('newcare2.webp') },
+      { type: 'image', src: img('newcare3.webp') }
+    ]
   },
   {
     title: "McDonald's The Hidden Campaign",
