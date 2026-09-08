@@ -13,7 +13,6 @@
     <section class="hero">
       <GlassHero />
       <div class="hero-sub">
-        <p class="role">Creative Technologist</p>
         <p class="tagline">Turning ambitious ideas into working AI systems, tools and experiences</p>
       </div>
     </section>
@@ -468,17 +467,6 @@ onUnmounted(() => {
   overflow: hidden;
 }
 
-.role {
-  font-family: var(--font-ui);
-  font-size: var(--text-sm);
-  font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--ink-faint);
-  margin: 0 0 12px;
-  text-align: center;
-}
-
 .tagline {
   font-family: var(--font-body);
   font-size: var(--text-base);
@@ -897,10 +885,6 @@ onUnmounted(() => {
   .hero-sub {
     bottom: 24px;
     padding: 0 18px;
-  }
-
-  .role {
-    font-size: 12px;
   }
 
   .tagline {
