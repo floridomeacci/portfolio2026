@@ -1,16 +1,6 @@
 <template>
   <div class="cv-page">
-    <header class="cv-header">
-      <router-link to="/" class="header-link">Home</router-link>
-      <span class="header-sep">/</span>
-      <router-link to="/websites" class="header-link">Websites</router-link>
-      <span class="header-sep">/</span>
-      <router-link to="/cases" class="header-link">Cases</router-link>
-      <span class="header-sep">/</span>
-      <router-link to="/sandbox" class="header-link">N8N Sandbox</router-link>
-      <span class="header-sep">/</span>
-      <router-link to="/about" class="header-link">About</router-link>
-    </header>
+    <SiteNav />
 
     <main class="cv-body">
       <div class="cases-list" ref="listRef">
@@ -39,17 +29,7 @@
 
     <Transition name="overlay">
       <div v-if="expandedCase !== null && !transitioning" class="case-overlay" @click.self="closeOverlay">
-        <div class="overlay-hdr">
-          <router-link to="/" class="header-link">Home</router-link>
-          <span class="header-sep">/</span>
-          <router-link to="/websites" class="header-link">Websites</router-link>
-          <span class="header-sep">/</span>
-          <router-link to="/cases" class="header-link">Cases</router-link>
-          <span class="header-sep">/</span>
-          <router-link to="/sandbox" class="header-link">N8N Sandbox</router-link>
-          <span class="header-sep">/</span>
-          <router-link to="/about" class="header-link">About</router-link>
-        </div>
+        <SiteNav overlay />
 
         <div class="overlay-body">
           <div class="overlay-text">
@@ -121,6 +101,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, watch, nextTick, onBeforeUnmount } from 'vue'
 import { useRoute } from 'vue-router'
+import SiteNav from '../components/SiteNav.vue'
 
 const route = useRoute()
 const expandedCase = ref<number | null>(null)

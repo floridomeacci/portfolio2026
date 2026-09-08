@@ -1,11 +1,6 @@
 <template>
   <div class="cv-page" @mousemove="onMouseMove">
-    <header class="cv-header">
-      <router-link to="/" class="back-link" title="Home">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-        <span class="header-label">About</span>
-      </router-link>
-    </header>
+    <SiteNav />
 
     <main class="cv-body">
       <div class="name-row">
@@ -170,6 +165,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import SiteNav from '../components/SiteNav.vue'
 
 const faceTrackerRef = ref<HTMLElement | null>(null)
 const faceImgSrc = ref('/faces/gaze_px0p0_py0p0_256.webp')

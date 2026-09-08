@@ -5,12 +5,7 @@
       <span v-for="(c, i) in accentCells" :key="i" class="accent-cell" :style="{ top: c.y + 'px', left: c.x + 'px' }"></span>
     </div>
 
-    <header class="cv-header">
-      <router-link to="/" class="back-link" title="Home">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-        <span class="header-label">Websites</span>
-      </router-link>
-    </header>
+    <SiteNav />
 
     <main class="cv-body">
       <div class="sec-hdr"><span>My Websites</span><span class="idx">01</span></div>
@@ -49,6 +44,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import SiteNav from '../components/SiteNav.vue'
 
 const G = 28
 const accentCells = [

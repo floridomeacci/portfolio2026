@@ -1,13 +1,9 @@
 <template>
-  <div class="w-full h-screen relative" :class="{ 'dark-mode': isDarkMode }">
+  <div class="w-full h-screen flex flex-col relative" :class="{ 'dark-mode': isDarkMode }">
 
-    <!-- Back button -->
-    <router-link to="/" class="sandbox-back-btn" title="Home">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="15 18 9 12 15 6"/>
-      </svg>
-    </router-link>
+    <SiteNav />
 
+    <div class="flex-1 relative min-h-0">
     <VueFlow
       v-model:nodes="nodes"
       v-model:edges="edges"
@@ -112,6 +108,7 @@
         <AnimatedEdge v-bind="edgeProps" />
       </template>
     </VueFlow>
+    </div>
 
     <NodeSettingsPanel
       :is-open="isSettingsPanelOpen"
@@ -124,6 +121,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed, provide, nextTick } from 'vue';
+import SiteNav from '../components/SiteNav.vue';
 import { VueFlow, useVueFlow, type Node, type Edge } from '@vue-flow/core';
 import { Background } from '@vue-flow/background';
 import { Controls } from '@vue-flow/controls';

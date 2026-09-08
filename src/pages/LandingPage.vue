@@ -7,17 +7,7 @@
       <span v-for="(c, i) in accentCells" :key="i" class="accent-cell" :style="{ top: c.y + 'px', left: c.x + 'px' }"></span>
     </div>
     <!-- Header -->
-    <header class="cv-header">
-      <router-link to="/" class="header-link">Home</router-link>
-      <span class="header-sep">/</span>
-      <router-link to="/websites" class="header-link">Websites</router-link>
-      <span class="header-sep">/</span>
-      <router-link to="/cases" class="header-link">Cases</router-link>
-      <span class="header-sep">/</span>
-      <router-link to="/sandbox" class="header-link">N8N Sandbox</router-link>
-      <span class="header-sep">/</span>
-      <router-link to="/about" class="header-link">About</router-link>
-    </header>
+    <SiteNav />
 
     <main id="main-content" class="cv-body">
       <!-- Hero: Name + Profile Pic -->
@@ -167,6 +157,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
+import SiteNav from '../components/SiteNav.vue'
 
 const router = useRouter()
 
