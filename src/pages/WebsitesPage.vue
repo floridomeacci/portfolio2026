@@ -38,6 +38,10 @@
             <div class="overlay-tags">
               <span v-for="t in sites[expanded].tags" :key="t" class="overlay-tag">{{ t }}</span>
             </div>
+            <div class="overlay-stack">
+              <span class="stack-label">Built with</span>
+              <span v-for="s in sites[expanded].stack" :key="s" class="stack-item">{{ s }}</span>
+            </div>
             <div class="overlay-actions">
               <a :href="sites[expanded].url" target="_blank" rel="noopener" class="action-btn action-btn--primary">Visit site <span class="arrow">&rarr;</span></a>
               <a v-if="sites[expanded].github" :href="sites[expanded].github" target="_blank" rel="noopener" class="action-btn action-btn--outline">GitHub</a>
@@ -372,6 +376,31 @@ function advancePrev() {
   white-space: nowrap;
 }
 
+.overlay-stack {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.stack-label {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--ink-faint);
+  margin-right: 4px;
+}
+
+.stack-item {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+  border: 1px solid var(--border-s);
+  border-radius: 4px;
+  padding: 3px 8px;
+}
+
 .overlay-actions {
   display: flex;
   flex-direction: column;
@@ -401,7 +430,8 @@ function advancePrev() {
 }
 
 .action-btn--outline {
-  border: 1px solid var(--border-s);
+  border: 1px solid oklch(15% 0.008 45 / 0.28);
+  background: oklch(15% 0.008 45 / 0.04);
   color: var(--ink);
 }
 
