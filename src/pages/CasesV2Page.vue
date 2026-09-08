@@ -228,7 +228,7 @@ function getScrollEl(): HTMLElement | null {
   if (m.scrollHeight > m.clientHeight + 1) return m
   const p = m.parentElement
   if (p && p.scrollHeight > p.clientHeight + 1) return p
-  return m
+  return null
 }
 
 function updateScrollState() {
@@ -257,7 +257,7 @@ function onMediaWheel(e: WheelEvent) {
     const d = Math.abs(e.deltaY)
     prevExtraScroll = d < prevDeltaY ? d : prevExtraScroll + d
     prevDeltaY = d
-    if (prevExtraScroll > 350) {
+    if (prevExtraScroll > 600) {
       prevExtraScroll = 0
       prevDeltaY = 0
       advancePrev()
@@ -266,7 +266,7 @@ function onMediaWheel(e: WheelEvent) {
     const d = e.deltaY
     extraScroll = d < prevDeltaY ? d : extraScroll + d
     prevDeltaY = d
-    if (extraScroll > 350) {
+    if (extraScroll > 600) {
       extraScroll = 0
       prevDeltaY = 0
       advanceNext()
