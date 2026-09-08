@@ -9,16 +9,16 @@
     <!-- Header -->
     <SiteNav />
 
-    <main id="main-content" class="cv-body">
-      <!-- Hero: Name + Profile Pic -->
-            <section class="hero">
-        <GlassHero />
-        <div class="hero-sub">
-          <p class="role">Creative Technologist</p>
-          <p class="intro">I like taking an idea from something vague to something that actually works. Usually that means mixing design, tech and a bit of craft until it feels right.</p>
-        </div>
-      </section>
+    <!-- Hero: Name -->
+    <section class="hero">
+      <GlassHero />
+      <div class="hero-sub">
+        <p class="role">Creative Technologist</p>
+        <p class="intro">I like taking an idea from something vague to something that actually works. Usually that means mixing design, tech and a bit of craft until it feels right.</p>
+      </div>
+    </section>
 
+    <main id="main-content" class="cv-body">
       <!-- Personal Projects -->
       <section class="section reveal">
         <div class="sec-hdr">
@@ -462,10 +462,9 @@ onUnmounted(() => {
 /* Hero */
 .hero {
   position: relative;
-  height: 85vh;
-  min-height: 520px;
-  max-height: 860px;
-  margin-bottom: 72px;
+  height: calc(100vh - 53px);
+  min-height: 560px;
+  max-height: 1000px;
   overflow: hidden;
 }
 
@@ -491,7 +490,11 @@ onUnmounted(() => {
 .hero-sub {
   position: absolute;
   left: 0;
+  right: 0;
   bottom: 40px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 32px;
 }
 
 /* Section headers (CV style) */
@@ -892,6 +895,7 @@ onUnmounted(() => {
 
   .hero-sub {
     bottom: 24px;
+    padding: 0 18px;
   }
 
   .role {

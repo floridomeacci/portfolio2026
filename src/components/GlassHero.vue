@@ -69,20 +69,21 @@ onMounted(() => {
     ctx.textAlign = 'center'
     ctx.textBaseline = 'middle'
 
-    const maxWidth = width * 0.9
-    const maxHeight = height * 0.68
-    const baseSize = 120
+    const maxWidth = width * 0.8
+    const maxHeight = height * 0.62
+    const baseSize = 90
+    const maxFont = 260
     const lineGap = 1.0
 
-    ctx.font = `700 ${baseSize}px "Space Grotesk", sans-serif`
-    const sizes = WORDS.map((line) => baseSize * (maxWidth / Math.max(1, ctx.measureText(line).width)))
+    ctx.font = `900 ${baseSize}px "Inter Tight", sans-serif`
+    const sizes = WORDS.map((line) => Math.min(maxFont, baseSize * (maxWidth / Math.max(1, ctx.measureText(line).width))))
     const totalHeight = sizes.reduce((sum, size) => sum + size * lineGap, 0)
     const fit = Math.min(1, maxHeight / totalHeight)
 
     let y = height / 2 - (totalHeight * fit) / 2
     WORDS.forEach((line, i) => {
       const size = sizes[i] * fit
-      ctx.font = `700 ${size}px "Space Grotesk", sans-serif`
+      ctx.font = `900 ${size}px "Inter Tight", sans-serif`
       y += (size * lineGap) / 2
       ctx.fillText(line, width / 2, y)
       y += (size * lineGap) / 2
