@@ -98,9 +98,7 @@ const closeOverlay = () => {
 }
 
 .cv-body {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: var(--space-xl) 32px var(--space-2xl);
+  padding: var(--space-xl) 0 var(--space-2xl);
 }
 
 .sites-list {
@@ -125,7 +123,7 @@ const closeOverlay = () => {
   align-items: center;
   justify-content: space-between;
   gap: var(--space-md);
-  padding: 20px 4px;
+  padding: 22px 32px;
 }
 
 .entry-text {

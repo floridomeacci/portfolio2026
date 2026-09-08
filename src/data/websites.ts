@@ -37,12 +37,12 @@ export const websites: Site[] = [
     tags: ['Reviews', 'AI Pipeline', 'Full-stack'],
     spec: {
       palette: {
-        primary: { name: 'Primary', hex: '#008080' },
-        secondary: { name: 'Secondary', hex: '#d40055' },
-        tertiary: { name: 'Tertiary', hex: '#cc7a00' },
-        neutral: { name: 'Neutral', hex: '#f2f2f2' }
+        primary: { name: 'Primary', hex: '#7c3aed' },
+        secondary: { name: 'Secondary', hex: '#22c55e' },
+        tertiary: { name: 'Tertiary', hex: '#18181b' },
+        neutral: { name: 'Neutral', hex: '#f4f4f5' }
       },
-      fonts: { headline: 'Oswald', body: 'Hanken Grotesk', label: 'JetBrains Mono' }
+      fonts: { headline: 'Space Grotesk', body: 'Inter', label: 'JetBrains Mono' }
     }
   },
   {
@@ -55,8 +55,8 @@ export const websites: Site[] = [
     spec: {
       palette: {
         primary: { name: 'Primary', hex: '#111111' },
-        secondary: { name: 'Secondary', hex: '#7a7a7a' },
-        tertiary: { name: 'Tertiary', hex: '#c9a227' },
+        secondary: { name: 'Secondary', hex: '#c9a227' },
+        tertiary: { name: 'Tertiary', hex: '#7a7a7a' },
         neutral: { name: 'Neutral', hex: '#f2f2f2' }
       },
       fonts: { headline: 'Space Grotesk', body: 'Inter', label: 'JetBrains Mono' }
@@ -70,12 +70,12 @@ export const websites: Site[] = [
     tags: ['AI', 'Search', 'Generative'],
     spec: {
       palette: {
-        primary: { name: 'Primary', hex: '#2563eb' },
-        secondary: { name: 'Secondary', hex: '#0a0a0a' },
-        tertiary: { name: 'Tertiary', hex: '#7c3aed' },
-        neutral: { name: 'Neutral', hex: '#f4f2ee' }
+        primary: { name: 'Primary', hex: '#1967d2' },
+        secondary: { name: 'Secondary', hex: '#1a1a1a' },
+        tertiary: { name: 'Tertiary', hex: '#8ab4f8' },
+        neutral: { name: 'Neutral', hex: '#e8eaed' }
       },
-      fonts: { headline: 'Inter', body: 'Inter', label: 'JetBrains Mono' }
+      fonts: { headline: 'Sora', body: 'Plus Jakarta Sans', label: 'JetBrains Mono' }
     }
   },
   {
@@ -87,9 +87,9 @@ export const websites: Site[] = [
     spec: {
       palette: {
         primary: { name: 'Primary', hex: '#16a34a' },
-        secondary: { name: 'Secondary', hex: '#0b0f0c' },
+        secondary: { name: 'Secondary', hex: '#111827' },
         tertiary: { name: 'Tertiary', hex: '#2563eb' },
-        neutral: { name: 'Neutral', hex: '#f5f7f4' }
+        neutral: { name: 'Neutral', hex: '#f9fafb' }
       },
       fonts: { headline: 'Manrope', body: 'Inter', label: 'JetBrains Mono' }
     }
@@ -120,12 +120,12 @@ export const websites: Site[] = [
     tags: ['AI', 'Jobs', 'WebMCP'],
     spec: {
       palette: {
-        primary: { name: 'Primary', hex: '#e0522d' },
-        secondary: { name: 'Secondary', hex: '#0a0a0a' },
-        tertiary: { name: 'Tertiary', hex: '#cc7a00' },
-        neutral: { name: 'Neutral', hex: '#faf9f6' }
+        primary: { name: 'Primary', hex: '#b45309' },
+        secondary: { name: 'Secondary', hex: '#1c1917' },
+        tertiary: { name: 'Tertiary', hex: '#78716c' },
+        neutral: { name: 'Neutral', hex: '#fafaf9' }
       },
-      fonts: { headline: 'Inter', body: 'Inter', label: 'JetBrains Mono' }
+      fonts: { headline: 'DM Serif Display', body: 'DM Sans', label: 'DM Sans' }
     }
   },
   {
@@ -138,12 +138,12 @@ export const websites: Site[] = [
     thumb: 'millionpixels.webp',
     spec: {
       palette: {
-        primary: { name: 'Primary', hex: '#e0522d' },
-        secondary: { name: 'Secondary', hex: '#0a0a0a' },
+        primary: { name: 'Primary', hex: '#ff0000' },
+        secondary: { name: 'Secondary', hex: '#0a0a0f' },
         tertiary: { name: 'Tertiary', hex: '#2563eb' },
         neutral: { name: 'Neutral', hex: '#ffffff' }
       },
-      fonts: { headline: 'Space Grotesk', body: 'Inter', label: 'JetBrains Mono' }
+      fonts: { headline: 'Sora', body: 'Plus Jakarta Sans', label: 'JetBrains Mono' }
     }
   }
 ]
