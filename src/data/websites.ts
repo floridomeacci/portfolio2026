@@ -62,12 +62,12 @@ export const websites: Site[] = [
     thumb: 'figma.webp',
     spec: {
       palette: {
-        primary: { name: 'Primary', hex: '#111111' },
-        secondary: { name: 'Secondary', hex: '#c9a227' },
-        tertiary: { name: 'Tertiary', hex: '#7a7a7a' },
-        neutral: { name: 'Neutral', hex: '#f2f2f2' }
+        primary: { name: 'Primary', hex: '#f2b966' },
+        secondary: { name: 'Secondary', hex: '#15110d' },
+        tertiary: { name: 'Tertiary', hex: '#ebe7e2' },
+        neutral: { name: 'Neutral', hex: '#fbf8f5' }
       },
-      fonts: { headline: 'Space Grotesk', body: 'Inter', label: 'JetBrains Mono' },
+      fonts: { headline: 'Onest', body: 'Onest', label: 'JetBrains Mono' },
       custom: { kind: 'slider', label: 'Grain intensity' }
     }
   },
@@ -96,12 +96,12 @@ export const websites: Site[] = [
     tags: ['Marketplace', 'AI', 'Fintech'],
     spec: {
       palette: {
-        primary: { name: 'Primary', hex: '#111827' },
-        secondary: { name: 'Secondary', hex: '#16a34a' },
-        tertiary: { name: 'Tertiary', hex: '#2563eb' },
+        primary: { name: 'Primary', hex: '#10b981' },
+        secondary: { name: 'Secondary', hex: '#111827' },
+        tertiary: { name: 'Tertiary', hex: '#f59e0b' },
         neutral: { name: 'Neutral', hex: '#ffffff' }
       },
-      fonts: { headline: 'Manrope', body: 'Inter', label: 'JetBrains Mono' },
+      fonts: { headline: 'Inter', body: 'Inter', label: 'JetBrains Mono' },
       custom: { kind: 'swap', placeholder: 'Amount' }
     }
   },
@@ -117,8 +117,8 @@ export const websites: Site[] = [
       palette: {
         primary: { name: 'Primary', hex: '#ff6b6b' },
         secondary: { name: 'Secondary', hex: '#4ade80' },
-        tertiary: { name: 'Tertiary', hex: '#1a1a1a' },
-        neutral: { name: 'Neutral', hex: '#ffffff' }
+        tertiary: { name: 'Tertiary', hex: '#fb923c' },
+        neutral: { name: 'Neutral', hex: '#1a1a1a' }
       },
       fonts: { headline: 'Space Grotesk', body: 'Space Grotesk', label: 'JetBrains Mono' },
       custom: { kind: 'input', placeholder: 'u/username' }
