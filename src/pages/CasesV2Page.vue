@@ -65,7 +65,7 @@
             <a v-if="cases[expandedCase].projectUrl" :href="cases[expandedCase].projectUrl" target="_blank" rel="noopener" class="overlay-link">Open interactive map <span class="arrow">&rarr;</span></a>
           </div>
 
-          <div class="overlay-media" ref="mediaRef">
+          <div class="overlay-media" ref="mediaRef" @scroll="onMediaScroll" @wheel="onMediaWheel">
             <template v-if="cases[expandedCase]">
               <div v-if="cases[expandedCase].youtube" class="entry-media">
                 <iframe
@@ -106,7 +106,11 @@
               </template>
             </template>
 
-            <div ref="sentinelRef" class="scroll-sentinel"></div>
+            <div class="next-case-hint" :class="{ visible: reachedBottom }" @click="advanceNext">
+              <span class="nch-label">Next case</span>
+              <span class="nch-title">{{ nextCaseTitle }}</span>
+              <span class="nch-arrow" aria-hidden="true">&#8595;</span>
+            </div>
           </div>
         </div>
       </div>
@@ -122,14 +126,12 @@ const route = useRoute()
 const expandedCase = ref<number | null>(null)
 const transitioning = ref(false)
 const mediaRef = ref<HTMLElement | null>(null)
-const sentinelRef = ref<HTMLElement | null>(null)
+const reachedBottom = ref(false)
 
 const LOOP = 3
 const listRef = ref<HTMLElement | null>(null)
 
-let observer: IntersectionObserver | null = null
-let autoAdvanceTimer: ReturnType<typeof setTimeout> | null = null
-let canAutoAdvance = true
+let extraScroll = 0
 
 const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
 
@@ -152,6 +154,8 @@ function resetListScroll() {
 function openCase(i: number) {
   lockOverlay(true)
   resetListScroll()
+  reachedBottom.value = false
+  extraScroll = 0
   if (expandedCase.value !== null) {
     transitioning.value = true
     expandedCase.value = null
@@ -160,14 +164,12 @@ function openCase(i: number) {
       nextTick(() => {
         transitioning.value = false
         scrollMediaTop()
-        setupObserver()
       })
     }, 250)
   } else {
     expandedCase.value = i
     nextTick(() => {
       scrollMediaTop()
-      setupObserver()
     })
   }
 }
@@ -175,7 +177,8 @@ function openCase(i: number) {
 function closeOverlay() {
   expandedCase.value = null
   transitioning.value = false
-  cleanupObserver()
+  reachedBottom.value = false
+  extraScroll = 0
   resetListScroll()
   lockOverlay(false)
 }
@@ -189,60 +192,60 @@ function scrollMediaTop() {
 }
 
 function advanceNext() {
-  if (expandedCase.value === null || !canAutoAdvance) return
-  canAutoAdvance = false
+  if (expandedCase.value === null || transitioning.value) return
   const next = (expandedCase.value + 1) % totalCases.value
   transitioning.value = true
+  reachedBottom.value = false
+  extraScroll = 0
   expandedCase.value = null
   setTimeout(() => {
     expandedCase.value = next
     nextTick(() => {
       transitioning.value = false
       scrollMediaTop()
-      canAutoAdvance = true
-      nextTick(() => setupObserver())
     })
   }, 400)
 }
 
-function setupObserver() {
-  cleanupObserver()
-  if (!sentinelRef.value) return
-  observer = new IntersectionObserver(
-    (entries) => {
-      if (entries[0]?.isIntersecting && canAutoAdvance && !transitioning.value) {
-        autoAdvanceTimer = setTimeout(() => {
-          advanceNext()
-        }, 800)
-      } else if (autoAdvanceTimer) {
-        clearTimeout(autoAdvanceTimer)
-        autoAdvanceTimer = null
-      }
-    },
-    { rootMargin: '0px 0px 100px 0px' }
-  )
-  observer.observe(sentinelRef.value)
+function onMediaScroll() {
+  const el = mediaRef.value
+  if (!el) return
+  const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 8
+  if (atBottom) {
+    if (!reachedBottom.value) extraScroll = 0
+    reachedBottom.value = true
+  } else {
+    reachedBottom.value = false
+    extraScroll = 0
+  }
 }
 
-function cleanupObserver() {
-  if (observer) {
-    observer.disconnect()
-    observer = null
-  }
-  if (autoAdvanceTimer) {
-    clearTimeout(autoAdvanceTimer)
-    autoAdvanceTimer = null
+function onMediaWheel(e: WheelEvent) {
+  if (!reachedBottom.value || transitioning.value) return
+  if (e.deltaY > 0) {
+    extraScroll += e.deltaY
+    if (extraScroll > 120) {
+      extraScroll = 0
+      advanceNext()
+    }
+  } else {
+    extraScroll = 0
   }
 }
 
 onBeforeUnmount(() => {
-  cleanupObserver()
   lockOverlay(false)
 })
 
 const overlayVisible = computed(() => expandedCase.value !== null || transitioning.value)
 
 const totalCases = computed(() => cases.value.length)
+
+const nextCaseTitle = computed(() => {
+  if (expandedCase.value === null) return ''
+  const next = (expandedCase.value + 1) % cases.value.length
+  return cases.value[next].title
+})
 
 interface MediaItem {
   type: 'video' | 'image'
@@ -549,7 +552,6 @@ function openCaseFromHash(hash: string | undefined | null) {
     expandedCase.value = idx
     nextTick(() => {
       scrollMediaTop()
-      setupObserver()
     })
   }
 }
@@ -895,6 +897,48 @@ watch(() => route.hash, (hash) => {
 
 .scroll-sentinel {
   height: 8px;
+}
+
+.next-case-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 28px 16px 36px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 300ms var(--ease-out), transform 300ms var(--ease-out);
+  cursor: pointer;
+}
+
+.next-case-hint.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.nch-label {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--ink-faint);
+}
+
+.nch-title {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+}
+
+.nch-arrow {
+  font-size: 14px;
+  color: var(--ink-faint);
+  animation: nch-bob 1.4s ease-in-out infinite;
+}
+
+@keyframes nch-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
 }
 
 /* ─── Overlay transition ─── */
