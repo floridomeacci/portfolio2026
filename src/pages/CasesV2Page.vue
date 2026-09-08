@@ -735,8 +735,8 @@ watch(() => route.hash, (hash) => {
   width: 28px;
   height: 28px;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
   transition: color var(--duration-fast) var(--ease-out);
   margin-bottom: var(--space-sm);
 }
