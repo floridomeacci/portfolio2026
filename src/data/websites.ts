@@ -62,12 +62,12 @@ export const websites: Site[] = [
     thumb: 'figma.webp',
     spec: {
       palette: {
-        primary: { name: 'Primary', hex: '#f2b966' },
-        secondary: { name: 'Secondary', hex: '#15110d' },
-        tertiary: { name: 'Tertiary', hex: '#ebe7e2' },
-        neutral: { name: 'Neutral', hex: '#fbf8f5' }
+        primary: { name: 'Primary', hex: '#f9b64f' },
+        secondary: { name: 'Secondary', hex: '#141210' },
+        tertiary: { name: 'Tertiary', hex: '#8a8580' },
+        neutral: { name: 'Neutral', hex: '#030101' }
       },
-      fonts: { headline: 'Onest', body: 'Onest', label: 'JetBrains Mono' },
+      fonts: { headline: 'Onest', body: 'Onest', label: 'Onest' },
       custom: { kind: 'slider', label: 'Grain intensity' }
     }
   },
@@ -96,10 +96,10 @@ export const websites: Site[] = [
     tags: ['Marketplace', 'AI', 'Fintech'],
     spec: {
       palette: {
-        primary: { name: 'Primary', hex: '#10b981' },
-        secondary: { name: 'Secondary', hex: '#111827' },
-        tertiary: { name: 'Tertiary', hex: '#f59e0b' },
-        neutral: { name: 'Neutral', hex: '#ffffff' }
+        primary: { name: 'Primary', hex: '#111827' },
+        secondary: { name: 'Secondary', hex: '#16a34a' },
+        tertiary: { name: 'Tertiary', hex: '#030712' },
+        neutral: { name: 'Neutral', hex: '#f9fafb' }
       },
       fonts: { headline: 'Inter', body: 'Inter', label: 'JetBrains Mono' },
       custom: { kind: 'swap', placeholder: 'Amount' }
@@ -132,10 +132,10 @@ export const websites: Site[] = [
     tags: ['AI', 'Jobs', 'WebMCP'],
     spec: {
       palette: {
-        primary: { name: 'Primary', hex: '#b45309' },
-        secondary: { name: 'Secondary', hex: '#1c1917' },
-        tertiary: { name: 'Tertiary', hex: '#78716c' },
-        neutral: { name: 'Neutral', hex: '#fafaf9' }
+        primary: { name: 'Primary', hex: '#008c11' },
+        secondary: { name: 'Secondary', hex: '#cf630d' },
+        tertiary: { name: 'Tertiary', hex: '#0e1216' },
+        neutral: { name: 'Neutral', hex: '#f7f5f1' }
       },
       fonts: { headline: 'DM Serif Display', body: 'DM Sans', label: 'DM Sans' },
       custom: { kind: 'search', placeholder: 'Search jobs…' }
