@@ -32,11 +32,11 @@
   --font-mono: 'Courier New', monospace;
 
   /* Fluid type scale (minor third: 1.2) */
-  --text-xs:  clamp(0.75rem, 0.7rem + 0.2vw, 0.8125rem);     /* ~12-13px */
-  --text-sm:  clamp(0.8125rem, 0.77rem + 0.18vw, 0.875rem);  /* ~13-14px */
-  --text-base: clamp(0.9375rem, 0.88rem + 0.25vw, 1rem);     /* ~15-16px */
-  --text-lg:  clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem);     /* ~18-20px */
-  --text-xl:  clamp(1.5rem, 1.35rem + 0.6vw, 1.875rem);      /* ~24-30px */
+  --text-xs:  clamp(0.8125rem, 0.75rem + 0.2vw, 0.875rem);     /* ~13-14px */
+  --text-sm:  clamp(0.875rem, 0.82rem + 0.2vw, 0.9375rem);     /* ~14-15px */
+  --text-base: clamp(1rem, 0.94rem + 0.25vw, 1.0625rem);       /* ~16-17px */
+  --text-lg:  clamp(1.1875rem, 1.1rem + 0.35vw, 1.3125rem);    /* ~19-21px */
+  --text-xl:  clamp(1.5rem, 1.35rem + 0.6vw, 1.875rem);        /* ~24-30px */
 
   /* Spacing (4pt base) */
   --space-xs: 4px;

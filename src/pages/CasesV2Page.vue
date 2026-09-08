@@ -783,7 +783,7 @@ watch(() => route.hash, (hash) => {
 
 .overlay-desc {
   font-family: var(--font-body);
-  font-size: var(--text-sm);
+  font-size: var(--text-base);
   font-weight: 400;
   line-height: 170%;
   color: var(--ink-muted);
@@ -798,7 +798,7 @@ watch(() => route.hash, (hash) => {
 
 .overlay-tag {
   font-family: var(--font-body);
-  font-size: 0.5rem;
+  font-size: var(--text-xs);
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: .4px;
@@ -861,7 +861,7 @@ watch(() => route.hash, (hash) => {
 
 .entry-caption {
   font-family: var(--font-body);
-  font-size: var(--text-sm);
+  font-size: var(--text-base);
   font-weight: 400;
   line-height: 170%;
   color: var(--ink-muted);
@@ -1002,11 +1002,11 @@ watch(() => route.hash, (hash) => {
 
 @media (max-width: 640px) {
   .cv-header { padding: 12px 18px; gap: 6px; }
-  .header-link { font-size: 10px; letter-spacing: 1px; }
+  .header-link { font-size: 12px; letter-spacing: 1px; }
   .cv-body { height: calc(100vh - 45px); }
   .entry-tags { display: none; }
   .entry-bar { padding: 16px 18px; gap: var(--space-sm); }
-  .entry-title { font-size: var(--text-sm); }
+  .entry-title { font-size: 1rem; }
   .entry-client { font-size: var(--text-xs); }
   .entry-images.dark-bg .entry-img { padding: 12px; }
 }

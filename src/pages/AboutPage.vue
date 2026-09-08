@@ -588,7 +588,7 @@ const onMouseMove = (e: MouseEvent) => {
 
   .col-side { min-width: 0; }
 
-  .body-text { font-size: var(--text-xs); }
+  .body-text { font-size: var(--text-sm); }
   .entry .company { font-size: var(--text-sm); }
 
   .sk-row .l,

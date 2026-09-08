@@ -1077,12 +1077,13 @@ onUnmounted(() => {
   }
 
   .role {
-    font-size: 11px;
+    font-size: 12px;
     margin-bottom: 12px;
   }
 
   .intro {
-    font-size: 13px;
+    font-size: 15px;
+    line-height: 1.55;
     max-width: 100%;
   }
 
@@ -1118,11 +1119,11 @@ onUnmounted(() => {
   }
 
   .case-card-title {
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .case-card-client {
-    font-size: 10px;
+    font-size: 12px;
   }
 
   .passion-scroll-wrap {
@@ -1142,11 +1143,11 @@ onUnmounted(() => {
 
   .sandbox-desc,
   .passion-desc {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .about-text {
-    font-size: 14px;
+    font-size: 16px;
   }
 }
 
