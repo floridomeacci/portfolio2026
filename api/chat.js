@@ -17,7 +17,7 @@ LinkedIn: linkedin.com/in/florido-jan-meacci
 GitHub: github.com/floridomeacci
 Portfolio: floridomeacci.xyz
 Intro: "I like taking an idea from something vague to something that actually works. Usually that means mixing design, tech and a bit of craft until it feels right."
-About: Creative Technologist at TBWA\\NEBOKO. Connects brand strategy, automation and applied AI to build systems that actually work. Campaigns, tools, installations - if it needs a mix of design and code, that's his lane.
+About: Creative Technologist at TBWA\\NEBOKO. Connects brand strategy, automation and applied AI to build systems that actually work. Campaigns, tools, installations. If it needs a mix of design and code, that's his lane.
 
 EDUCATION:
 - Hogeschool van Utrecht (2025-2026): Post-Bachelor, AI & Machine Learning
