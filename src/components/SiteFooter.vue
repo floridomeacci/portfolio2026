@@ -63,7 +63,7 @@
 
 .footer-row {
   display: flex;
-  align-items: baseline;
+  align-items: flex-start;
   gap: 64px;
 }
 
@@ -74,7 +74,7 @@
   font-weight: 400;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  min-width: 100px;
+  width: 130px;
   flex-shrink: 0;
 }
 
@@ -101,8 +101,7 @@
 
 .footer-row--email {
   padding-top: var(--space-lg);
-  justify-content: flex-start;
-  padding-left: calc(100px + 64px);
+  padding-left: calc(130px + 64px);
 }
 
 .footer-email {
