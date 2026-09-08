@@ -10,7 +10,8 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js'
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 
 const WORDS = ['FLORIDO', 'MEACCI']
-const INK = '#1a1a18'
+const INK = '#0e0a08'
+const BG = '#fcf5f2'
 const CAMERA_Z = 5
 
 let renderer: THREE.WebGLRenderer | null = null
@@ -22,10 +23,11 @@ onMounted(() => {
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-  renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true })
+  renderer = new THREE.WebGLRenderer({ canvas, antialias: true })
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
   const scene = new THREE.Scene()
+  scene.background = new THREE.Color(BG)
   const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100)
   camera.position.z = CAMERA_Z
 
@@ -35,7 +37,7 @@ onMounted(() => {
   let textTexture: THREE.CanvasTexture | null = null
   const textPlane = new THREE.Mesh(
     new THREE.PlaneGeometry(1, 1),
-    new THREE.MeshBasicMaterial({ toneMapped: false, transparent: true })
+    new THREE.MeshBasicMaterial({ toneMapped: false })
   )
   scene.add(textPlane)
 
@@ -64,15 +66,16 @@ onMounted(() => {
     tc.width = Math.round(width * dpr)
     tc.height = Math.round(height * dpr)
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-    ctx.clearRect(0, 0, width, height)
+    ctx.fillStyle = BG
+    ctx.fillRect(0, 0, width, height)
     ctx.fillStyle = INK
     ctx.textAlign = 'center'
     ctx.textBaseline = 'middle'
 
-    const maxWidth = width * 0.8
-    const maxHeight = height * 0.62
-    const baseSize = 90
-    const maxFont = 260
+    const maxWidth = width * 0.55
+    const maxHeight = height * 0.45
+    const baseSize = 70
+    const maxFont = 140
     const lineGap = 1.0
 
     ctx.font = `900 ${baseSize}px "Inter Tight", sans-serif`
@@ -119,7 +122,7 @@ onMounted(() => {
     const visibleHeight = 2 * CAMERA_Z * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2))
     const visibleWidth = visibleHeight * camera.aspect
     textPlane.scale.set(visibleWidth, visibleHeight, 1)
-    const torusScale = Math.min(visibleWidth, visibleHeight) * 0.09
+    const torusScale = Math.min(visibleWidth, visibleHeight) * 0.075
     torus.scale.setScalar(torusScale)
     drawText(w, h)
   }
