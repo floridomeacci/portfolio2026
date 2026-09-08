@@ -120,6 +120,7 @@ const listRef = ref<HTMLElement | null>(null)
 let extraScroll = 0
 let prevExtraScroll = 0
 let cooldown = false
+let prevDeltaY = 0
 
 const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
 
@@ -253,26 +254,33 @@ function onMediaWheel(e: WheelEvent) {
   const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 8
 
   if (e.deltaY < 0 && atTop) {
-    prevExtraScroll += Math.abs(e.deltaY)
-    if (prevExtraScroll > 300) {
+    const d = Math.abs(e.deltaY)
+    prevExtraScroll = d < prevDeltaY ? d : prevExtraScroll + d
+    prevDeltaY = d
+    if (prevExtraScroll > 350) {
       prevExtraScroll = 0
+      prevDeltaY = 0
       advancePrev()
     }
   } else if (e.deltaY > 0 && atBottom) {
-    extraScroll += e.deltaY
-    if (extraScroll > 300) {
+    const d = e.deltaY
+    extraScroll = d < prevDeltaY ? d : extraScroll + d
+    prevDeltaY = d
+    if (extraScroll > 350) {
       extraScroll = 0
+      prevDeltaY = 0
       advanceNext()
     }
   } else {
     extraScroll = 0
     prevExtraScroll = 0
+    prevDeltaY = 0
   }
 }
 
 function startCooldown() {
   cooldown = true
-  setTimeout(() => { cooldown = false }, 700)
+  setTimeout(() => { cooldown = false }, 1200)
 }
 
 onBeforeUnmount(() => {

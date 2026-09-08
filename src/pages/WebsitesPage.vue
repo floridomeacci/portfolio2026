@@ -94,6 +94,7 @@ const reachedTop = ref(false)
 let extraScroll = 0
 let prevExtraScroll = 0
 let cooldown = false
+let prevDeltaY = 0
 
 const toggleSite = (i: number) => {
   if (expanded.value === i) {
@@ -167,26 +168,33 @@ function onMediaWheel(e: WheelEvent) {
   const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 8
 
   if (e.deltaY < 0 && atTop) {
-    prevExtraScroll += Math.abs(e.deltaY)
-    if (prevExtraScroll > 300) {
+    const d = Math.abs(e.deltaY)
+    prevExtraScroll = d < prevDeltaY ? d : prevExtraScroll + d
+    prevDeltaY = d
+    if (prevExtraScroll > 350) {
       prevExtraScroll = 0
+      prevDeltaY = 0
       advancePrev()
     }
   } else if (e.deltaY > 0 && atBottom) {
-    extraScroll += e.deltaY
-    if (extraScroll > 300) {
+    const d = e.deltaY
+    extraScroll = d < prevDeltaY ? d : extraScroll + d
+    prevDeltaY = d
+    if (extraScroll > 350) {
       extraScroll = 0
+      prevDeltaY = 0
       advanceNext()
     }
   } else {
     extraScroll = 0
     prevExtraScroll = 0
+    prevDeltaY = 0
   }
 }
 
 function startCooldown() {
   cooldown = true
-  setTimeout(() => { cooldown = false }, 700)
+  setTimeout(() => { cooldown = false }, 1200)
 }
 
 function advanceNext() {
@@ -436,7 +444,7 @@ function advancePrev() {
 
 .site-preview iframe {
   width: 100%;
-  height: 960px;
+  height: 600px;
   border: 1px solid var(--border);
   border-radius: 6px;
   background: #fff;
@@ -537,7 +545,7 @@ function advancePrev() {
     font-size: 20px;
   }
   .site-preview iframe {
-    height: 640px;
+    height: 480px;
   }
 }
 </style>
