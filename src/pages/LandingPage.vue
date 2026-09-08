@@ -129,7 +129,6 @@
               </div>
               <div class="case-card-info">
                 <span class="case-card-title">{{ c.title }}</span>
-                <span class="case-card-subtitle">{{ c.subtitle }}</span>
               </div>
             </div>
           </div>
@@ -752,11 +751,6 @@ onUnmounted(() => {
   line-height: 1.3;
 }
 
-.case-card-subtitle {
-  font-size: var(--text-xs);
-  color: var(--ink-muted);
-}
-
 .cases-directory {
   display: inline-block;
   margin-top: 20px;
@@ -1110,10 +1104,6 @@ onUnmounted(() => {
 
   .case-card-title {
     font-size: 14px;
-  }
-
-  .case-card-subtitle {
-    font-size: 12px;
   }
 
   .passion-scroll-wrap {

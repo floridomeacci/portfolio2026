@@ -14,7 +14,6 @@
           <div class="entry-bar">
             <div class="entry-text">
               <span class="entry-title">{{ c.title }}</span>
-              <span class="entry-subtitle">{{ c.subtitle }}</span>
             </div>
             <div class="entry-tags">
               <span v-for="tag in c.tags" :key="tag" class="entry-tag">{{ tag }}</span>
@@ -37,7 +36,6 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
             <h2 class="overlay-case-title">{{ cases[expandedCase].title }}</h2>
-            <p class="overlay-subtitle">{{ cases[expandedCase].subtitle }}</p>
             <p class="overlay-desc">{{ cases[expandedCase].description }}</p>
             <div class="overlay-tags">
               <span v-for="tag in cases[expandedCase].tags" :key="tag" class="overlay-tag">{{ tag }}</span>
@@ -716,13 +714,6 @@ watch(() => route.hash, (hash) => {
   color: var(--ink);
 }
 
-.entry-subtitle {
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
-  font-weight: 400;
-  color: var(--ink-muted);
-}
-
 .entry-tags {
   display: flex;
   flex-wrap: wrap;
@@ -823,14 +814,6 @@ watch(() => route.hash, (hash) => {
   line-height: 1.25;
   margin: 0;
   color: var(--ink);
-}
-
-.overlay-subtitle {
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
-  font-weight: 400;
-  color: var(--ink-muted);
-  margin: 0;
 }
 
 .overlay-desc {
@@ -1101,7 +1084,6 @@ watch(() => route.hash, (hash) => {
   .entry-tags { display: none; }
   .entry-bar { padding: 16px 18px; gap: var(--space-sm); }
   .entry-title { font-size: 1rem; }
-  .entry-subtitle { font-size: var(--text-xs); }
   .entry-images.dark-bg .entry-img { padding: 12px; }
 }
 </style>
