@@ -1,87 +1,94 @@
 <template>
-  <div class="cv-page" @mousemove="onMouseMove" @mouseleave="gridVisible = false" @mouseenter="gridVisible = true">
-    <div class="grid-reveal" :class="{ active: gridVisible }" :style="{ '--mx': mouseX + 'px', '--my': mouseY + 'px' }"></div>
-    <div class="grid-accents" :class="{ active: gridVisible }">
-      <span v-for="(c, i) in accentCells" :key="i" class="accent-cell" :style="{ top: c.y + 'px', left: c.x + 'px' }"></span>
-    </div>
-
+  <div class="cv-page">
     <SiteNav />
 
     <main class="cv-body">
-      <div class="sec-hdr"><span>My Websites</span><span class="idx">01</span></div>
-
-      <div class="grid">
-        <a
-          v-for="(p, i) in passionProjects"
-          :key="i"
-          :href="p.url"
-          target="_blank"
-          rel="noopener"
-          class="passion-card"
+      <div class="sites-list">
+        <div
+          v-for="(s, i) in websites"
+          :key="s.label"
+          class="site-entry"
+          :class="{ open: expanded === i }"
+          @click="toggleSite(i)"
         >
-          <div class="passion-preview">
-            <div v-if="p.noEmbed" class="passion-fallback">
-              <img :src="'/images/' + p.thumb" :alt="p.label" class="passion-thumb" loading="lazy" decoding="async" />
+          <div class="entry-bar">
+            <div class="entry-text">
+              <span class="entry-title">{{ s.label }}</span>
+              <span class="entry-tags">
+                <span v-for="t in s.tags" :key="t" class="entry-tag">{{ t }}</span>
+              </span>
             </div>
-            <iframe
-              v-else
-              :src="p.url"
-              class="passion-iframe"
-              :title="p.label + ' Preview'"
-              loading="lazy"
-              scrolling="no"
-            ></iframe>
-            <div class="passion-overlay">
-              <span class="passion-cta">Visit {{ p.label }} <span class="arrow">&rarr;</span></span>
-            </div>
+            <svg class="chevron" :class="{ rotated: expanded === i }" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
-          <p class="passion-desc">{{ p.desc }}</p>
-        </a>
+        </div>
       </div>
     </main>
+
+    <Transition name="overlay">
+      <div v-if="expanded !== null" class="site-overlay" @click.self="closeOverlay">
+        <SiteNav overlay />
+
+        <div class="overlay-body">
+          <div class="overlay-text">
+            <button class="overlay-close" @click="closeOverlay" aria-label="Close">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <h2 class="overlay-title">{{ sites[expanded].label }}</h2>
+            <p class="overlay-desc">{{ sites[expanded].desc }}</p>
+            <div class="overlay-tags">
+              <span v-for="t in sites[expanded].tags" :key="t" class="overlay-tag">{{ t }}</span>
+            </div>
+            <div class="overlay-actions">
+              <a :href="sites[expanded].url" target="_blank" rel="noopener" class="action-btn action-btn--primary">Visit site <span class="arrow">&rarr;</span></a>
+              <a v-if="sites[expanded].github" :href="sites[expanded].github" target="_blank" rel="noopener" class="action-btn action-btn--outline">GitHub</a>
+            </div>
+          </div>
+
+          <div class="overlay-media">
+            <DesignSheet :spec="sites[expanded].spec" />
+
+            <div class="site-preview">
+              <span class="preview-label">Live preview</span>
+              <div v-if="sites[expanded].noEmbed" class="preview-fallback">
+                <img :src="'/images/' + sites[expanded].thumb" :alt="sites[expanded].label" loading="lazy" />
+              </div>
+              <iframe
+                v-else
+                :src="sites[expanded].url"
+                :title="sites[expanded].label + ' preview'"
+                loading="lazy"
+                scrolling="no"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Transition>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 import SiteNav from '../components/SiteNav.vue'
+import DesignSheet from '../components/DesignSheet.vue'
+import { websites } from '../data/websites'
 
-const G = 28
-const accentCells = [
-  { x: 3 * G, y: 8 * G }, { x: 3 * G, y: 9 * G },
-  { x: 30 * G, y: 6 * G },
-  { x: 18 * G, y: 14 * G }, { x: 19 * G, y: 14 * G }, { x: 18 * G, y: 15 * G },
-  { x: 6 * G, y: 20 * G },
-  { x: 35 * G, y: 24 * G },
-  { x: 22 * G, y: 10 * G },
-  { x: 12 * G, y: 28 * G }, { x: 13 * G, y: 28 * G },
-  { x: 16 * G, y: 4 * G },
-  { x: 38 * G, y: 18 * G },
-]
+const sites = websites
+const expanded = ref<number | null>(null)
 
-const mouseX = ref(0)
-const mouseY = ref(0)
-const gridVisible = ref(true)
-
-const onMouseMove = (e: MouseEvent) => {
-  mouseX.value = e.clientX
-  mouseY.value = e.clientY
+const toggleSite = (i: number) => {
+  expanded.value = expanded.value === i ? null : i
+  document.documentElement.style.overflow = expanded.value !== null ? 'hidden' : ''
 }
 
-const passionProjects = [
-  { url: 'https://tlguide.com', label: 'tlguide.com', desc: 'I made a review site for Figma plugins and widgets. The reviews and outreach are mostly automated with AI.' },
-  { url: 'https://www.figma.com/community/plugin/1626934504810261537', label: 'Filters & Grain', desc: 'A Figma plugin for color grading, film grain and vignette. No Photoshop needed.', noEmbed: true, thumb: 'figma.webp' },
-  { url: 'https://www.latentsearch.net/', label: 'latentsearch.net', desc: 'Every search result is AI-generated. It looks normal, but the content is fake.' },
-  { url: 'https://creditswap.app', label: 'creditswap.app', desc: 'A private marketplace for reselling AI API credits. Buyers pay less, sellers monetize unused capacity.' },
-  { url: 'https://reddituser.info', label: 'reddituser.info', desc: 'Paste a Reddit username, get an AI-generated report with graphs. Activity, interests, posting habits.', noEmbed: true, thumb: 'reddituserinfo.webp' },
-  { url: 'https://colino.work', label: 'colino.work', desc: 'A job search that filters live openings down to the roles that actually match your CV. Upload your resume and it ranks the jobs that fit.' },
-  { url: 'https://mlnpx.com', label: 'million.pixels', desc: 'A one-million-pixel canvas painted by AI agents and the people who direct them. A live demo of WebMCP.', noEmbed: true, thumb: 'millionpixels.webp' },
-]
+const closeOverlay = () => {
+  expanded.value = null
+  document.documentElement.style.overflow = ''
+}
 </script>
 
 <style scoped>
 .cv-page {
-  position: relative;
   width: 100%;
   min-height: 100vh;
   background: var(--bg);
@@ -90,242 +97,274 @@ const passionProjects = [
   -webkit-font-smoothing: antialiased;
 }
 
-/* ─── Grid overlay ─── */
-.grid-reveal {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  background-image:
-    linear-gradient(oklch(15% 0.008 45 / 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, oklch(15% 0.008 45 / 0.1) 1px, transparent 1px);
-  background-size: 28px 28px;
-  -webkit-mask-image: radial-gradient(circle 180px at var(--mx, 0) var(--my, 0), black 0%, transparent 100%);
-  mask-image: radial-gradient(circle 180px at var(--mx, 0) var(--my, 0), black 0%, transparent 100%);
-}
-.grid-reveal.active { opacity: 1; }
-
-.grid-accents {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 200%;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  -webkit-mask-image: radial-gradient(circle 180px at var(--mx, 0) var(--my, 0), black 0%, transparent 100%);
-  mask-image: radial-gradient(circle 180px at var(--mx, 0) var(--my, 0), black 0%, transparent 100%);
-}
-.grid-accents.active { opacity: 1; }
-
-.accent-cell {
-  position: absolute;
-  width: 28px;
-  height: 28px;
-  background: var(--accent-bg);
-  border: 1px solid var(--accent-border);
-}
-
-/* ─── Header ─── */
-.cv-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 18px 32px;
-  background: var(--bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
-}
-
-.back-link {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  color: var(--ink);
-  opacity: .5;
-  transition: opacity var(--duration-fast) var(--ease-out);
-  text-decoration: none;
-}
-.back-link:hover { opacity: 1; }
-
-.header-label {
-  font-family: var(--font-ui);
-  font-weight: 300;
-  font-size: var(--text-sm);
-  letter-spacing: .3px;
-}
-
-/* ─── Body ─── */
 .cv-body {
-  position: relative;
-  z-index: 1;
-  max-width: 960px;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 40px 32px 100px;
+  padding: var(--space-xl) 32px var(--space-2xl);
 }
 
-.sec-hdr {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  padding-bottom: 10px;
-  margin-bottom: 32px;
-  font-family: var(--font-ui);
-  font-weight: 300;
-  font-size: var(--text-xs);
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--ink);
-}
-.sec-hdr::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  border-top: 1px solid var(--border);
-}
-.sec-hdr .idx {
-  font-size: var(--text-xs);
-  color: var(--ink-faint);
-}
-
-/* ─── Grid ─── */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-}
-
-/* ─── Passion cards (same as homepage) ─── */
-.passion-card {
+.sites-list {
   display: flex;
   flex-direction: column;
-  text-decoration: none;
-  color: var(--ink);
-  transition: transform var(--duration-fast) var(--ease-out);
 }
 
-.passion-card:hover {
-  transform: translateY(-2px);
-}
-
-.passion-preview {
-  position: relative;
-  width: 100%;
-  height: 200px;
-  border-radius: 6px;
-  overflow: hidden;
-  border: 1px solid var(--border-s);
-  background: var(--ink);
-}
-
-.passion-fallback {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-.passion-thumb {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  filter: brightness(0.85);
-  transition: transform var(--duration-slow) var(--ease-out), filter var(--duration-slow) var(--ease-out);
-}
-
-.passion-card:hover .passion-thumb {
-  transform: scale(1.03);
-  filter: brightness(1);
-}
-
-.passion-iframe {
-  width: 200%;
-  height: 200%;
-  border: none;
-  transform: scale(0.5);
-  transform-origin: top left;
-  pointer-events: none;
-  filter: brightness(0.85);
-  transition: transform var(--duration-slow) var(--ease-out);
-}
-
-.passion-card:hover .passion-iframe {
-  transform: scale(0.55) translate(-4.5%, -4.5%);
-}
-
-.passion-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 70%, oklch(15% 0.008 45 / 0.2) 100%);
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding-bottom: 20px;
+.site-entry {
+  border-bottom: 1px solid var(--border);
   cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-out);
+}
+.site-entry:hover {
+  background: oklch(15% 0.008 45 / 0.015);
+}
+.site-entry.open {
+  background: oklch(15% 0.008 45 / 0.02);
 }
 
-.passion-cta {
-  font-family: var(--font-ui);
+.entry-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: 20px 4px;
+}
+
+.entry-text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.entry-title {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.entry-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.entry-tag {
+  font-family: var(--font-body);
   font-size: var(--text-xs);
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
-  opacity: 0.7;
-  color: oklch(97.5% 0.008 45);
+  letter-spacing: .4px;
+  padding: 3px 10px;
+  border-radius: 3px;
+  background: oklch(15% 0.008 45 / 0.04);
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+
+.chevron {
+  flex-shrink: 0;
+  color: var(--ink-faint);
+  transition: transform var(--duration-mid) var(--ease-out);
+}
+.chevron.rotated {
+  transform: rotate(180deg);
+}
+
+/* Overlay */
+.site-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.overlay-body {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.overlay-text {
+  width: 38%;
+  flex-shrink: 0;
+  padding: 40px 28px 40px 32px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.overlay-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--ink-faint);
+  padding: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  transition: color var(--duration-fast) var(--ease-out);
+  margin-bottom: var(--space-sm);
+}
+.overlay-close:hover { color: var(--ink); }
+
+.overlay-title {
+  font-family: var(--font-body);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.25;
+  margin: 0;
+  color: var(--ink);
+}
+
+.overlay-desc {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 170%;
+  color: var(--ink-muted);
+  margin: 0;
+}
+
+.overlay-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.overlay-tag {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  padding: 4px 10px;
+  border-radius: 2px;
+  background: oklch(15% 0.008 45 / 0.04);
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+
+.overlay-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-top: auto;
+  padding-top: var(--space-md);
+}
+
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  padding: 12px 20px;
+  border-radius: 6px;
+  text-decoration: none;
   transition: opacity var(--duration-fast) var(--ease-out);
 }
+.action-btn:hover { opacity: 0.8; }
 
-.passion-card:hover .passion-cta {
-  opacity: 0.9;
+.action-btn--primary {
+  background: var(--ink);
+  color: var(--bg);
 }
 
-.passion-card:hover .arrow {
-  animation: arrow-nudge 0.8s var(--ease-out) infinite;
+.action-btn--outline {
+  border: 1px solid var(--border-s);
+  color: var(--ink);
 }
 
 .arrow {
   display: inline-block;
   transition: transform 0.2s ease;
 }
+.action-btn:hover .arrow { transform: translateX(2px); }
 
-@keyframes arrow-nudge {
-  0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(5px); }
+/* Media column */
+.overlay-media {
+  flex: 1;
+  padding: 40px 32px 40px 28px;
+  overflow-y: auto;
 }
 
-.passion-desc {
-  font-size: var(--text-sm);
-  line-height: 1.7;
-  color: var(--ink-muted);
-  margin: 14px 0 0;
+.site-preview {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-/* ─── Responsive ─── */
+.preview-label {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--ink-faint);
+}
+
+.site-preview iframe {
+  width: 100%;
+  height: 480px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #fff;
+}
+
+.preview-fallback {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.preview-fallback img {
+  width: 100%;
+  display: block;
+}
+
+/* Overlay transition */
+.overlay-enter-active {
+  transition: opacity 300ms var(--ease-out), transform 400ms var(--ease-out);
+}
+.overlay-leave-active {
+  transition: opacity 200ms var(--ease-out), transform 250ms var(--ease-out);
+}
+.overlay-enter-from {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.overlay-leave-to {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
 @media (max-width: 768px) {
-  .grid {
-    gap: 16px;
+  .overlay-body {
+    flex-direction: column;
+    overflow-y: auto;
   }
-  .passion-preview {
-    height: 180px;
+  .overlay-text {
+    width: 100%;
+    flex-shrink: 0;
+    padding: 24px 20px 16px;
+    overflow-y: visible;
   }
-}
-
-@media (max-width: 480px) {
-  .grid {
-    grid-template-columns: 1fr;
+  .overlay-media {
+    width: 100%;
+    padding: 0 20px 40px;
+    overflow-y: visible;
   }
-  .passion-preview {
-    height: 220px;
+  .overlay-title {
+    font-size: 20px;
+  }
+  .site-preview iframe {
+    height: 320px;
   }
 }
 </style>
