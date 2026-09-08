@@ -38,7 +38,6 @@
             <div class="overlay-tags">
               <span v-for="t in sites[expanded].tags" :key="t" class="overlay-tag">{{ t }}</span>
             </div>
-            <p class="overlay-stack">Built with {{ sites[expanded].stack.join(', ') }}</p>
             <div class="overlay-actions">
               <a :href="sites[expanded].url" target="_blank" rel="noopener" class="action-btn action-btn--primary">Visit site <span class="arrow">&rarr;</span></a>
               <a v-if="sites[expanded].github" :href="sites[expanded].github" target="_blank" rel="noopener" class="action-btn action-btn--outline">GitHub</a>
@@ -371,14 +370,6 @@ function advancePrev() {
   background: oklch(15% 0.008 45 / 0.04);
   color: var(--ink-muted);
   white-space: nowrap;
-}
-
-.overlay-stack {
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
-  line-height: 1.6;
-  color: var(--ink-muted);
-  margin: 0;
 }
 
 .overlay-actions {
