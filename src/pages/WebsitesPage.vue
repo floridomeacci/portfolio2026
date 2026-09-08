@@ -93,6 +93,7 @@ const reachedTop = ref(false)
 
 let extraScroll = 0
 let prevExtraScroll = 0
+let cooldown = false
 
 const toggleSite = (i: number) => {
   if (expanded.value === i) {
@@ -159,7 +160,7 @@ function onMediaScroll() {
 }
 
 function onMediaWheel(e: WheelEvent) {
-  if (expanded.value === null) return
+  if (expanded.value === null || cooldown) return
   const el = getScrollEl()
   if (!el) return
   const atTop = el.scrollTop <= 8
@@ -167,13 +168,13 @@ function onMediaWheel(e: WheelEvent) {
 
   if (e.deltaY < 0 && atTop) {
     prevExtraScroll += Math.abs(e.deltaY)
-    if (prevExtraScroll > 120) {
+    if (prevExtraScroll > 300) {
       prevExtraScroll = 0
       advancePrev()
     }
   } else if (e.deltaY > 0 && atBottom) {
     extraScroll += e.deltaY
-    if (extraScroll > 120) {
+    if (extraScroll > 300) {
       extraScroll = 0
       advanceNext()
     }
@@ -183,11 +184,17 @@ function onMediaWheel(e: WheelEvent) {
   }
 }
 
+function startCooldown() {
+  cooldown = true
+  setTimeout(() => { cooldown = false }, 700)
+}
+
 function advanceNext() {
   if (expanded.value === null) return
   expanded.value = (expanded.value + 1) % sites.length
   resetScroll()
   scrollMediaTop()
+  startCooldown()
 }
 
 function advancePrev() {
@@ -195,6 +202,7 @@ function advancePrev() {
   expanded.value = (expanded.value - 1 + sites.length) % sites.length
   resetScroll()
   scrollMediaTop()
+  startCooldown()
 }
 </script>
 

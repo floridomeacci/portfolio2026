@@ -119,6 +119,7 @@ const listRef = ref<HTMLElement | null>(null)
 
 let extraScroll = 0
 let prevExtraScroll = 0
+let cooldown = false
 
 const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
 
@@ -190,6 +191,7 @@ function advanceNext() {
   reachedTop.value = false
   extraScroll = 0
   prevExtraScroll = 0
+  startCooldown()
   expandedCase.value = null
   setTimeout(() => {
     expandedCase.value = next
@@ -208,6 +210,7 @@ function advancePrev() {
   reachedTop.value = false
   extraScroll = 0
   prevExtraScroll = 0
+  startCooldown()
   expandedCase.value = null
   setTimeout(() => {
     expandedCase.value = prev
@@ -243,7 +246,7 @@ function onMediaScroll() {
 }
 
 function onMediaWheel(e: WheelEvent) {
-  if (transitioning.value) return
+  if (transitioning.value || cooldown) return
   const el = getScrollEl()
   if (!el) return
   const atTop = el.scrollTop <= 8
@@ -251,13 +254,13 @@ function onMediaWheel(e: WheelEvent) {
 
   if (e.deltaY < 0 && atTop) {
     prevExtraScroll += Math.abs(e.deltaY)
-    if (prevExtraScroll > 120) {
+    if (prevExtraScroll > 300) {
       prevExtraScroll = 0
       advancePrev()
     }
   } else if (e.deltaY > 0 && atBottom) {
     extraScroll += e.deltaY
-    if (extraScroll > 120) {
+    if (extraScroll > 300) {
       extraScroll = 0
       advanceNext()
     }
@@ -265,6 +268,11 @@ function onMediaWheel(e: WheelEvent) {
     extraScroll = 0
     prevExtraScroll = 0
   }
+}
+
+function startCooldown() {
+  cooldown = true
+  setTimeout(() => { cooldown = false }, 700)
 }
 
 onBeforeUnmount(() => {
