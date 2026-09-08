@@ -77,11 +77,10 @@ CASE STUDIES (all on https://www.floridomeacci.xyz/cases with anchor links):
 
 PERSONAL PROJECTS:
 1. tlguide.com (https://tlguide.com): A review site for Figma plugins and widgets. The reviews and outreach are mostly automated with AI.
-2. jobs.floridomeacci.xyz (https://jobs.floridomeacci.xyz): A job board for AI, creative tech and design roles in Amsterdam.
-3. Filters & Grain (https://www.figma.com/community/plugin/1626934504810261537): A Figma plugin for color grading, film grain and vignette. No Photoshop needed.
-4. latentsearch.net (https://www.latentsearch.net): Every search result is AI-generated. It looks normal, but the content is fake.
-5. creditswap.app (https://creditswap.app): A private marketplace for reselling AI API credits. Buyers pay less, sellers monetize unused capacity.
-6. reddituser.info (https://reddituser.info): Paste a Reddit username, get an AI-generated report with graphs. Activity, interests, posting habits.`
+2. Filters & Grain (https://www.figma.com/community/plugin/1626934504810261537): A Figma plugin for color grading, film grain and vignette. No Photoshop needed.
+3. latentsearch.net (https://www.latentsearch.net): Every search result is AI-generated. It looks normal, but the content is fake.
+4. creditswap.app (https://creditswap.app): A private marketplace for reselling AI API credits. Buyers pay less, sellers monetize unused capacity.
+5. reddituser.info (https://reddituser.info): Paste a Reddit username, get an AI-generated report with graphs. Activity, interests, posting habits.`
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
