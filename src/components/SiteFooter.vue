@@ -2,6 +2,8 @@
   <footer class="site-footer">
     <div class="footer-inner">
 
+      <ProfilePic />
+
       <div class="footer-row">
         <span class="footer-label">CONTACT</span>
         <div class="footer-links">
@@ -43,6 +45,7 @@
 </template>
 
 <script setup lang="ts">
+import ProfilePic from './ProfilePic.vue'
 </script>
 
 <style scoped>

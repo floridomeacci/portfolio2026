@@ -11,28 +11,8 @@
 
     <main id="main-content" class="cv-body">
       <!-- Hero: Name + Profile Pic -->
-      <section class="hero reveal">
-        <div class="hero-pic-wrap">
-          <div class="hero-pic-inner">
-            <img :src="heroPicSrc" alt="Florido Jan Meacci" class="hero-pic" :class="{ blurred: heroBlurred }" />
-          </div>
-          <span class="hero-pic-label">{{ heroLabelText }}<span class="type-cursor">|</span></span>
-        </div>
-        <pre class="titleline">
-███████╗██╗      ██████╗ ██████╗ ██╗██████╗  ██████╗
-██╔════╝██║     ██╔═══██╗██╔══██╗██║██╔══██╗██╔═══██╗
-█████╗  ██║     ██║   ██║██████╔╝██║██║  ██║██║   ██║
-██╔══╝  ██║     ██║   ██║██╔══██╗██║██║  ██║██║   ██║
-██║     ███████╗╚██████╔╝██║  ██║██║██████╔╝╚██████╔╝
-╚═╝     ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝╚═════╝  ╚═════╝
-
-███╗   ███╗███████╗ █████╗  ██████╗ ██████╗██╗
-████╗ ████║██╔════╝██╔══██╗██╔════╝██╔════╝██║
-██╔████╔██║█████╗  ███████║██║     ██║     ██║
-██║╚██╔╝██║██╔══╝  ██╔══██║██║     ██║     ██║
-██║ ╚═╝ ██║███████╗██║  ██║╚██████╗╚██████╗██║
-╚═╝     ╚═╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝╚═╝
-        </pre>
+            <section class="hero">
+        <GlassHero />
         <div class="hero-sub">
           <p class="role">Creative Technologist</p>
           <p class="intro">I like taking an idea from something vague to something that actually works. Usually that means mixing design, tech and a bit of craft until it feels right.</p>
@@ -157,6 +137,7 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import SiteNav from '../components/SiteNav.vue'
+import GlassHero from '../components/GlassHero.vue'
 
 const router = useRouter()
 
@@ -167,56 +148,6 @@ const mouseX = ref(0)
 const mouseY = ref(0)
 const scrollY = ref(0)
 const gridVisible = ref(false)
-
-// Hero pic typewriter loop
-const heroVariants = [
-  { img: '/picture.webp', text: '...wearing a beanie and overcoat' },
-  { img: '/astronaut.webp', text: '...dressed as an astronaut' },
-  { img: '/bear.webp', text: '...dressed as a bear' },
-  { img: '/samurai.webp', text: '...dressed as a samurai' },
-]
-const heroIndex = ref(0)
-const heroLabelText = ref('')
-const heroPicSrc = ref(heroVariants[0].img)
-const heroBlurred = ref(false)
-let heroTimer: ReturnType<typeof setTimeout> | null = null
-
-function runTypewriter() {
-  const variant = heroVariants[heroIndex.value]
-  heroPicSrc.value = variant.img
-  // unblur as typing begins
-  requestAnimationFrame(() => { heroBlurred.value = false })
-  const text = variant.text
-  let i = 0
-
-  function typeNext() {
-    if (i <= text.length) {
-      heroLabelText.value = text.slice(0, i)
-      i++
-      heroTimer = setTimeout(typeNext, 60)
-    } else {
-      // pause before backspacing
-      heroTimer = setTimeout(() => {
-        // start blurring as backspace begins
-        heroBlurred.value = true
-        backspaceNext()
-      }, 1800)
-    }
-  }
-
-  function backspaceNext() {
-    if (heroLabelText.value.length > 0) {
-      heroLabelText.value = heroLabelText.value.slice(0, -1)
-      heroTimer = setTimeout(backspaceNext, 35)
-    } else {
-      // swap image while blurred, then start next
-      heroIndex.value = (heroIndex.value + 1) % heroVariants.length
-      heroTimer = setTimeout(runTypewriter, 300)
-    }
-  }
-
-  typeNext()
-}
 
 // Red accent cells snapped to 28px grid
 const G = 28
@@ -392,9 +323,6 @@ onMounted(() => {
     pEl.scrollLeft = pEl.scrollWidth / 3
     pEl.addEventListener('scroll', onPassionScroll)
   }
-  // Start typewriter loop
-  runTypewriter()
-
   // Scroll-reveal: observe all .reveal elements
   revealObserver = new IntersectionObserver(
     (entries) => {
@@ -418,7 +346,6 @@ onUnmounted(() => {
   if (el) el.removeEventListener('scroll', onScroll)
   const pEl = passionRef.value
   if (pEl) pEl.removeEventListener('scroll', onPassionScroll)
-  if (heroTimer) clearTimeout(heroTimer)
   revealObserver?.disconnect()
 })
 </script>
@@ -534,69 +461,12 @@ onUnmounted(() => {
 
 /* Hero */
 .hero {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  grid-template-rows: auto auto;
-  gap: 0 48px;
-  margin-bottom: 72px;
-}
-
-.hero-pic-wrap {
-  grid-column: 2;
-  grid-row: 1 / 3;
-  align-self: start;
   position: relative;
-}
-
-.hero-pic-inner {
+  height: 85vh;
+  min-height: 520px;
+  max-height: 860px;
+  margin-bottom: 72px;
   overflow: hidden;
-  border-radius: 6px;
-}
-
-.hero-pic-label {
-  position: absolute;
-  bottom: -18px;
-  left: calc(50% + 20px);
-  transform: translateX(-50%);
-  background: var(--bg);
-  border: 1px solid var(--border-s);
-  border-radius: 20px;
-  padding: 5px 14px;
-  font-family: var(--font-body);
-  font-size: var(--text-xs);
-  font-style: italic;
-  color: var(--ink-muted);
-  white-space: nowrap;
-  z-index: 1;
-}
-
-.type-cursor {
-  display: inline-block;
-  animation: blink-cursor 0.6s step-end infinite;
-  font-style: normal;
-  margin-left: 1px;
-  color: var(--ink-faint);
-}
-
-@keyframes blink-cursor {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-.titleline {
-  grid-column: 1;
-  grid-row: 1;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  line-height: 1;
-  color: transparent;
-  background: linear-gradient(90deg, oklch(15% 0.008 45 / 0.45) 0%, oklch(15% 0.008 45 / 0.75) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  font-weight: 700;
-  white-space: pre;
-  margin: 0 0 32px;
-  user-select: none;
 }
 
 .role {
@@ -619,22 +489,9 @@ onUnmounted(() => {
 }
 
 .hero-sub {
-  grid-column: 1;
-  grid-row: 2;
-}
-
-.hero-pic {
-  width: 180px;
-  height: 220px;
-  object-fit: cover;
-  object-position: center 20%;
-  border-radius: 6px;
-  filter: grayscale(0.1) blur(0px);
-  transition: filter 1.2s var(--ease-out);
-}
-
-.hero-pic.blurred {
-  filter: grayscale(0.1) blur(10px);
+  position: absolute;
+  left: 0;
+  bottom: 40px;
 }
 
 /* Section headers (CV style) */
@@ -1027,37 +884,14 @@ onUnmounted(() => {
   }
 
   .hero {
-    grid-template-columns: auto 1fr;
-    grid-template-rows: auto auto;
-    gap: 16px 16px;
+    height: 70vh;
+    min-height: 420px;
+    max-height: 560px;
     margin-bottom: 32px;
   }
 
-  .hero-pic-wrap {
-    grid-column: 1;
-    grid-row: 1;
-    align-self: center;
-  }
-
-  .hero-pic-label {
-    bottom: -16px;
-    left: calc(50% + 30px);
-    font-size: 9px;
-    padding: 4px 10px;
-  }
-
-  .titleline {
-    grid-column: 2;
-    grid-row: 1;
-    align-self: center;
-    font-size: 8px;
-    margin-bottom: 0;
-  }
-
   .hero-sub {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    margin-top: 20px;
+    bottom: 24px;
   }
 
   .role {
@@ -1069,11 +903,6 @@ onUnmounted(() => {
     font-size: 15px;
     line-height: 1.55;
     max-width: 100%;
-  }
-
-  .hero-pic {
-    width: 90px;
-    height: 115px;
   }
 
   .section {
@@ -1132,15 +961,6 @@ onUnmounted(() => {
 }
 
 @media (max-width: 400px) {
-  .titleline {
-    font-size: 7px;
-  }
-
-  .hero-pic {
-    width: 70px;
-    height: 90px;
-  }
-
   .case-card {
     width: 170px;
   }
