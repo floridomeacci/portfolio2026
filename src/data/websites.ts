@@ -79,10 +79,10 @@ export const websites: Site[] = [
     tags: ['AI', 'Search', 'Generative'],
     spec: {
       palette: {
-        primary: { name: 'Primary', hex: '#1967d2' },
-        secondary: { name: 'Secondary', hex: '#1a1a1a' },
-        tertiary: { name: 'Tertiary', hex: '#8ab4f8' },
-        neutral: { name: 'Neutral', hex: '#e8eaed' }
+        primary: { name: 'Primary', hex: '#dc2626' },
+        secondary: { name: 'Secondary', hex: '#202124' },
+        tertiary: { name: 'Tertiary', hex: '#1967d2' },
+        neutral: { name: 'Neutral', hex: '#f1f3f4' }
       },
       fonts: { headline: 'Sora', body: 'Plus Jakarta Sans', label: 'JetBrains Mono' },
       custom: { kind: 'search', placeholder: 'Search the latent web' }
