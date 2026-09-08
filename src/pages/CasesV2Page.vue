@@ -31,7 +31,7 @@
       <div v-if="expandedCase !== null && !transitioning" class="case-overlay" @click.self="closeOverlay">
         <SiteNav overlay />
 
-        <div class="overlay-body">
+        <div class="overlay-body" @scroll="onMediaScroll" @wheel="onMediaWheel">
           <div class="overlay-text">
             <button class="overlay-close" @click="closeOverlay" aria-label="Close">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -46,6 +46,11 @@
           </div>
 
           <div class="overlay-media" ref="mediaRef" @scroll="onMediaScroll" @wheel="onMediaWheel">
+            <div class="prev-case-hint" :class="{ visible: reachedTop }" @click="advancePrev">
+              <span class="pch-arrow" aria-hidden="true">&#8593;</span>
+              <span class="pch-title">{{ prevCaseTitle }}</span>
+              <span class="pch-label">Previous case</span>
+            </div>
             <template v-if="cases[expandedCase]">
               <div v-if="cases[expandedCase].youtube" class="entry-media">
                 <iframe
@@ -108,11 +113,13 @@ const expandedCase = ref<number | null>(null)
 const transitioning = ref(false)
 const mediaRef = ref<HTMLElement | null>(null)
 const reachedBottom = ref(false)
+const reachedTop = ref(false)
 
 const LOOP = 3
 const listRef = ref<HTMLElement | null>(null)
 
 let extraScroll = 0
+let prevExtraScroll = 0
 
 const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
 
@@ -136,7 +143,9 @@ function openCase(i: number) {
   lockOverlay(true)
   resetListScroll()
   reachedBottom.value = false
+  reachedTop.value = false
   extraScroll = 0
+  prevExtraScroll = 0
   if (expandedCase.value !== null) {
     transitioning.value = true
     expandedCase.value = null
@@ -159,7 +168,9 @@ function closeOverlay() {
   expandedCase.value = null
   transitioning.value = false
   reachedBottom.value = false
+  reachedTop.value = false
   extraScroll = 0
+  prevExtraScroll = 0
   resetListScroll()
   lockOverlay(false)
 }
@@ -177,7 +188,9 @@ function advanceNext() {
   const next = (expandedCase.value + 1) % totalCases.value
   transitioning.value = true
   reachedBottom.value = false
+  reachedTop.value = false
   extraScroll = 0
+  prevExtraScroll = 0
   expandedCase.value = null
   setTimeout(() => {
     expandedCase.value = next
@@ -188,22 +201,62 @@ function advanceNext() {
   }, 400)
 }
 
-function onMediaScroll() {
-  const el = mediaRef.value
+function advancePrev() {
+  if (expandedCase.value === null || transitioning.value) return
+  const prev = (expandedCase.value - 1 + totalCases.value) % totalCases.value
+  transitioning.value = true
+  reachedBottom.value = false
+  reachedTop.value = false
+  extraScroll = 0
+  prevExtraScroll = 0
+  expandedCase.value = null
+  setTimeout(() => {
+    expandedCase.value = prev
+    nextTick(() => {
+      transitioning.value = false
+      scrollMediaTop()
+    })
+  }, 400)
+}
+
+function getScrollEl(): HTMLElement | null {
+  const m = mediaRef.value
+  if (!m) return null
+  if (m.scrollHeight > m.clientHeight + 1) return m
+  const p = m.parentElement
+  if (p && p.scrollHeight > p.clientHeight + 1) return p
+  return m
+}
+
+function updateScrollState() {
+  const el = getScrollEl()
   if (!el) return
+  const atTop = el.scrollTop <= 8
   const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 8
-  if (atBottom) {
-    if (!reachedBottom.value) extraScroll = 0
-    reachedBottom.value = true
-  } else {
-    reachedBottom.value = false
-    extraScroll = 0
-  }
+  if (atTop && !reachedTop.value) prevExtraScroll = 0
+  if (atBottom && !reachedBottom.value) extraScroll = 0
+  reachedTop.value = atTop
+  reachedBottom.value = atBottom
+}
+
+function onMediaScroll() {
+  updateScrollState()
 }
 
 function onMediaWheel(e: WheelEvent) {
-  if (!reachedBottom.value || transitioning.value) return
-  if (e.deltaY > 0) {
+  if (transitioning.value) return
+  const el = getScrollEl()
+  if (!el) return
+  const atTop = el.scrollTop <= 8
+  const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 8
+
+  if (e.deltaY < 0 && atTop) {
+    prevExtraScroll += Math.abs(e.deltaY)
+    if (prevExtraScroll > 120) {
+      prevExtraScroll = 0
+      advancePrev()
+    }
+  } else if (e.deltaY > 0 && atBottom) {
     extraScroll += e.deltaY
     if (extraScroll > 120) {
       extraScroll = 0
@@ -211,6 +264,7 @@ function onMediaWheel(e: WheelEvent) {
     }
   } else {
     extraScroll = 0
+    prevExtraScroll = 0
   }
 }
 
@@ -226,6 +280,12 @@ const nextCaseTitle = computed(() => {
   if (expandedCase.value === null) return ''
   const next = (expandedCase.value + 1) % cases.value.length
   return cases.value[next].title
+})
+
+const prevCaseTitle = computed(() => {
+  if (expandedCase.value === null) return ''
+  const prev = (expandedCase.value - 1 + cases.value.length) % cases.value.length
+  return cases.value[prev].title
 })
 
 interface MediaItem {
@@ -920,6 +980,48 @@ watch(() => route.hash, (hash) => {
 @keyframes nch-bob {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(5px); }
+}
+
+.prev-case-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 36px 16px 28px;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 300ms var(--ease-out), transform 300ms var(--ease-out);
+  cursor: pointer;
+}
+
+.prev-case-hint.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pch-label {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--ink-faint);
+}
+
+.pch-title {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+}
+
+.pch-arrow {
+  font-size: 14px;
+  color: var(--ink-faint);
+  animation: pch-bob 1.4s ease-in-out infinite;
+}
+
+@keyframes pch-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
 }
 
 /* ─── Overlay transition ─── */
