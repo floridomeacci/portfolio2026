@@ -476,6 +476,7 @@ onUnmounted(() => {
   letter-spacing: 2px;
   color: var(--ink-faint);
   margin: 0 0 20px;
+  text-align: center;
 }
 
 .intro {
@@ -483,8 +484,9 @@ onUnmounted(() => {
   font-size: var(--text-base);
   line-height: 1.7;
   color: var(--ink-muted);
-  margin: 0;
+  margin: 0 auto;
   max-width: 440px;
+  text-align: center;
 }
 
 .hero-sub {
