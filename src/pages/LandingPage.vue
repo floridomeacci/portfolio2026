@@ -13,8 +13,9 @@
     <section class="hero">
       <GlassHero />
       <div class="hero-sub">
-        <p class="role">Creative Technologist</p>
-        <p class="intro">I like taking an idea from something vague to something that actually works. Usually that means mixing design, tech and a bit of craft until it feels right.</p>
+        <p class="tagline">
+          <span class="role">Creative Technologist</span><span class="role-sep"> | </span>Turning ambitious ideas into working AI systems, tools and experiences
+        </p>
       </div>
     </section>
 
@@ -468,6 +469,15 @@ onUnmounted(() => {
   overflow: hidden;
 }
 
+.tagline {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  color: var(--ink-muted);
+  margin: 0;
+  text-align: center;
+}
+
 .role {
   font-family: var(--font-ui);
   font-size: var(--text-sm);
@@ -475,18 +485,11 @@ onUnmounted(() => {
   text-transform: uppercase;
   letter-spacing: 2px;
   color: var(--ink-faint);
-  margin: 0 0 20px;
-  text-align: center;
 }
 
-.intro {
-  font-family: var(--font-body);
-  font-size: var(--text-base);
-  line-height: 1.7;
-  color: var(--ink-muted);
-  margin: 0 auto;
-  max-width: 440px;
-  text-align: center;
+.role-sep {
+  color: var(--ink-faint);
+  margin: 0 8px;
 }
 
 .hero-sub {
@@ -902,13 +905,11 @@ onUnmounted(() => {
 
   .role {
     font-size: 12px;
-    margin-bottom: 12px;
   }
 
-  .intro {
+  .tagline {
     font-size: 15px;
     line-height: 1.55;
-    max-width: 100%;
   }
 
   .section {
