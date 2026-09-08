@@ -287,17 +287,17 @@ const cases = ref<CaseItem[]>([
     darkBg: true,
     blocks: [
       { type: 'image', src: img('fanfavorites.webp') },
-      { type: 'text', text: 'The final batch of 4 million for Spain. Each card is made of individually generated products, combined and placed together in Python. The hardest part was uploading and serving 4 million images in Google Cloud.' },
+      { type: 'text', text: 'The final batch for Spain alone ran to 4 million cards. Each one is made of individually generated products, combined and placed together in Python, and the hardest part was uploading and serving 4 million images in Google Cloud.' },
       { type: 'image', src: img('fanfavo1.webp') },
-      { type: 'text', text: "All the custom-designed, personalised fan menus lived in the McDonald's app." },
+      { type: 'text', text: "All of those personalised fan menus lived inside the McDonald's app, where fans put together their own combinations." },
       { type: 'image', src: img('fanfavo4.webp') },
-      { type: 'text', text: 'The first million images for the Dutch market used the Flux image model. We later switched to GPT-Image.' },
+      { type: 'text', text: 'For the first Dutch million we used the Flux image model, and switched over to GPT-Image partway through.' },
       { type: 'image', src: img('fanfavo2.webp') },
-      { type: 'text', text: 'A handful of the burgers we proposed. Only a few made it past the brand police.' },
+      { type: 'text', text: 'That pipeline gave us a handful of burger designs to propose, and only a few made it past the brand police.' },
       { type: 'image', src: img('fanfavo3.webp') },
-      { type: 'text', text: "McDonald's was happy with the results, so we rolled the campaign out to Spain and Portugal." },
+      { type: 'text', text: "McDonald's was happy with the result, so we rolled the campaign out to Spain and Portugal." },
       { type: 'image', src: img('fanfavo5.webp') },
-      { type: 'text', text: 'Each market has its own range of products and product photography, which I ran through multiple art styles. We then handpicked and edited them manually.' }
+      { type: 'text', text: 'Each market has its own range of products and photography, which I ran through multiple art styles, and we handpicked and edited the final images manually.' }
     ]
   },
   {
@@ -307,9 +307,9 @@ const cases = ref<CaseItem[]>([
     tags: ['AI', 'Real-time', 'Global Campaign'],
     blocks: [
       { type: 'image', src: img('lg.webp') },
-      { type: 'text', text: 'We built this for LG with Adobe Firefly. I must have generated at least 100k thumbnails in testing.' },
+      { type: 'text', text: 'We built it for LG with Adobe Firefly, and I must have generated at least 100k thumbnails while we were testing.' },
       { type: 'image', src: img('lg2.webp') },
-      { type: 'text', text: 'Since launch, at least a million songs and album covers have been generated in real time, following my pipeline and system prompt.' },
+      { type: 'text', text: 'Since launch, over a million songs and album covers have been generated in real time, all following my pipeline and system prompt.' },
       { type: 'image', src: '/images/lgradio1.webp' },
       { type: 'image', src: '/images/lgradio2.webp' }
     ]
@@ -326,7 +326,7 @@ const cases = ref<CaseItem[]>([
         { type: 'image', src: '/images/olifantenpaadjes1.jpeg' },
         { type: 'image', src: '/images/olifantenpaadjes4.jpeg' }
       ] },
-      { type: 'text', text: "I cross-referenced the shortcut map data with all the McDonald's locations, which led to this interactive map. We then checked satellite images on Google Maps to confirm, sent interns out to photograph the spots, and finally the photographer went. https://mcd-pad.vercel.app/" },
+      { type: 'text', text: "From there I cross-referenced the shortcut data with every McDonald's location, which became this interactive map. We confirmed each spot on Google Maps' satellite view, then sent interns out to photograph them before the photographer went in last. https://mcd-pad.vercel.app/" },
       { type: 'image', src: '/images/olifantenpaadjes_map.webp' },
       { type: 'image', src: '/images/olifantenpaadjes3.jpeg' },
       { type: 'image', src: '/images/olifantenpaadjes5.jpeg' }
@@ -339,21 +339,21 @@ const cases = ref<CaseItem[]>([
     tags: ['3D', 'AR', 'App Feature', 'Webby Winner 2024'],
     blocks: [
       { type: 'image', src: img('imgi_1_hero.webp') },
-      { type: 'text', text: "Family Mode is an avatar builder and game platform that lives inside the McDonald's app. My job was all the 3D: the world, the characters, the animations, and packaging it into a format that ran on hundreds of thousands of phones. Everything had to be low-poly. It was the first time I attempted something like this, and we nailed it. More than 300k avatars were made, and the app is still used and sold across other markets worldwide." },
+      { type: 'text', text: "Family Mode is an avatar builder and game platform inside the McDonald's app. My job was all the 3D: the world, the characters, the animations, and packing it into a format that ran on hundreds of thousands of phones. Everything had to be low-poly, and it was the first time I'd attempted anything like it, but we absolutely nailed it." },
       { type: 'image', src: img('imgi_2_family_mode2.webp') },
-      { type: 'text', text: 'UX and UI were handled by the TBWA\\X team. My role was strictly the 3D.' },
+      { type: 'text', text: 'UX and UI were handled by the TBWA\\X team, so my role stayed strictly on the 3D.' },
       { type: 'grid', cols: 2, rows: 1, aspect: '1:1', items: [
         { type: 'video', src: '/cases/videos/AvatarCreator.mp4' },
         { type: 'image', src: img('imgi_5_room1.webp') }
       ] },
-      { type: 'text', text: 'I mostly used Cinema 4D for rendering and rigging. The final .glb file was exported and optimised in Blender.' },
+      { type: 'text', text: 'I mostly worked in Cinema 4D for the rendering and rigging, then exported the final .glb file and optimised it in Blender.' },
       { type: 'grid', cols: 2, rows: 2, aspect: '1:1', items: [
         { type: 'image', src: img('imgi_3_scene1.webp') },
         { type: 'image', src: img('imgi_4_family_mode3.webp') },
         { type: 'image', src: img('imgi_6_room2.webp') },
         { type: 'image', src: img('imgi_7_scene2.webp') }
       ] },
-      { type: 'text', text: "We turned the Happy Meal placemat into a boardgame, so you could play with your characters in the app." },
+      { type: 'text', text: "We even turned the Happy Meal placemat into a boardgame, so you could play with your characters in the app. The app is still used and sold across other markets." },
       { type: 'image', src: img('familymode1.webp') }
     ]
   },
@@ -366,7 +366,7 @@ const cases = ref<CaseItem[]>([
       { type: 'video', src: '/cases/videos/mcdeliverydetector.mp4' },
       { type: 'text', text: 'The product went viral, which was a blast.' },
       { type: 'image', src: img('mcdeliverydetector.avif') },
-      { type: 'text', text: "Here's one of the printed smoke detectors. I designed the whole thing in Cinema 4D, including the locking system that holds each piece together. The electronics inside were designed by Robot Kittens." },
+      { type: 'text', text: "Here's one of the printed smoke detectors. I designed the whole thing in Cinema 4D, including the locking system that holds each piece together, while the electronics inside were handled by Robot Kittens." },
       { type: 'grid', cols: 2, rows: 1, aspect: '1:1', items: [
         { type: 'image', src: img('burger1.webp') },
         { type: 'image', src: img('burger3.webp') }
@@ -381,9 +381,9 @@ const cases = ref<CaseItem[]>([
     tags: ['AI', 'React', 'n8n', 'Fashion', 'Web App'],
     blocks: [
       { type: 'video', src: '/cases/videos/nasa_ss26.mp4' },
-      { type: 'text', text: 'Below is the n8n flow.' },
+      { type: 'text', text: 'Below is the n8n flow that tied it all together.' },
       { type: 'image', src: img('nasa_n8n_flow.webp') },
-      { type: 'text', text: "You take a selfie and you're transported to Palm Beach." },
+      { type: 'text', text: "You take a selfie, and you're transported to Palm Beach." },
       { type: 'image', src: img('nasa2.webp') }
     ]
   },
