@@ -1,7 +1,20 @@
+export interface PaletteColor {
+  name: string
+  hex: string
+}
+
 export interface SiteSpec {
-  fonts: { family: string; note: string; sample: string }[]
-  colors: { hex: string; name: string }[]
-  buttons: { label: string; kind: 'primary' | 'outline' | 'ghost' }[]
+  palette: {
+    primary: PaletteColor
+    secondary: PaletteColor
+    tertiary: PaletteColor
+    neutral: PaletteColor
+  }
+  fonts: {
+    headline: string
+    body: string
+    label: string
+  }
 }
 
 export interface Site {
@@ -23,19 +36,13 @@ export const websites: Site[] = [
     github: 'https://github.com/floridomeacci/TLguide',
     tags: ['Reviews', 'AI Pipeline', 'Full-stack'],
     spec: {
-      fonts: [
-        { family: 'Inter', note: 'UI / body', sample: 'Aa Bb Cc 0123456789' },
-        { family: 'JetBrains Mono', note: 'Code / data', sample: 'Aa Bb Cc 0123456789' }
-      ],
-      colors: [
-        { hex: '#0f0f0f', name: 'Ink' },
-        { hex: '#f7f5f2', name: 'Paper' },
-        { hex: '#e0522d', name: 'Accent' }
-      ],
-      buttons: [
-        { label: 'Primary', kind: 'primary' },
-        { label: 'Outline', kind: 'outline' }
-      ]
+      palette: {
+        primary: { name: 'Primary', hex: '#008080' },
+        secondary: { name: 'Secondary', hex: '#d40055' },
+        tertiary: { name: 'Tertiary', hex: '#cc7a00' },
+        neutral: { name: 'Neutral', hex: '#f2f2f2' }
+      },
+      fonts: { headline: 'Oswald', body: 'Hanken Grotesk', label: 'JetBrains Mono' }
     }
   },
   {
@@ -46,18 +53,13 @@ export const websites: Site[] = [
     noEmbed: true,
     thumb: 'figma.webp',
     spec: {
-      fonts: [
-        { family: 'Inter', note: 'UI', sample: 'Aa Bb Cc 0123456789' }
-      ],
-      colors: [
-        { hex: '#111111', name: 'Ink' },
-        { hex: '#ffffff', name: 'White' },
-        { hex: '#7a7a7a', name: 'Grain' }
-      ],
-      buttons: [
-        { label: 'Primary', kind: 'primary' },
-        { label: 'Ghost', kind: 'ghost' }
-      ]
+      palette: {
+        primary: { name: 'Primary', hex: '#111111' },
+        secondary: { name: 'Secondary', hex: '#7a7a7a' },
+        tertiary: { name: 'Tertiary', hex: '#c9a227' },
+        neutral: { name: 'Neutral', hex: '#f2f2f2' }
+      },
+      fonts: { headline: 'Space Grotesk', body: 'Inter', label: 'JetBrains Mono' }
     }
   },
   {
@@ -67,19 +69,13 @@ export const websites: Site[] = [
     github: 'https://github.com/floridomeacci/latentSearch',
     tags: ['AI', 'Search', 'Generative'],
     spec: {
-      fonts: [
-        { family: 'Inter', note: 'UI / body', sample: 'Aa Bb Cc 0123456789' },
-        { family: 'Space Grotesk', note: 'Display', sample: 'Aa Bb Cc 0123456789' }
-      ],
-      colors: [
-        { hex: '#0a0a0a', name: 'Ink' },
-        { hex: '#f4f2ee', name: 'Paper' },
-        { hex: '#2563eb', name: 'Accent' }
-      ],
-      buttons: [
-        { label: 'Search', kind: 'primary' },
-        { label: 'Outline', kind: 'outline' }
-      ]
+      palette: {
+        primary: { name: 'Primary', hex: '#2563eb' },
+        secondary: { name: 'Secondary', hex: '#0a0a0a' },
+        tertiary: { name: 'Tertiary', hex: '#7c3aed' },
+        neutral: { name: 'Neutral', hex: '#f4f2ee' }
+      },
+      fonts: { headline: 'Inter', body: 'Inter', label: 'JetBrains Mono' }
     }
   },
   {
@@ -89,19 +85,13 @@ export const websites: Site[] = [
     github: 'https://github.com/floridomeacci/creditSwapV2',
     tags: ['Marketplace', 'AI', 'Fintech'],
     spec: {
-      fonts: [
-        { family: 'Inter', note: 'UI / body', sample: 'Aa Bb Cc 0123456789' },
-        { family: 'Manrope', note: 'Display', sample: 'Aa Bb Cc 0123456789' }
-      ],
-      colors: [
-        { hex: '#0b0f0c', name: 'Ink' },
-        { hex: '#f5f7f4', name: 'Paper' },
-        { hex: '#16a34a', name: 'Accent' }
-      ],
-      buttons: [
-        { label: 'Buy', kind: 'primary' },
-        { label: 'Sell', kind: 'outline' }
-      ]
+      palette: {
+        primary: { name: 'Primary', hex: '#16a34a' },
+        secondary: { name: 'Secondary', hex: '#0b0f0c' },
+        tertiary: { name: 'Tertiary', hex: '#2563eb' },
+        neutral: { name: 'Neutral', hex: '#f5f7f4' }
+      },
+      fonts: { headline: 'Manrope', body: 'Inter', label: 'JetBrains Mono' }
     }
   },
   {
@@ -113,19 +103,13 @@ export const websites: Site[] = [
     noEmbed: true,
     thumb: 'reddituserinfo.webp',
     spec: {
-      fonts: [
-        { family: 'Inter', note: 'UI / body', sample: 'Aa Bb Cc 0123456789' },
-        { family: 'JetBrains Mono', note: 'Data', sample: 'Aa Bb Cc 0123456789' }
-      ],
-      colors: [
-        { hex: '#0d0d0d', name: 'Ink' },
-        { hex: '#ffffff', name: 'White' },
-        { hex: '#ff4500', name: 'Reddit Orange' }
-      ],
-      buttons: [
-        { label: 'Analyse', kind: 'primary' },
-        { label: 'Outline', kind: 'outline' }
-      ]
+      palette: {
+        primary: { name: 'Primary', hex: '#ff4500' },
+        secondary: { name: 'Secondary', hex: '#0d0d0d' },
+        tertiary: { name: 'Tertiary', hex: '#0079d3' },
+        neutral: { name: 'Neutral', hex: '#ffffff' }
+      },
+      fonts: { headline: 'Inter', body: 'Inter', label: 'JetBrains Mono' }
     }
   },
   {
@@ -135,18 +119,13 @@ export const websites: Site[] = [
     github: 'https://github.com/floridomeacci/colino',
     tags: ['AI', 'Jobs', 'WebMCP'],
     spec: {
-      fonts: [
-        { family: 'Inter', note: 'UI / body', sample: 'Aa Bb Cc 0123456789' }
-      ],
-      colors: [
-        { hex: '#0a0a0a', name: 'Ink' },
-        { hex: '#faf9f6', name: 'Paper' },
-        { hex: '#e0522d', name: 'Accent' }
-      ],
-      buttons: [
-        { label: 'Get matches', kind: 'primary' },
-        { label: 'Outline', kind: 'outline' }
-      ]
+      palette: {
+        primary: { name: 'Primary', hex: '#e0522d' },
+        secondary: { name: 'Secondary', hex: '#0a0a0a' },
+        tertiary: { name: 'Tertiary', hex: '#cc7a00' },
+        neutral: { name: 'Neutral', hex: '#faf9f6' }
+      },
+      fonts: { headline: 'Inter', body: 'Inter', label: 'JetBrains Mono' }
     }
   },
   {
@@ -158,19 +137,13 @@ export const websites: Site[] = [
     noEmbed: true,
     thumb: 'millionpixels.webp',
     spec: {
-      fonts: [
-        { family: 'Space Grotesk', note: 'Display', sample: 'Aa Bb Cc 0123456789' },
-        { family: 'JetBrains Mono', note: 'Mono', sample: 'Aa Bb Cc 0123456789' }
-      ],
-      colors: [
-        { hex: '#0a0a0a', name: 'Ink' },
-        { hex: '#ffffff', name: 'White' },
-        { hex: '#e0522d', name: 'Accent' }
-      ],
-      buttons: [
-        { label: 'Paint', kind: 'primary' },
-        { label: 'Ghost', kind: 'ghost' }
-      ]
+      palette: {
+        primary: { name: 'Primary', hex: '#e0522d' },
+        secondary: { name: 'Secondary', hex: '#0a0a0a' },
+        tertiary: { name: 'Tertiary', hex: '#2563eb' },
+        neutral: { name: 'Neutral', hex: '#ffffff' }
+      },
+      fonts: { headline: 'Space Grotesk', body: 'Inter', label: 'JetBrains Mono' }
     }
   }
 ]
