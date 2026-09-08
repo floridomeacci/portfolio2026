@@ -364,7 +364,7 @@ const cases = ref<CaseItem[]>([
     tags: ['3D Product Design', '3D Printing', 'Campaign', 'ADCN Nominated'],
     blocks: [
       { type: 'video', src: '/cases/videos/mcdeliverydetector.mp4' },
-      { type: 'text', text: 'The product went viral. Which was a blast.' },
+      { type: 'text', text: 'The product went viral, which was a blast.' },
       { type: 'image', src: img('mcdeliverydetector.avif') },
       { type: 'text', text: 'Here you can see one of the printed smoke detectors. I designed the entire thing in Cinam4D, as well as the locking system in which each piece fits together. The electronics inside were designed by Robot Kittens.' },
       { type: 'grid', cols: 2, rows: 1, aspect: '1:1', items: [
@@ -406,16 +406,16 @@ const cases = ref<CaseItem[]>([
     description: "Created social content and animations for New Care over several years. Built a 3D + AI pipeline: AI generation (nano-banana, seedream) composited with 3D product renders in Cinema 4D. Modelled the entire product catalog — over 100 products — in 3D.",
     tags: ['3D', 'AI', 'Social', 'Animation', 'Content Pipeline'],
     blocks: [
-      { type: 'grid', cols: 3, rows: 1, aspect: '9:16', items: [
-        { type: 'video', src: '/cases/videos/newcare1.mp4' },
+      { type: 'grid', cols: 2, rows: 1, aspect: '1:1', items: [
         { type: 'video', src: '/cases/videos/newcare2.mp4' },
         { type: 'video', src: '/cases/videos/newcare3.mp4' }
       ] },
       { type: 'grid', cols: 3, rows: 1, aspect: '9:16', items: [
+        { type: 'video', src: '/cases/videos/newcare1.mp4' },
         { type: 'video', src: '/cases/videos/newcare4.mp4' },
-        { type: 'video', src: '/cases/videos/newcare5.mp4' },
-        { type: 'video', src: '/cases/videos/newcare6.mp4' }
+        { type: 'video', src: '/cases/videos/newcare5.mp4' }
       ] },
+      { type: 'video', src: '/cases/videos/newcare6.mp4' },
       { type: 'grid', cols: 2, rows: 1, aspect: '1:1', items: [
         { type: 'video', src: '/cases/videos/newcare7.mp4' },
         { type: 'image', src: img('newcare1.webp') }
@@ -437,7 +437,24 @@ const cases = ref<CaseItem[]>([
     client: "McDonald's — TBWA\\NEBOKO",
     description: "Created the 3D character models in Cinema 4D and rendered the visuals used on McDonald's placemats printed nationwide.",
     tags: ['3D', 'Print', 'Character Design'],
-    images: [img('mcnificents0.webp'), ...range(1, 10).map(n => img('mcnificents' + n + '.webp'))]
+    blocks: [
+      { type: 'image', src: img('mcnificents0.webp') },
+      { type: 'text', text: 'I created the 3D characters on the placemats seen in the corners as well as the back' },
+      { type: 'grid', cols: 2, rows: 2, aspect: '3:2', items: [
+        { type: 'image', src: img('mcnificents1.webp') },
+        { type: 'image', src: img('mcnificents2.webp') },
+        { type: 'image', src: img('mcnificents3.webp') },
+        { type: 'image', src: img('mcnificents4.webp') }
+      ] },
+      { type: 'image', src: img('mcnificents5.webp') },
+      { type: 'grid', cols: 3, rows: 3, aspect: '9:16', items: [
+        { type: 'image', src: img('mcnificents6.webp') },
+        { type: 'image', src: img('mcnificents7.webp') },
+        { type: 'image', src: img('mcnificents8.webp') },
+        { type: 'image', src: img('mcnificents9.webp') },
+        { type: 'image', src: img('mcnificents10.webp') }
+      ] }
+    ]
   },
   {
     title: 'TOTO Tactics',
@@ -466,15 +483,50 @@ const cases = ref<CaseItem[]>([
     client: "Branca's Kitchen — Personal",
     description: "10,000 procedurally generated 3D soup cans from the 2021 NFT wave. Created the generative pipeline in Cinema 4D. This project kicked off my journey into coding and Python.",
     tags: ['NFT', '3D', 'Generative', 'Coding'],
-    video: '/cases/videos/foodtokensoup.mp4',
-    images: range(1, 14).map(n => img('soup' + n + '.webp'))
+    blocks: [
+      { type: 'video', src: '/cases/videos/foodtokensoup.mp4' },
+      { type: 'grid', cols: 2, rows: 2, aspect: '1:1', items: [
+        { type: 'image', src: img('soup1.webp') },
+        { type: 'image', src: img('soup2.webp') },
+        { type: 'image', src: img('soup3.webp') },
+        { type: 'image', src: img('soup4.webp') }
+      ] },
+      { type: 'grid', cols: 2, rows: 2, aspect: '1:1', items: [
+        { type: 'image', src: img('soup5.webp') },
+        { type: 'image', src: img('soup6.webp') },
+        { type: 'image', src: img('soup7.webp') },
+        { type: 'image', src: img('soup8.webp') }
+      ] },
+      { type: 'grid', cols: 2, rows: 2, aspect: '1:1', items: [
+        { type: 'image', src: img('soup9.webp') },
+        { type: 'image', src: img('soup10.webp') },
+        { type: 'image', src: img('soup11.webp') },
+        { type: 'image', src: img('soup12.webp') }
+      ] },
+      { type: 'grid', cols: 2, rows: 1, aspect: '1:1', items: [
+        { type: 'image', src: img('soup13.webp') },
+        { type: 'image', src: img('soup14.webp') }
+      ] }
+    ]
   },
   {
     title: 'TBWA\\X Custom Arcade',
     client: 'TBWA\\X',
     description: "Hand-built a full arcade cabinet for the TBWA\\X office. MDF frame, lasercut panels, hand-painted finish. All wiring and electronics. Runs RetroPie on a Raspberry Pi 4. Also created the intro video in Cinema 4D.",
     tags: ['Hardware', 'Craftsmanship', 'Design'],
-    images: range(1, 3).map(n => img('arcade' + n + '.webp'))
+    blocks: [
+      { type: 'grid', cols: 3, rows: 3, aspect: '9:16', items: [
+        { type: 'image', src: img('arcade3.webp') },
+        { type: 'image', src: img('arcade4.webp') },
+        { type: 'image', src: img('arcade5.webp') },
+        { type: 'image', src: img('arcade6.webp') },
+        { type: 'image', src: img('arcade7.webp') },
+        { type: 'image', src: img('arcade8.webp') }
+      ] },
+      { type: 'text', text: 'First drafted the design of the arcade in SketchUp. The design of the arcade follows the same slant of the TBWA backslash logo. The arcade itself runs on a raspberry pi 4b.' },
+      { type: 'image', src: img('arcade1.webp') },
+      { type: 'image', src: img('arcade2.webp') }
+    ]
   }
 ])
 
