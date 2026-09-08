@@ -436,7 +436,7 @@ function advancePrev() {
 
 .site-preview iframe {
   width: 100%;
-  height: 480px;
+  height: 960px;
   border: 1px solid var(--border);
   border-radius: 6px;
   background: #fff;
@@ -537,7 +537,7 @@ function advancePrev() {
     font-size: 20px;
   }
   .site-preview iframe {
-    height: 320px;
+    height: 640px;
   }
 }
 </style>
