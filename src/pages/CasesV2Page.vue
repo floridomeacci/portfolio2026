@@ -282,34 +282,34 @@ const cases = ref<CaseItem[]>([
   {
     title: "McDonald's Fan Favorites",
     client: "McDonald's — TBWA\\NEBOKO",
-    description: "Ran this three times — Netherlands, Portugal, Spain. I built the pipeline in Python. For each market I generated every product with AI (Flux, later ChatGPT), combined them into millions of menu combinations at scale, and handled all uploads and naming. Over 4 million unique combos. Design teams did post-editing for a week.",
+    description: "Ran this three times, in the Netherlands, Portugal and Spain. I built the pipeline in Python. For each market I generated every product with AI (Flux, then ChatGPT), combined them into millions of menu combinations, and handled all the uploads and naming. Over 4 million unique combos. The design teams spent a week on post-editing.",
     tags: ['AI', 'Pipeline', 'Generative'],
     darkBg: true,
     blocks: [
       { type: 'image', src: img('fanfavorites.webp') },
-      { type: 'text', text: 'Final batch of 4 million for Spain. Each card consists of individually generated products, combined and placed together using python. Hardest part uploading and serving 4 million images in gcloud.' },
+      { type: 'text', text: 'The final batch of 4 million for Spain. Each card is made of individually generated products, combined and placed together in Python. The hardest part was uploading and serving 4 million images in Google Cloud.' },
       { type: 'image', src: img('fanfavo1.webp') },
-      { type: 'text', text: "All the custom designed personlised fan menu's lived in the mcdonalds app" },
+      { type: 'text', text: "All the custom-designed, personalised fan menus lived in the McDonald's app." },
       { type: 'image', src: img('fanfavo4.webp') },
-      { type: 'text', text: 'The initial million images used in the dutch market used the image model Flux. We later switched to GPT-Image.' },
+      { type: 'text', text: 'The first million images for the Dutch market used the Flux image model. We later switched to GPT-Image.' },
       { type: 'image', src: img('fanfavo2.webp') },
-      { type: 'text', text: 'A handful of the different burgers we proposed. Only a select few made it past the brand police.' },
+      { type: 'text', text: 'A handful of the burgers we proposed. Only a few made it past the brand police.' },
       { type: 'image', src: img('fanfavo3.webp') },
-      { type: 'text', text: 'Mcdonalds was very pleased with the results so we rolled out the campaign to Spain and Portugal.' },
+      { type: 'text', text: "McDonald's was happy with the results, so we rolled the campaign out to Spain and Portugal." },
       { type: 'image', src: img('fanfavo5.webp') },
-      { type: 'text', text: 'Each market has its own range of products, and product photography which I ran through multiple art styles. Which we then handpicked and edited manually.' }
+      { type: 'text', text: 'Each market has its own range of products and product photography, which I ran through multiple art styles. We then handpicked and edited them manually.' }
     ]
   },
   {
     title: 'LG Radio Optimism',
     client: 'LG Electronics — Global',
-    description: "I was in charge of the thumbnail album covers for each custom AI-generated song. Used Adobe Firefly to generate thousands of assets, stress-testing every language and prompt type. Built the pipeline in n8n with a custom testing frontend. Songs and covers were generated live — each listener got something unique. LG in collaboration with Adobe Firefly. Reached over a million users.",
+    description: "I made the thumbnail album covers for every custom AI-generated song. Used Adobe Firefly to generate thousands of assets, stress-testing every language and prompt type. Built the pipeline in n8n with a custom testing frontend. Songs and covers were generated live, so each listener got something unique. Built with LG and Adobe Firefly. Reached over a million users.",
     tags: ['AI', 'Real-time', 'Global Campaign'],
     blocks: [
       { type: 'image', src: img('lg.webp') },
-      { type: 'text', text: 'We built this for LG in collaboration with Adobe Firefly. I must have generated atleast 100k thumbnails in testing.' },
+      { type: 'text', text: 'We built this for LG with Adobe Firefly. I must have generated at least 100k thumbnails in testing.' },
       { type: 'image', src: img('lg2.webp') },
-      { type: 'text', text: 'Since its launch atleast a million songs and album covers have been generated in realtime following my pipeline and system prompt' },
+      { type: 'text', text: 'Since launch, at least a million songs and album covers have been generated in real time, following my pipeline and system prompt.' },
       { type: 'image', src: '/images/lgradio1.webp' },
       { type: 'image', src: '/images/lgradio2.webp' }
     ]
@@ -317,7 +317,7 @@ const cases = ref<CaseItem[]>([
   {
     title: "McDonald's Olifantenpaadjes",
     client: "McDonald's — TBWA\\NEBOKO",
-    description: "Mapped unofficial footpath shortcuts across the Netherlands and cross-referenced them with McDonald's locations. I built the interactive map (React, Vercel) using OpenPath data and Google Street View to verify paths that pass McDonald's poles. Confirmed paths were photographed by interns.",
+    description: "I mapped unofficial footpath shortcuts across the Netherlands and cross-referenced them with McDonald's locations. Built the interactive map (React, Vercel) using OpenPath data and Google Street View to check which paths passed a McDonald's pole. Confirmed paths were then photographed by interns.",
     tags: ['Interactive Map', 'React', 'Geo Data'],
     projectUrl: 'https://mcd-pad.vercel.app/',
     blocks: [
@@ -326,7 +326,7 @@ const cases = ref<CaseItem[]>([
         { type: 'image', src: '/images/olifantenpaadjes1.jpeg' },
         { type: 'image', src: '/images/olifantenpaadjes4.jpeg' }
       ] },
-      { type: 'text', text: 'I simply cross referenced the shortcut map data with all of the mcdonalds locations. Which lead to this interactive map. We then went to google maps and looked at satalite images to confirm, after which we send interns to photograph to the locations. And lastly the photographer.  https://mcd-pad.vercel.app/' },
+      { type: 'text', text: "I cross-referenced the shortcut map data with all the McDonald's locations, which led to this interactive map. We then checked satellite images on Google Maps to confirm, sent interns out to photograph the spots, and finally the photographer went. https://mcd-pad.vercel.app/" },
       { type: 'image', src: '/images/olifantenpaadjes_map.webp' },
       { type: 'image', src: '/images/olifantenpaadjes3.jpeg' },
       { type: 'image', src: '/images/olifantenpaadjes5.jpeg' }
@@ -335,38 +335,38 @@ const cases = ref<CaseItem[]>([
   {
     title: "McDonald's Family Mode",
     client: "McDonald's Netherlands — TBWA\\NEBOKO",
-    description: "I built the entire 3D world — all characters, items, clothing, all packaged in a .glb file. All animations in Cinema 4D and Blender. Over half a million avatars were made.",
+    description: "I built the whole 3D world: characters, items, clothing, all packaged into a single .glb file. All animation done in Cinema 4D and Blender. Over half a million avatars were made.",
     tags: ['3D', 'AR', 'App Feature', 'Webby Winner 2024'],
     blocks: [
       { type: 'image', src: img('imgi_1_hero.webp') },
-      { type: 'text', text: 'Family Mode is a avatar builder and game platform that lives within the McDonalds app. My responsibility in this project was the entire 3D asset creation of the world, characters, animations as well as packaging this in a format that worked on hundreds of thousands of phone. Everything had to be low-poly. This was the first time attempting such a thing, and we absolutely aced it. With eventually more than 300k avatars made and an app that is still used and sold across other markets globally.' },
+      { type: 'text', text: "Family Mode is an avatar builder and game platform that lives inside the McDonald's app. My job was all the 3D: the world, the characters, the animations, and packaging it into a format that ran on hundreds of thousands of phones. Everything had to be low-poly. It was the first time I attempted something like this, and we nailed it. More than 300k avatars were made, and the app is still used and sold across other markets worldwide." },
       { type: 'image', src: img('imgi_2_family_mode2.webp') },
-      { type: 'text', text: 'UX and UI done by the TBWA\\X team. My role was limited to everything 3D.' },
+      { type: 'text', text: 'UX and UI were handled by the TBWA\\X team. My role was strictly the 3D.' },
       { type: 'grid', cols: 2, rows: 1, aspect: '1:1', items: [
         { type: 'video', src: '/cases/videos/AvatarCreator.mp4' },
         { type: 'image', src: img('imgi_5_room1.webp') }
       ] },
-      { type: 'text', text: 'I used primarly Cinema4d for the rendering and rigging. The final .GLB file was exported and optimised within Blender.' },
+      { type: 'text', text: 'I mostly used Cinema 4D for rendering and rigging. The final .glb file was exported and optimised in Blender.' },
       { type: 'grid', cols: 2, rows: 2, aspect: '1:1', items: [
         { type: 'image', src: img('imgi_3_scene1.webp') },
         { type: 'image', src: img('imgi_4_family_mode3.webp') },
         { type: 'image', src: img('imgi_6_room2.webp') },
         { type: 'image', src: img('imgi_7_scene2.webp') }
       ] },
-      { type: 'text', text: 'We turned the happy meal placemat into a boardgame. So you could play with your characters in the app.' },
+      { type: 'text', text: "We turned the Happy Meal placemat into a boardgame, so you could play with your characters in the app." },
       { type: 'image', src: img('familymode1.webp') }
     ]
   },
   {
     title: "McDonald's Delivery Detector",
     client: "McDonald's Netherlands — TBWA\\NEBOKO",
-    description: "A limited-edition 3D-printed smoke alarm shaped like a Big Mac that auto-ordered McDonald's when it detected smoke. I designed the full product as a printable device from concept to production files. Covered by Adweek, Highsnobiety and B&T.",
+    description: "A limited-edition 3D-printed smoke alarm shaped like a Big Mac that auto-ordered McDonald's when it detected smoke. I designed the whole product as a printable device, from concept to production files. Covered by Adweek, Highsnobiety and B&T.",
     tags: ['3D Product Design', '3D Printing', 'Campaign', 'ADCN Nominated'],
     blocks: [
       { type: 'video', src: '/cases/videos/mcdeliverydetector.mp4' },
       { type: 'text', text: 'The product went viral, which was a blast.' },
       { type: 'image', src: img('mcdeliverydetector.avif') },
-      { type: 'text', text: 'Here you can see one of the printed smoke detectors. I designed the entire thing in Cinam4D, as well as the locking system in which each piece fits together. The electronics inside were designed by Robot Kittens.' },
+      { type: 'text', text: "Here's one of the printed smoke detectors. I designed the whole thing in Cinema 4D, including the locking system that holds each piece together. The electronics inside were designed by Robot Kittens." },
       { type: 'grid', cols: 2, rows: 1, aspect: '1:1', items: [
         { type: 'image', src: img('burger1.webp') },
         { type: 'image', src: img('burger3.webp') }
@@ -377,20 +377,20 @@ const cases = ref<CaseItem[]>([
   {
     title: 'SS26 New Amsterdam Surf Association',
     client: 'New Amsterdam Surf Association — Sabatoka',
-    description: "A mobile web app for Paris Fashion Week 2025: upload a selfie and get dropped into a Palm Beach scene. I built the entire thing end-to-end. Backend on n8n with Replicate for AI, AWS for NSFW detection. Frontend in React. Cloudflare Workers, R2 storage, Hetzner server scaling to 500 concurrent executions.",
+    description: "A mobile web app for Paris Fashion Week 2025. You upload a selfie and get dropped into a Palm Beach scene. I built the whole thing end to end: n8n backend with Replicate for AI, AWS for NSFW detection, React frontend, Cloudflare Workers and R2 storage, and a Hetzner server that scaled to 500 concurrent runs.",
     tags: ['AI', 'React', 'n8n', 'Fashion', 'Web App'],
     blocks: [
       { type: 'video', src: '/cases/videos/nasa_ss26.mp4' },
-      { type: 'text', text: 'See below the N8N flow.' },
+      { type: 'text', text: 'Below is the n8n flow.' },
       { type: 'image', src: img('nasa_n8n_flow.webp') },
-      { type: 'text', text: 'You take a selfie, and your transported to Palm Beach' },
+      { type: 'text', text: "You take a selfie and you're transported to Palm Beach." },
       { type: 'image', src: img('nasa2.webp') }
     ]
   },
   {
     title: 'Abdulla Al Ghurair Foundation',
     client: 'Abdulla Al Ghurair Foundation — We Are Anatomy / Sabatoka',
-    description: "Built the software for an interactive touchscreen installation at an exhibition. Users selected options and the screen displayed AI-generated videos. The full app ran locally without internet. React frontend, custom offline video pipeline. UI/UX by Rex Amesbury.",
+    description: "Built the software for an interactive touchscreen installation at an exhibition. Users picked options and the screen played AI-generated videos. The whole app ran locally with no internet. React frontend, custom offline video pipeline. UI/UX by Rex Amesbury.",
     tags: ['AI', 'React', 'Video Gen', 'Installation'],
     blocks: [
       { type: 'video', src: '/cases/videos/abdul_ui.mp4' },
@@ -403,7 +403,7 @@ const cases = ref<CaseItem[]>([
   {
     title: 'New Care Supplements',
     client: 'New Care — Sabatoka',
-    description: "Created social content and animations for New Care over several years. Built a 3D + AI pipeline: AI generation (nano-banana, seedream) composited with 3D product renders in Cinema 4D. Modelled the entire product catalog — over 100 products — in 3D.",
+    description: "Made social content and animations for New Care over several years. Built a 3D + AI pipeline: AI generation (nano-banana, seedream) composited with 3D product renders in Cinema 4D. Modelled the entire catalog, over 100 products, in 3D.",
     tags: ['3D', 'AI', 'Social', 'Animation', 'Content Pipeline'],
     blocks: [
       { type: 'grid', cols: 2, rows: 1, aspect: '1:1', items: [
@@ -427,7 +427,7 @@ const cases = ref<CaseItem[]>([
   {
     title: "McDonald's The Hidden Campaign",
     client: "McDonald's — TBWA\\NEBOKO",
-    description: "McDonald's hid easter eggs across games, Twitch streams and its app — including a custom Moonlander arcade game. I created all 3D assets and animations in Cinema 4D: the spaceship, holograms, stair sequences and light animations.",
+    description: "McDonald's hid easter eggs across games, Twitch streams and its app, including a custom Moonlander arcade game. I made all the 3D assets and animations in Cinema 4D: the spaceship, holograms, stair sequences and light animations.",
     tags: ['3D', 'Animation', 'Gaming', 'Webby Honoree 2025'],
     video: '/cases/videos/spaceship_horizontal.mp4',
     images: [img('imgi_4_image_ui.webp'), img('imgi_6_footer_bg.webp')]
@@ -435,11 +435,11 @@ const cases = ref<CaseItem[]>([
   {
     title: 'McNificents',
     client: "McDonald's — TBWA\\NEBOKO",
-    description: "Created the 3D character models in Cinema 4D and rendered the visuals used on McDonald's placemats printed nationwide.",
+    description: "Created the 3D character models in Cinema 4D and rendered the visuals used on McDonald's placemats, printed nationwide.",
     tags: ['3D', 'Print', 'Character Design'],
     blocks: [
       { type: 'image', src: img('mcnificents0.webp') },
-      { type: 'text', text: 'I created the 3D characters on the placemats seen in the corners as well as the back' },
+      { type: 'text', text: 'I made the 3D characters on the placemats, in the corners and on the back.' },
       { type: 'grid', cols: 2, rows: 2, aspect: '3:2', items: [
         { type: 'image', src: img('mcnificents1.webp') },
         { type: 'image', src: img('mcnificents2.webp') },
@@ -466,7 +466,7 @@ const cases = ref<CaseItem[]>([
   {
     title: 'Odido Brand Launch',
     client: 'Odido (formerly T-Mobile NL) — TBWA\\NEBOKO',
-    description: "Oversaw the entire HTML5 banner development for the Odido (formerly T-Mobile) rebrand launch. Created the banner animations and guided dev teams on final delivery across HPTO and IAB formats. The campaign won a Gold Dutch PR Award 2024.",
+    description: "Oversaw the entire HTML5 banner development for the Odido (formerly T-Mobile) rebrand launch. Created the banner animations and guided the dev teams on final delivery across HPTO and IAB formats. The campaign won a Gold Dutch PR Award in 2024.",
     tags: ['Rebrand', 'Digital', 'Gold Dutch PR Award'],
     video: '/cases/videos/odidobanner.mp4'
   },
@@ -523,7 +523,7 @@ const cases = ref<CaseItem[]>([
         { type: 'image', src: img('arcade7.webp') },
         { type: 'image', src: img('arcade8.webp') }
       ] },
-      { type: 'text', text: 'First drafted the design of the arcade in SketchUp. The design of the arcade follows the same slant of the TBWA backslash logo. The arcade itself runs on a raspberry pi 4b.' },
+      { type: 'text', text: 'I first drafted the design in SketchUp. The cabinet follows the same slant as the TBWA backslash logo, and it runs on a Raspberry Pi 4B.' },
       { type: 'image', src: img('arcade1.webp') },
       { type: 'image', src: img('arcade2.webp') }
     ]
