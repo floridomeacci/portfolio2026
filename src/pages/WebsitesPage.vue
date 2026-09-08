@@ -14,9 +14,9 @@
           <div class="entry-bar">
             <div class="entry-text">
               <span class="entry-title">{{ s.label }}</span>
-              <span class="entry-tags">
-                <span v-for="t in s.tags" :key="t" class="entry-tag">{{ t }}</span>
-              </span>
+            </div>
+            <div class="entry-tags">
+              <span v-for="t in s.tags" :key="t" class="entry-tag">{{ t }}</span>
             </div>
             <svg class="chevron" :class="{ rotated: expanded === i }" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
@@ -245,22 +245,23 @@ function advancePrev() {
 .entry-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--space-md);
+  gap: var(--space-lg);
   padding: 22px 32px;
 }
 
 .entry-text {
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  min-width: 0;
+  gap: 4px;
 }
 
 .entry-title {
   font-family: var(--font-body);
   font-size: var(--text-lg);
   font-weight: 600;
+  line-height: 1.3;
   color: var(--ink);
 }
 
@@ -276,7 +277,7 @@ function advancePrev() {
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: .4px;
-  padding: 3px 10px;
+  padding: 4px 12px;
   border-radius: 3px;
   background: oklch(15% 0.008 45 / 0.04);
   color: var(--ink-muted);
