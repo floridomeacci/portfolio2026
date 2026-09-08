@@ -321,6 +321,7 @@ function openCaseFromHash(hash: string | undefined | null) {
   const caseSlug = hash.replace(/^case-/, '')
   const idx = cases.value.findIndex(c => slugify(c.title) === caseSlug)
   if (idx >= 0) {
+    lockOverlay(true)
     expandedCase.value = idx
     nextTick(() => {
       scrollMediaTop()

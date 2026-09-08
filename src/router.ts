@@ -47,4 +47,9 @@ const router = createRouter({
   ]
 })
 
+router.afterEach(() => {
+  document.documentElement.style.overflow = ''
+  document.body.style.overflow = ''
+})
+
 export default router

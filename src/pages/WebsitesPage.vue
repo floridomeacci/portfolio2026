@@ -80,7 +80,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, nextTick } from 'vue'
+import { ref, computed, nextTick, onBeforeUnmount } from 'vue'
 import SiteNav from '../components/SiteNav.vue'
 import DesignSheet from '../components/DesignSheet.vue'
 import { websites } from '../data/websites'
@@ -212,6 +212,10 @@ function advancePrev() {
   scrollMediaTop()
   startCooldown()
 }
+
+onBeforeUnmount(() => {
+  document.documentElement.style.overflow = ''
+})
 </script>
 
 <style scoped>
