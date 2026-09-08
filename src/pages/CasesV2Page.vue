@@ -14,7 +14,7 @@
           <div class="entry-bar">
             <div class="entry-text">
               <span class="entry-title">{{ c.title }}</span>
-              <span class="entry-client">{{ c.client }}</span>
+              <span class="entry-subtitle">{{ c.subtitle }}</span>
             </div>
             <div class="entry-tags">
               <span v-for="tag in c.tags" :key="tag" class="entry-tag">{{ tag }}</span>
@@ -37,7 +37,7 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
             <h2 class="overlay-case-title">{{ cases[expandedCase].title }}</h2>
-            <p class="overlay-client">{{ cases[expandedCase].client }}</p>
+            <p class="overlay-subtitle">{{ cases[expandedCase].subtitle }}</p>
             <p class="overlay-desc">{{ cases[expandedCase].description }}</p>
             <div class="overlay-tags">
               <span v-for="tag in cases[expandedCase].tags" :key="tag" class="overlay-tag">{{ tag }}</span>
@@ -304,7 +304,7 @@ interface MediaBlock {
 }
 
 interface CaseItem {
-  title: string; client: string; description: string
+  title: string; client: string; subtitle: string; description: string
   tags: string[]; video?: string; videos?: string[]; youtube?: string; images?: string[]; darkBg?: boolean; projectUrl?: string
   blocks?: MediaBlock[]
 }
@@ -326,6 +326,7 @@ const cases = ref<CaseItem[]>([
   {
     title: "McDonald's Fan Favorites",
     client: "McDonald's — TBWA\\NEBOKO",
+    subtitle: '4 million AI-generated custom menus',
     description: "Ran this three times, in the Netherlands, Portugal and Spain. I built the pipeline in Python. For each market I generated every product with AI (Flux, then ChatGPT), combined them into millions of menu combinations, and handled all the uploads and naming. Over 4 million unique combos. The design teams spent a week on post-editing.",
     tags: ['AI', 'Pipeline', 'Generative'],
     darkBg: true,
@@ -347,6 +348,7 @@ const cases = ref<CaseItem[]>([
   {
     title: 'LG Radio Optimism',
     client: 'LG Electronics — Global',
+    subtitle: 'A million live songs and AI album covers',
     description: "I made the thumbnail album covers for every custom AI-generated song. Used Adobe Firefly to generate thousands of assets, stress-testing every language and prompt type. Built the pipeline in n8n with a custom testing frontend. Songs and covers were generated live, so each listener got something unique. Built with LG and Adobe Firefly. Reached over a million users.",
     tags: ['AI', 'Real-time', 'Global Campaign'],
     blocks: [
@@ -361,6 +363,7 @@ const cases = ref<CaseItem[]>([
   {
     title: "McDonald's Olifantenpaadjes",
     client: "McDonald's — TBWA\\NEBOKO",
+    subtitle: 'An interactive map of desire paths',
     description: "I mapped unofficial footpath shortcuts across the Netherlands and cross-referenced them with McDonald's locations. Built the interactive map (React, Vercel) using OpenPath data and Google Street View to check which paths passed a McDonald's pole. Confirmed paths were then photographed by interns.",
     tags: ['Interactive Map', 'React', 'Geo Data'],
     projectUrl: 'https://mcd-pad.vercel.app/',
@@ -379,6 +382,7 @@ const cases = ref<CaseItem[]>([
   {
     title: "McDonald's Family Mode",
     client: "McDonald's Netherlands — TBWA\\NEBOKO",
+    subtitle: 'A 3D avatar builder inside the app',
     description: "I built the whole 3D world: characters, items, clothing, all packaged into a single .glb file. All animation done in Cinema 4D and Blender. Over half a million avatars were made.",
     tags: ['3D', 'AR', 'App Feature', 'Webby Winner 2024'],
     blocks: [
@@ -404,6 +408,7 @@ const cases = ref<CaseItem[]>([
   {
     title: "McDonald's Delivery Detector",
     client: "McDonald's Netherlands — TBWA\\NEBOKO",
+    subtitle: 'A Big Mac that orders itself',
     description: "A limited-edition 3D-printed smoke alarm shaped like a Big Mac that auto-ordered McDonald's when it detected smoke. I designed the whole product as a printable device, from concept to production files. Covered by Adweek, Highsnobiety and B&T.",
     tags: ['3D Product Design', '3D Printing', 'Campaign', 'ADCN Nominated'],
     blocks: [
@@ -421,6 +426,7 @@ const cases = ref<CaseItem[]>([
   {
     title: 'SS26 New Amsterdam Surf Association',
     client: 'New Amsterdam Surf Association — Sabatoka',
+    subtitle: 'Selfie to Palm Beach, for Paris Fashion Week',
     description: "A mobile web app for Paris Fashion Week 2025. You upload a selfie and get dropped into a Palm Beach scene. I built the whole thing end to end: n8n backend with Replicate for AI, AWS for NSFW detection, React frontend, Cloudflare Workers and R2 storage, and a Hetzner server that scaled to 500 concurrent runs.",
     tags: ['AI', 'React', 'n8n', 'Fashion', 'Web App'],
     blocks: [
@@ -434,6 +440,7 @@ const cases = ref<CaseItem[]>([
   {
     title: 'Abdulla Al Ghurair Foundation',
     client: 'Abdulla Al Ghurair Foundation — We Are Anatomy / Sabatoka',
+    subtitle: 'An offline AI touchscreen installation',
     description: "Built the software for an interactive touchscreen installation at an exhibition. Users picked options and the screen played AI-generated videos. The whole app ran locally with no internet. React frontend, custom offline video pipeline. UI/UX by Rex Amesbury.",
     tags: ['AI', 'React', 'Video Gen', 'Installation'],
     blocks: [
@@ -447,6 +454,7 @@ const cases = ref<CaseItem[]>([
   {
     title: 'New Care Supplements',
     client: 'New Care — Sabatoka',
+    subtitle: 'A 3D + AI content pipeline',
     description: "Made social content and animations for New Care over several years. Built a 3D + AI pipeline: AI generation (nano-banana, seedream) composited with 3D product renders in Cinema 4D. Modelled the entire catalog, over 100 products, in 3D.",
     tags: ['3D', 'AI', 'Social', 'Animation', 'Content Pipeline'],
     blocks: [
@@ -471,6 +479,7 @@ const cases = ref<CaseItem[]>([
   {
     title: "McDonald's The Hidden Campaign",
     client: "McDonald's — TBWA\\NEBOKO",
+    subtitle: 'Easter eggs across games and Twitch',
     description: "McDonald's hid easter eggs across games, Twitch streams and its app, including a custom Moonlander arcade game. I made all the 3D assets and animations in Cinema 4D: the spaceship, holograms, stair sequences and light animations.",
     tags: ['3D', 'Animation', 'Gaming', 'Webby Honoree 2025'],
     video: '/cases/videos/spaceship_horizontal.mp4',
@@ -479,6 +488,7 @@ const cases = ref<CaseItem[]>([
   {
     title: 'McNificents',
     client: "McDonald's — TBWA\\NEBOKO",
+    subtitle: '3D characters printed nationwide',
     description: "Created the 3D character models in Cinema 4D and rendered the visuals used on McDonald's placemats, printed nationwide.",
     tags: ['3D', 'Print', 'Character Design'],
     blocks: [
@@ -503,6 +513,7 @@ const cases = ref<CaseItem[]>([
   {
     title: 'TOTO Tactics',
     client: 'Koning TOTO — TBWA\\NEBOKO',
+    subtitle: 'Cloth banner animations for King Toto',
     description: "Animated the full banner set in Cinema 4D: cloth banners that roll out and wave in the wind, featuring Wesley Sneijder as Koning Toto.",
     tags: ['3D Animation', 'Banner', 'Sports'],
     video: '/cases/videos/koningtoto.mp4'
@@ -510,6 +521,7 @@ const cases = ref<CaseItem[]>([
   {
     title: 'Odido Brand Launch',
     client: 'Odido (formerly T-Mobile NL) — TBWA\\NEBOKO',
+    subtitle: 'HTML5 banners for the rebrand',
     description: "Oversaw the entire HTML5 banner development for the Odido (formerly T-Mobile) rebrand launch. Created the banner animations and guided the dev teams on final delivery across HPTO and IAB formats. The campaign won a Gold Dutch PR Award in 2024.",
     tags: ['Rebrand', 'Digital', 'Gold Dutch PR Award'],
     video: '/cases/videos/odidobanner.mp4'
@@ -517,6 +529,7 @@ const cases = ref<CaseItem[]>([
   {
     title: 'Schiphol World of Gifts',
     client: 'Schiphol Airport — TBWA\\NEBOKO',
+    subtitle: '3D gift boxes for the holidays',
     description: "Designed and rendered the 3D gift boxes in Cinema 4D. The visuals were used across Schiphol Airport's Christmas campaign for three consecutive years.",
     tags: ['3D', 'Installation', 'Holiday'],
     video: '/cases/videos/schipholkerst.mp4',
@@ -525,6 +538,7 @@ const cases = ref<CaseItem[]>([
   {
     title: 'Food Token Soup (NFT)',
     client: "Branca's Kitchen — Personal",
+    subtitle: '10,000 generative 3D soup cans',
     description: "10,000 procedurally generated 3D soup cans from the 2021 NFT wave. Created the generative pipeline in Cinema 4D. This project kicked off my journey into coding and Python.",
     tags: ['NFT', '3D', 'Generative', 'Coding'],
     blocks: [
@@ -556,6 +570,7 @@ const cases = ref<CaseItem[]>([
   {
     title: 'TBWA\\X Custom Arcade',
     client: 'TBWA\\X',
+    subtitle: 'A hand-built arcade cabinet',
     description: "Hand-built a full arcade cabinet for the TBWA\\X office. MDF frame, lasercut panels, hand-painted finish. All wiring and electronics. Runs RetroPie on a Raspberry Pi 4. Also created the intro video in Cinema 4D.",
     tags: ['Hardware', 'Craftsmanship', 'Design'],
     blocks: [
@@ -701,13 +716,11 @@ watch(() => route.hash, (hash) => {
   color: var(--ink);
 }
 
-.entry-client {
+.entry-subtitle {
   font-family: var(--font-body);
   font-size: var(--text-sm);
   font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: .5px;
-  color: var(--ink-faint);
+  color: var(--ink-muted);
 }
 
 .entry-tags {
@@ -812,13 +825,11 @@ watch(() => route.hash, (hash) => {
   color: var(--ink);
 }
 
-.overlay-client {
+.overlay-subtitle {
   font-family: var(--font-body);
   font-size: var(--text-sm);
   font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: .5px;
-  color: var(--ink-faint);
+  color: var(--ink-muted);
   margin: 0;
 }
 
@@ -1090,7 +1101,7 @@ watch(() => route.hash, (hash) => {
   .entry-tags { display: none; }
   .entry-bar { padding: 16px 18px; gap: var(--space-sm); }
   .entry-title { font-size: 1rem; }
-  .entry-client { font-size: var(--text-xs); }
+  .entry-subtitle { font-size: var(--text-xs); }
   .entry-images.dark-bg .entry-img { padding: 12px; }
 }
 </style>

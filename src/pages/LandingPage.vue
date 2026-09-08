@@ -129,7 +129,7 @@
               </div>
               <div class="case-card-info">
                 <span class="case-card-title">{{ c.title }}</span>
-                <span class="case-card-client">{{ c.client }}</span>
+                <span class="case-card-subtitle">{{ c.subtitle }}</span>
               </div>
             </div>
           </div>
@@ -253,16 +253,16 @@ const onMouseMove = (e: MouseEvent) => {
 }
 
 const topCases = [
-  { title: "McDonald's Fan Favorites", client: "McDonald's — TBWA\\NEBOKO", img: '/cases/images/fan_favorites_hero.webp', slug: 'mcdonald-s-fan-favorites' },
-  { title: 'LG Radio Optimism', client: 'LG Electronics — Global', img: '/cases/images/lg_hero.webp', slug: 'lg-radio-optimism' },
-  { title: "McDonald's Olifantenpaadjes", client: "McDonald's — TBWA\\NEBOKO", img: '/images/olifantenpaadjes1.jpeg', slug: 'mcdonald-s-olifantenpaadjes' },
-  { title: 'TBWA\\X Custom Arcade', client: 'TBWA\\X', img: '/cases/images/arcade_hero.webp', slug: 'tbwa-x-custom-arcade' },
-  { title: "McDonald's Delivery Detector", client: "McDonald's — TBWA\\NEBOKO", img: '/cases/images/mcdeliverydetector.avif', slug: 'mcdonald-s-delivery-detector' },
-  { title: 'SS26 New Amsterdam Surf Association', client: 'New Amsterdam Surf Association', img: '/cases/images/nasa_thumb.webp', slug: 'ss26-new-amsterdam-surf-association' },
-  { title: 'Abdulla Al Ghurair Foundation', client: 'Abdulla Al Ghurair Foundation', img: '/cases/images/abdul_thumb.webp', slug: 'abdulla-al-ghurair-foundation' },
-  { title: 'New Care Supplements', client: 'New Care — Sabatoka', img: '/cases/images/newcare_thumb.webp', slug: 'new-care-supplements' },
-  { title: 'Food Token Soup (NFT)', client: "Branca's Kitchen — Personal", img: '/cases/images/food_token_soup_hero.webp', slug: 'food-token-soup-nft' },
-  { title: "McDonald's Family Mode", client: "McDonald's — TBWA\\NEBOKO", img: '/cases/images/imgi_1_hero.webp', slug: 'mcdonald-s-family-mode' },
+  { title: "McDonald's Fan Favorites", subtitle: '4 million AI-generated custom menus', img: '/cases/images/fan_favorites_hero.webp', slug: 'mcdonald-s-fan-favorites' },
+  { title: 'LG Radio Optimism', subtitle: 'A million live songs and AI album covers', img: '/cases/images/lg_hero.webp', slug: 'lg-radio-optimism' },
+  { title: "McDonald's Olifantenpaadjes", subtitle: 'An interactive map of desire paths', img: '/images/olifantenpaadjes1.jpeg', slug: 'mcdonald-s-olifantenpaadjes' },
+  { title: 'TBWA\\X Custom Arcade', subtitle: 'A hand-built arcade cabinet', img: '/cases/images/arcade_hero.webp', slug: 'tbwa-x-custom-arcade' },
+  { title: "McDonald's Delivery Detector", subtitle: 'A Big Mac that orders itself', img: '/cases/images/mcdeliverydetector.avif', slug: 'mcdonald-s-delivery-detector' },
+  { title: 'SS26 New Amsterdam Surf Association', subtitle: 'Selfie to Palm Beach, for Paris Fashion Week', img: '/cases/images/nasa_thumb.webp', slug: 'ss26-new-amsterdam-surf-association' },
+  { title: 'Abdulla Al Ghurair Foundation', subtitle: 'An offline AI touchscreen installation', img: '/cases/images/abdul_thumb.webp', slug: 'abdulla-al-ghurair-foundation' },
+  { title: 'New Care Supplements', subtitle: 'A 3D + AI content pipeline', img: '/cases/images/newcare_thumb.webp', slug: 'new-care-supplements' },
+  { title: 'Food Token Soup (NFT)', subtitle: '10,000 generative 3D soup cans', img: '/cases/images/food_token_soup_hero.webp', slug: 'food-token-soup-nft' },
+  { title: "McDonald's Family Mode", subtitle: 'A 3D avatar builder inside the app', img: '/cases/images/imgi_1_hero.webp', slug: 'mcdonald-s-family-mode' },
 ]
 
 const loopCases = computed(() => [...topCases, ...topCases, ...topCases])
@@ -752,10 +752,9 @@ onUnmounted(() => {
   line-height: 1.3;
 }
 
-.case-card-client {
+.case-card-subtitle {
   font-size: var(--text-xs);
-  color: var(--ink-faint);
-  letter-spacing: 0.3px;
+  color: var(--ink-muted);
 }
 
 .cases-directory {
@@ -1113,7 +1112,7 @@ onUnmounted(() => {
     font-size: 14px;
   }
 
-  .case-card-client {
+  .case-card-subtitle {
     font-size: 12px;
   }
 
