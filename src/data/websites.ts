@@ -3,6 +3,8 @@ export interface PaletteColor {
   hex: string
 }
 
+export type CustomKind = 'search' | 'slider' | 'input' | 'swap' | 'swatches'
+
 export interface SiteSpec {
   palette: {
     primary: PaletteColor
@@ -14,6 +16,11 @@ export interface SiteSpec {
     headline: string
     body: string
     label: string
+  }
+  custom: {
+    kind: CustomKind
+    placeholder?: string
+    label?: string
   }
 }
 
@@ -37,12 +44,13 @@ export const websites: Site[] = [
     tags: ['Reviews', 'AI Pipeline', 'Full-stack'],
     spec: {
       palette: {
-        primary: { name: 'Primary', hex: '#7c3aed' },
-        secondary: { name: 'Secondary', hex: '#22c55e' },
-        tertiary: { name: 'Tertiary', hex: '#18181b' },
+        primary: { name: 'Primary', hex: '#09090b' },
+        secondary: { name: 'Secondary', hex: '#7c3aed' },
+        tertiary: { name: 'Tertiary', hex: '#22c55e' },
         neutral: { name: 'Neutral', hex: '#f4f4f5' }
       },
-      fonts: { headline: 'Space Grotesk', body: 'Inter', label: 'JetBrains Mono' }
+      fonts: { headline: 'Space Grotesk', body: 'Inter', label: 'JetBrains Mono' },
+      custom: { kind: 'search', placeholder: 'Search plugins…' }
     }
   },
   {
@@ -59,7 +67,8 @@ export const websites: Site[] = [
         tertiary: { name: 'Tertiary', hex: '#7a7a7a' },
         neutral: { name: 'Neutral', hex: '#f2f2f2' }
       },
-      fonts: { headline: 'Space Grotesk', body: 'Inter', label: 'JetBrains Mono' }
+      fonts: { headline: 'Space Grotesk', body: 'Inter', label: 'JetBrains Mono' },
+      custom: { kind: 'slider', label: 'Grain intensity' }
     }
   },
   {
@@ -75,7 +84,8 @@ export const websites: Site[] = [
         tertiary: { name: 'Tertiary', hex: '#8ab4f8' },
         neutral: { name: 'Neutral', hex: '#e8eaed' }
       },
-      fonts: { headline: 'Sora', body: 'Plus Jakarta Sans', label: 'JetBrains Mono' }
+      fonts: { headline: 'Sora', body: 'Plus Jakarta Sans', label: 'JetBrains Mono' },
+      custom: { kind: 'search', placeholder: 'Search the latent web' }
     }
   },
   {
@@ -86,12 +96,13 @@ export const websites: Site[] = [
     tags: ['Marketplace', 'AI', 'Fintech'],
     spec: {
       palette: {
-        primary: { name: 'Primary', hex: '#16a34a' },
-        secondary: { name: 'Secondary', hex: '#111827' },
+        primary: { name: 'Primary', hex: '#111827' },
+        secondary: { name: 'Secondary', hex: '#16a34a' },
         tertiary: { name: 'Tertiary', hex: '#2563eb' },
-        neutral: { name: 'Neutral', hex: '#f9fafb' }
+        neutral: { name: 'Neutral', hex: '#ffffff' }
       },
-      fonts: { headline: 'Manrope', body: 'Inter', label: 'JetBrains Mono' }
+      fonts: { headline: 'Manrope', body: 'Inter', label: 'JetBrains Mono' },
+      custom: { kind: 'swap', placeholder: 'Amount' }
     }
   },
   {
@@ -104,12 +115,13 @@ export const websites: Site[] = [
     thumb: 'reddituserinfo.webp',
     spec: {
       palette: {
-        primary: { name: 'Primary', hex: '#ff4500' },
-        secondary: { name: 'Secondary', hex: '#0d0d0d' },
-        tertiary: { name: 'Tertiary', hex: '#0079d3' },
+        primary: { name: 'Primary', hex: '#ff6b6b' },
+        secondary: { name: 'Secondary', hex: '#4ade80' },
+        tertiary: { name: 'Tertiary', hex: '#1a1a1a' },
         neutral: { name: 'Neutral', hex: '#ffffff' }
       },
-      fonts: { headline: 'Inter', body: 'Inter', label: 'JetBrains Mono' }
+      fonts: { headline: 'Space Grotesk', body: 'Space Grotesk', label: 'JetBrains Mono' },
+      custom: { kind: 'input', placeholder: 'u/username' }
     }
   },
   {
@@ -125,7 +137,8 @@ export const websites: Site[] = [
         tertiary: { name: 'Tertiary', hex: '#78716c' },
         neutral: { name: 'Neutral', hex: '#fafaf9' }
       },
-      fonts: { headline: 'DM Serif Display', body: 'DM Sans', label: 'DM Sans' }
+      fonts: { headline: 'DM Serif Display', body: 'DM Sans', label: 'DM Sans' },
+      custom: { kind: 'search', placeholder: 'Search jobs…' }
     }
   },
   {
@@ -138,12 +151,13 @@ export const websites: Site[] = [
     thumb: 'millionpixels.webp',
     spec: {
       palette: {
-        primary: { name: 'Primary', hex: '#ff0000' },
-        secondary: { name: 'Secondary', hex: '#0a0a0f' },
-        tertiary: { name: 'Tertiary', hex: '#2563eb' },
-        neutral: { name: 'Neutral', hex: '#ffffff' }
+        primary: { name: 'Primary', hex: '#f97316' },
+        secondary: { name: 'Secondary', hex: '#22d3ee' },
+        tertiary: { name: 'Tertiary', hex: '#08080c' },
+        neutral: { name: 'Neutral', hex: '#ececf4' }
       },
-      fonts: { headline: 'Sora', body: 'Plus Jakarta Sans', label: 'JetBrains Mono' }
+      fonts: { headline: 'Sora', body: 'Plus Jakarta Sans', label: 'JetBrains Mono' },
+      custom: { kind: 'swatches', label: 'Paint' }
     }
   }
 ]

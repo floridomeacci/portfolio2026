@@ -28,7 +28,7 @@
       <div v-if="expanded !== null" class="site-overlay" @click.self="closeOverlay">
         <SiteNav overlay />
 
-        <div class="overlay-body">
+        <div class="overlay-body" @scroll="onMediaScroll" @wheel="onMediaWheel">
           <div class="overlay-text">
             <button class="overlay-close" @click="closeOverlay" aria-label="Close">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -44,7 +44,13 @@
             </div>
           </div>
 
-          <div class="overlay-media">
+          <div class="overlay-media" ref="mediaRef" @scroll="onMediaScroll" @wheel="onMediaWheel">
+            <div class="site-hint site-hint--prev" :class="{ visible: reachedTop }" @click="advancePrev">
+              <span class="hint-arrow" aria-hidden="true">&#8593;</span>
+              <span class="hint-title">{{ prevSiteTitle }}</span>
+              <span class="hint-label">Previous</span>
+            </div>
+
             <DesignSheet :spec="sites[expanded].spec" />
 
             <div class="site-preview">
@@ -60,6 +66,12 @@
                 scrolling="no"
               ></iframe>
             </div>
+
+            <div class="site-hint site-hint--next" :class="{ visible: reachedBottom }" @click="advanceNext">
+              <span class="hint-label">Next</span>
+              <span class="hint-title">{{ nextSiteTitle }}</span>
+              <span class="hint-arrow" aria-hidden="true">&#8595;</span>
+            </div>
           </div>
         </div>
       </div>
@@ -68,22 +80,121 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed, nextTick } from 'vue'
 import SiteNav from '../components/SiteNav.vue'
 import DesignSheet from '../components/DesignSheet.vue'
 import { websites } from '../data/websites'
 
 const sites = websites
 const expanded = ref<number | null>(null)
+const mediaRef = ref<HTMLElement | null>(null)
+const reachedBottom = ref(false)
+const reachedTop = ref(false)
+
+let extraScroll = 0
+let prevExtraScroll = 0
 
 const toggleSite = (i: number) => {
-  expanded.value = expanded.value === i ? null : i
-  document.documentElement.style.overflow = expanded.value !== null ? 'hidden' : ''
+  if (expanded.value === i) {
+    closeOverlay()
+  } else {
+    expanded.value = i
+    document.documentElement.style.overflow = 'hidden'
+    resetScroll()
+    nextTick(() => scrollMediaTop())
+  }
 }
 
 const closeOverlay = () => {
   expanded.value = null
   document.documentElement.style.overflow = ''
+  resetScroll()
+}
+
+function resetScroll() {
+  reachedBottom.value = false
+  reachedTop.value = false
+  extraScroll = 0
+  prevExtraScroll = 0
+}
+
+function scrollMediaTop() {
+  nextTick(() => {
+    if (mediaRef.value) mediaRef.value.scrollTop = 0
+  })
+}
+
+const nextSiteTitle = computed(() => {
+  if (expanded.value === null) return ''
+  return sites[(expanded.value + 1) % sites.length].label
+})
+
+const prevSiteTitle = computed(() => {
+  if (expanded.value === null) return ''
+  return sites[(expanded.value - 1 + sites.length) % sites.length].label
+})
+
+function getScrollEl(): HTMLElement | null {
+  const m = mediaRef.value
+  if (!m) return null
+  if (m.scrollHeight > m.clientHeight + 1) return m
+  const p = m.parentElement
+  if (p && p.scrollHeight > p.clientHeight + 1) return p
+  return m
+}
+
+function updateScrollState() {
+  const el = getScrollEl()
+  if (!el) return
+  const atTop = el.scrollTop <= 8
+  const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 8
+  if (atTop && !reachedTop.value) prevExtraScroll = 0
+  if (atBottom && !reachedBottom.value) extraScroll = 0
+  reachedTop.value = atTop
+  reachedBottom.value = atBottom
+}
+
+function onMediaScroll() {
+  updateScrollState()
+}
+
+function onMediaWheel(e: WheelEvent) {
+  if (expanded.value === null) return
+  const el = getScrollEl()
+  if (!el) return
+  const atTop = el.scrollTop <= 8
+  const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 8
+
+  if (e.deltaY < 0 && atTop) {
+    prevExtraScroll += Math.abs(e.deltaY)
+    if (prevExtraScroll > 120) {
+      prevExtraScroll = 0
+      advancePrev()
+    }
+  } else if (e.deltaY > 0 && atBottom) {
+    extraScroll += e.deltaY
+    if (extraScroll > 120) {
+      extraScroll = 0
+      advanceNext()
+    }
+  } else {
+    extraScroll = 0
+    prevExtraScroll = 0
+  }
+}
+
+function advanceNext() {
+  if (expanded.value === null) return
+  expanded.value = (expanded.value + 1) % sites.length
+  resetScroll()
+  scrollMediaTop()
+}
+
+function advancePrev() {
+  if (expanded.value === null) return
+  expanded.value = (expanded.value - 1 + sites.length) % sites.length
+  resetScroll()
+  scrollMediaTop()
 }
 </script>
 
@@ -324,6 +435,54 @@ const closeOverlay = () => {
 .preview-fallback img {
   width: 100%;
   display: block;
+}
+
+/* Next / prev site hints */
+.site-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 28px 16px;
+  opacity: 0;
+  transition: opacity 300ms var(--ease-out), transform 300ms var(--ease-out);
+  cursor: pointer;
+}
+.site-hint--prev { transform: translateY(-6px); }
+.site-hint--next { transform: translateY(6px); }
+.site-hint.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hint-label {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--ink-faint);
+}
+
+.hint-title {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+}
+
+.hint-arrow {
+  font-size: 14px;
+  color: var(--ink-faint);
+}
+.site-hint--next .hint-arrow { animation: hint-bob-down 1.4s ease-in-out infinite; }
+.site-hint--prev .hint-arrow { animation: hint-bob-up 1.4s ease-in-out infinite; }
+
+@keyframes hint-bob-down {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+@keyframes hint-bob-up {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
 }
 
 /* Overlay transition */
