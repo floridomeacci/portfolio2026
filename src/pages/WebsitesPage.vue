@@ -217,10 +217,15 @@ function advancePrev() {
 }
 
 .cv-body {
-  padding: var(--space-xl) 0 var(--space-2xl);
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 53px);
+  overflow: hidden;
 }
 
 .sites-list {
+  flex: 1;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
 }
@@ -510,6 +515,7 @@ function advancePrev() {
 }
 
 @media (max-width: 768px) {
+  .cv-body { height: calc(100vh - 45px); }
   .overlay-body {
     flex-direction: column;
     overflow-y: auto;
