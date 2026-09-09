@@ -126,14 +126,17 @@ onMounted(() => {
     mat.needsUpdate = true
   }
 
+  const AMP = THREE.MathUtils.degToRad(30)
+
   const tick = () => {
     const t = clock.getElapsedTime()
     if (model) {
       if (!reducedMotion) {
-        model.rotation.y = t * 0.3 + pointer.y * 0.2
-        model.rotation.x = t * 0.15 + pointer.x * 0.1
+        model.rotation.y = (Math.sin(t * 0.4) * 0.6 + pointer.x * 0.4) * AMP
+        model.rotation.x = (Math.sin(t * 0.3) * 0.6 + pointer.y * 0.4) * AMP
+        model.rotation.z = Math.sin(t * 0.2) * AMP * 0.4
       } else {
-        model.rotation.set(0.2, 0.4, 0)
+        model.rotation.set(0, 0, 0)
       }
     }
     renderer!.render(scene, camera)
