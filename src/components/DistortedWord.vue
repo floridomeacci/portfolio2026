@@ -22,27 +22,39 @@ import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
 const props = defineProps<{ text: string; active: boolean }>()
 
 const filterId = 'dword-' + Math.random().toString(36).slice(2, 9)
-const seed = ref(3)
-const scale = ref(4)
-const freq = ref('0.06 0.14')
-let timer: ReturnType<typeof setInterval> | null = null
+const seed = Math.floor(Math.random() * 900) + 1
+const scale = ref(3)
+const freq = ref('0.06 0.12')
 
-function tick() {
-  seed.value = Math.floor(Math.random() * 900) + 1
-  scale.value = Math.floor(Math.random() * 5) + 2
-  freq.value = (0.04 + Math.random() * 0.06).toFixed(2) + ' ' + (0.1 + Math.random() * 0.12).toFixed(2)
+let raf = 0
+let scaleVal = 3
+let scaleTarget = 3
+let fx = 0.06
+let fy = 0.12
+let fxT = 0.06
+let fyT = 0.12
+
+function loop() {
+  scaleVal += (scaleTarget - scaleVal) * 0.05
+  fx += (fxT - fx) * 0.05
+  fy += (fyT - fy) * 0.05
+  scale.value = scaleVal
+  freq.value = fx.toFixed(3) + ' ' + fy.toFixed(3)
+
+  if (Math.abs(scaleTarget - scaleVal) < 0.05) scaleTarget = 2 + Math.random() * 3
+  if (Math.abs(fxT - fx) < 0.001) fxT = 0.04 + Math.random() * 0.04
+  if (Math.abs(fyT - fy) < 0.001) fyT = 0.08 + Math.random() * 0.08
+
+  raf = requestAnimationFrame(loop)
 }
 
 function start() {
-  tick()
-  timer = setInterval(tick, 300)
+  cancelAnimationFrame(raf)
+  raf = requestAnimationFrame(loop)
 }
 
 function stop() {
-  if (timer) {
-    clearInterval(timer)
-    timer = null
-  }
+  cancelAnimationFrame(raf)
 }
 
 watch(() => props.active, (v) => {

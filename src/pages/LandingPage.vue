@@ -353,7 +353,7 @@ onUnmounted(() => {
   background: var(--bg);
   color: var(--ink);
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow-x: clip;
   font-family: var(--font-body);
   font-size: var(--text-base);
   line-height: 1.6;
