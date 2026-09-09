@@ -76,7 +76,7 @@ const activeKey = computed(() => {
 
 .nav-link.active {
   opacity: 1;
-  font-weight: 300;
+  font-weight: 700;
 }
 
 .nav-sep {
