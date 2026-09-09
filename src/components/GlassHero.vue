@@ -35,18 +35,8 @@ onMounted(() => {
   const pmrem = new THREE.PMREMGenerator(renderer)
   scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture
 
-  let floridoTexture: THREE.CanvasTexture | null = null
-  let meacciTexture: THREE.CanvasTexture | null = null
-
-  const makeTextPlane = () => new THREE.Mesh(
-    new THREE.PlaneGeometry(1, 1),
-    new THREE.MeshBasicMaterial({ toneMapped: false, transparent: true })
-  )
-
-  const floridoPlane = makeTextPlane()
-  const meacciPlane = makeTextPlane()
-  scene.add(floridoPlane)
-  scene.add(meacciPlane)
+  let floridoPlane: THREE.Mesh | null = null
+  let meacciPlane: THREE.Mesh | null = null
 
   let visibleWidth = 1
   let slideStart = 0
@@ -91,29 +81,63 @@ onMounted(() => {
   loader.setDRACOLoader(draco)
   loader.load('/models/hero.glb', onModelLoaded, undefined, () => {})
 
-  const drawWord = (word: string, size: number, yCenter: number, width: number, height: number) => {
+  const createWordPlane = (word: string, size: number, worldK: number) => {
+    const mctx = document.createElement('canvas').getContext('2d')
+    if (!mctx) return null
+    mctx.font = `900 ${size}px "Inter Tight", sans-serif`
+    const textW = mctx.measureText(word).width
+    const pad = size * 0.2
+    const cw = Math.ceil(textW + pad * 2)
+    const ch = Math.ceil(size * 1.3)
+
     const dpr = Math.min(window.devicePixelRatio, 2)
     const tc = document.createElement('canvas')
+    tc.width = Math.round(cw * dpr)
+    tc.height = Math.round(ch * dpr)
     const ctx = tc.getContext('2d')
     if (!ctx) return null
-    tc.width = Math.round(width * dpr)
-    tc.height = Math.round(height * dpr)
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-    ctx.clearRect(0, 0, width, height)
+    ctx.fillStyle = BG
+    ctx.fillRect(0, 0, cw, ch)
     ctx.fillStyle = INK
     ctx.textAlign = 'center'
     ctx.textBaseline = 'middle'
     ctx.font = `900 ${size}px "Inter Tight", sans-serif`
-    ctx.fillText(word, width / 2, yCenter)
+    ctx.fillText(word, cw / 2, ch / 2)
+
     const texture = new THREE.CanvasTexture(tc)
     texture.colorSpace = THREE.SRGBColorSpace
     texture.anisotropy = renderer!.capabilities.getMaxAnisotropy()
-    return texture
+
+    const plane = new THREE.Mesh(
+      new THREE.PlaneGeometry(1, 1),
+      new THREE.MeshBasicMaterial({ toneMapped: false, map: texture })
+    )
+    plane.scale.set(cw * worldK, ch * worldK, 1)
+    return plane
   }
 
-  const drawText = (width: number, height: number) => {
-    const maxWidth = width * 0.55
-    const maxHeight = height * 0.45
+  const disposePlane = (p: THREE.Mesh | null) => {
+    if (!p) return
+    const mat = p.material as THREE.MeshBasicMaterial
+    mat.map?.dispose()
+    mat.dispose()
+    p.geometry.dispose()
+  }
+
+  const resize = () => {
+    const w = canvas.clientWidth || window.innerWidth
+    const h = canvas.clientHeight || window.innerHeight
+    renderer!.setSize(w, h, false)
+    camera.aspect = w / h
+    camera.updateProjectionMatrix()
+
+    const visibleHeight = 2 * CAMERA_Z * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2))
+    visibleWidth = visibleHeight * camera.aspect
+    const worldK = visibleWidth / w
+
+    const maxWidth = w * 0.55
+    const maxHeight = h * 0.45
     const baseSize = 70
     const maxFont = 140
     const lineGap = 1.0
@@ -128,20 +152,18 @@ onMounted(() => {
     const size1 = s1 * fit
     const size2 = s2 * fit
 
-    const y1 = height / 2 - (size2 * lineGap) / 2
-    const y2 = height / 2 + (size1 * lineGap) / 2
+    if (floridoPlane) { scene.remove(floridoPlane); disposePlane(floridoPlane) }
+    if (meacciPlane) { scene.remove(meacciPlane); disposePlane(meacciPlane) }
 
-    if (floridoTexture) floridoTexture.dispose()
-    if (meacciTexture) meacciTexture.dispose()
-    floridoTexture = drawWord('FLORIDO', size1, y1, width, height)
-    meacciTexture = drawWord('MEACCI', size2, y2, width, height)
+    floridoPlane = createWordPlane('FLORIDO', size1, worldK)
+    meacciPlane = createWordPlane('MEACCI', size2, worldK)
 
-    const fm = floridoPlane.material as THREE.MeshBasicMaterial
-    const mm = meacciPlane.material as THREE.MeshBasicMaterial
-    fm.map = floridoTexture
-    fm.needsUpdate = true
-    mm.map = meacciTexture
-    mm.needsUpdate = true
+    if (floridoPlane && meacciPlane) {
+      floridoPlane.position.y = (size2 * lineGap) / 2 * worldK
+      meacciPlane.position.y = -(size1 * lineGap) / 2 * worldK
+      scene.add(floridoPlane)
+      scene.add(meacciPlane)
+    }
   }
 
   const AMP = THREE.MathUtils.degToRad(30)
@@ -155,10 +177,10 @@ onMounted(() => {
 
   const tick = () => {
     const t = clock.getElapsedTime()
-
     const e = slideProgress()
-    floridoPlane.position.x = -visibleWidth * (1 - e)
-    meacciPlane.position.x = visibleWidth * (1 - e)
+
+    if (floridoPlane) floridoPlane.position.x = -visibleWidth * (1 - e)
+    if (meacciPlane) meacciPlane.position.x = visibleWidth * (1 - e)
 
     if (model) {
       if (!reducedMotion) {
@@ -170,20 +192,6 @@ onMounted(() => {
       }
     }
     renderer!.render(scene, camera)
-  }
-
-  const resize = () => {
-    const w = canvas.clientWidth || window.innerWidth
-    const h = canvas.clientHeight || window.innerHeight
-    renderer!.setSize(w, h, false)
-    camera.aspect = w / h
-    camera.updateProjectionMatrix()
-
-    const visibleHeight = 2 * CAMERA_Z * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2))
-    visibleWidth = visibleHeight * camera.aspect
-    floridoPlane.scale.set(visibleWidth, visibleHeight, 1)
-    meacciPlane.scale.set(visibleWidth, visibleHeight, 1)
-    drawText(w, h)
   }
 
   const pointer = new THREE.Vector2()
@@ -216,8 +224,8 @@ onMounted(() => {
     window.removeEventListener('pointermove', onPointerMove)
     window.removeEventListener('resize', onResize)
     renderer?.setAnimationLoop(null)
-    floridoTexture?.dispose()
-    meacciTexture?.dispose()
+    disposePlane(floridoPlane)
+    disposePlane(meacciPlane)
     renderer?.dispose()
     renderer = null
   }
