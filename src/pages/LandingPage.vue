@@ -62,6 +62,7 @@
             </a>
           </div>
         </div>
+        <router-link to="/websites" class="cases-directory">View all websites <span class="arrow">&rarr;</span></router-link>
       </section>
 
       <!-- Sandbox Preview -->
@@ -198,12 +199,12 @@ const loopCases = computed(() => [...topCases, ...topCases, ...topCases])
 
 const passionProjects = [
   { url: 'https://tlguide.com', label: 'tlguide.com', desc: 'I made a review site for Figma plugins and widgets. The reviews and outreach are mostly automated with AI.' },
-  { url: 'https://www.figma.com/community/plugin/1626934504810261537', label: 'Filters & Grain', desc: 'A Figma plugin for color grading, film grain and vignette. No Photoshop needed.', noEmbed: true, thumb: 'figma.webp' },
   { url: 'https://www.latentsearch.net/', label: 'latentsearch.net', desc: 'Every search result is AI-generated. It looks normal, but the content is fake.' },
   { url: 'https://creditswap.app', label: 'creditswap.app', desc: 'A private marketplace for reselling AI API credits. Buyers pay less, sellers monetize unused capacity.' },
   { url: 'https://reddituser.info', label: 'reddituser.info', desc: 'Paste a Reddit username, get an AI-generated report with graphs. Activity, interests, posting habits.', noEmbed: true, thumb: 'reddituserinfo.webp' },
   { url: 'https://colino.work', label: 'colino.work', desc: 'A job search that filters live openings down to the roles that actually match your CV. Upload your resume and it ranks the jobs that fit.' },
   { url: 'https://mlnpx.com', label: 'million.pixels', desc: 'A one-million-pixel canvas painted by AI agents and the people who direct them. A live demo of WebMCP.', noEmbed: true, thumb: 'millionpixels.webp' },
+  { url: 'https://www.figma.com/community/plugin/1626934504810261537', label: 'Filters & Grain', desc: 'A Figma plugin for color grading, film grain and vignette. No Photoshop needed.', noEmbed: true, thumb: 'figma.webp' },
 ]
 
 const loopPassion = computed(() => [...passionProjects, ...passionProjects, ...passionProjects])
