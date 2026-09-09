@@ -2,7 +2,7 @@
   <header class="site-nav" :class="{ 'site-nav--overlay': overlay }">
     <template v-for="(link, i) in links" :key="link.key">
       <router-link :to="link.to" class="nav-link" :class="{ active: activeKey === link.key }">
-        <DistortedWord :text="link.label" :active="activeKey === link.key" />
+        <GlitchWord :text="link.label" :active="activeKey === link.key" />
       </router-link>
       <span v-if="i < links.length - 1" class="nav-sep">/</span>
     </template>
@@ -12,7 +12,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import DistortedWord from './DistortedWord.vue'
+import GlitchWord from './GlitchWord.vue'
 
 defineProps<{ overlay?: boolean }>()
 
