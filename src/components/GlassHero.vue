@@ -12,6 +12,7 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js'
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 
 const INK = '#0e0a08'
+const BG = '#fcf5f2'
 const CAMERA_Z = 5
 
 let renderer: THREE.WebGLRenderer | null = null
@@ -27,6 +28,7 @@ onMounted(() => {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
   const scene = new THREE.Scene()
+  scene.background = new THREE.Color(BG)
   const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100)
   camera.position.z = CAMERA_Z
 
