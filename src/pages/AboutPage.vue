@@ -130,15 +130,6 @@
           </section>
 
           <section>
-            <div class="sec-hdr"><span>Languages</span><span class="idx">05</span></div>
-            <div class="lang-grid">
-              <div class="lg-row"><span class="n">English</span><span class="lv">C2</span></div>
-              <div class="lg-row"><span class="n">Dutch</span><span class="lv">C2</span></div>
-              <div class="lg-row"><span class="n">Italian</span><span class="lv">C2</span></div>
-            </div>
-          </section>
-
-          <section>
             <div class="sec-hdr"><span>Education</span><span class="idx">07</span></div>
             <div class="edu">
               <span class="date">2025 &#x2013; 2026</span>
