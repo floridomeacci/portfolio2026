@@ -1,46 +1,41 @@
 <template>
-  <span class="dword" :class="{ 'dword--active': active }">
-    <template v-if="active">
-      <span
-        v-for="(ch, i) in chars"
-        :key="i"
-        class="dletter"
-        :style="{ transform: transforms[i] || 'none' }"
-      >{{ ch }}</span>
-    </template>
-    <template v-else>{{ text }}</template>
+  <span
+    class="dword"
+    :class="{ 'dword--active': active }"
+    :style="active ? { filter: `url(#${filterId})` } : {}"
+  >
+    {{ text }}
+    <svg v-if="active" class="dword-svg" aria-hidden="true" focusable="false">
+      <defs>
+        <filter :id="filterId" x="-50%" y="-50%" width="200%" height="200%">
+          <feTurbulence type="fractalNoise" :baseFrequency="freq" numOctaves="2" :seed="seed" result="noise" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" :scale="scale" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+      </defs>
+    </svg>
   </span>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue'
+import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
 
 const props = defineProps<{ text: string; active: boolean }>()
 
-const chars = computed(() => props.text.split(''))
-const transforms = ref<string[]>([])
+const filterId = 'dword-' + Math.random().toString(36).slice(2, 9)
+const seed = ref(3)
+const scale = ref(4)
+const freq = ref('0.06 0.14')
 let timer: ReturnType<typeof setInterval> | null = null
 
-const rand = () => Math.random() * 2 - 1
-
-function randomTransform() {
-  const rot = (rand() * 10).toFixed(1)
-  const sx = (rand() * 12).toFixed(1)
-  const sy = (rand() * 12).toFixed(1)
-  const scx = (1 + rand() * 0.14).toFixed(2)
-  const scy = (1 + rand() * 0.14).toFixed(2)
-  const tx = (rand() * 3).toFixed(1)
-  const ty = (rand() * 3).toFixed(1)
-  return `rotate(${rot}deg) skewX(${sx}deg) skewY(${sy}deg) scale(${scx}, ${scy}) translate(${tx}px, ${ty}px)`
-}
-
 function tick() {
-  transforms.value = chars.value.map(() => randomTransform())
+  seed.value = Math.floor(Math.random() * 900) + 1
+  scale.value = Math.floor(Math.random() * 5) + 2
+  freq.value = (0.04 + Math.random() * 0.06).toFixed(2) + ' ' + (0.1 + Math.random() * 0.12).toFixed(2)
 }
 
 function start() {
   tick()
-  timer = setInterval(tick, 280)
+  timer = setInterval(tick, 300)
 }
 
 function stop() {
@@ -52,10 +47,7 @@ function stop() {
 
 watch(() => props.active, (v) => {
   if (v) start()
-  else {
-    stop()
-    transforms.value = []
-  }
+  else stop()
 })
 
 onMounted(() => {
@@ -67,13 +59,15 @@ onBeforeUnmount(stop)
 
 <style scoped>
 .dword {
+  position: relative;
   display: inline-block;
   white-space: nowrap;
 }
 
-.dletter {
-  display: inline-block;
-  transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform;
+.dword-svg {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
 }
 </style>
