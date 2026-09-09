@@ -6,6 +6,8 @@
 import { onMounted, onBeforeUnmount, ref } from 'vue'
 import * as THREE from 'three'
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js'
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js'
 
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 
@@ -41,22 +43,45 @@ onMounted(() => {
   )
   scene.add(textPlane)
 
-  const torus = new THREE.Mesh(
-    new THREE.TorusKnotGeometry(1, 0.3, 300, 48, 2, 3),
-    new THREE.MeshPhysicalMaterial({
-      color: 0xffffff,
-      metalness: 0,
-      roughness: 0,
-      transmission: 1,
-      thickness: 0.7,
-      ior: 1.45,
-      dispersion: 4,
-      envMapIntensity: 1,
-      toneMapped: false
+  const glassMaterial = new THREE.MeshPhysicalMaterial({
+    color: 0xffffff,
+    metalness: 0,
+    roughness: 0,
+    transmission: 1,
+    thickness: 0.5,
+    ior: 1.45,
+    dispersion: 4,
+    envMapIntensity: 1,
+    toneMapped: false
+  })
+
+  let model: THREE.Object3D | null = null
+
+  const onModelLoaded = (gltf: THREE.GLTF) => {
+    model = gltf.scene
+    model.traverse((o) => {
+      const m = o as THREE.Mesh
+      if (m.isMesh) m.material = glassMaterial
     })
-  )
-  torus.position.z = 2.2
-  scene.add(torus)
+
+    const box = new THREE.Box3().setFromObject(model)
+    const size = box.getSize(new THREE.Vector3())
+    const center = box.getCenter(new THREE.Vector3())
+    const maxDim = Math.max(size.x, size.y, size.z) || 1
+    const scale = 2.1 / maxDim
+
+    model.scale.setScalar(scale)
+    model.position.sub(center.multiplyScalar(scale))
+    model.position.z = 2.4
+
+    scene.add(model)
+  }
+
+  const draco = new DRACOLoader()
+  draco.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/')
+  const loader = new GLTFLoader()
+  loader.setDRACOLoader(draco)
+  loader.load('/models/hero.glb', onModelLoaded, undefined, () => {})
 
   const drawText = (width: number, height: number) => {
     const dpr = Math.min(window.devicePixelRatio, 2)
@@ -103,11 +128,13 @@ onMounted(() => {
 
   const tick = () => {
     const t = clock.getElapsedTime()
-    if (!reducedMotion) {
-      torus.rotation.x = t * 0.35 + pointer.y * 0.15
-      torus.rotation.y = t * 0.5 + pointer.x * 0.2
-    } else {
-      torus.rotation.set(0.6, 0.4, 0)
+    if (model) {
+      if (!reducedMotion) {
+        model.rotation.y = t * 0.3 + pointer.y * 0.2
+        model.rotation.x = t * 0.15 + pointer.x * 0.1
+      } else {
+        model.rotation.set(0.2, 0.4, 0)
+      }
     }
     renderer!.render(scene, camera)
   }
@@ -122,8 +149,6 @@ onMounted(() => {
     const visibleHeight = 2 * CAMERA_Z * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2))
     const visibleWidth = visibleHeight * camera.aspect
     textPlane.scale.set(visibleWidth, visibleHeight, 1)
-    const torusScale = Math.min(visibleWidth, visibleHeight) * 0.075
-    torus.scale.setScalar(torusScale)
     drawText(w, h)
   }
 
