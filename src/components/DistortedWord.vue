@@ -27,24 +27,14 @@ const scale = ref(3)
 const freq = ref('0.06 0.12')
 
 let raf = 0
-let scaleVal = 3
-let scaleTarget = 3
-let fx = 0.06
-let fy = 0.12
-let fxT = 0.06
-let fyT = 0.12
 
 function loop() {
-  scaleVal += (scaleTarget - scaleVal) * 0.05
-  fx += (fxT - fx) * 0.05
-  fy += (fyT - fy) * 0.05
-  scale.value = scaleVal
+  const t = performance.now() / 1000
+  const s = 3.5 + Math.sin(t * 0.5) * 1.0 + Math.sin(t * 0.21 + 1.3) * 0.6
+  const fx = 0.06 + Math.sin(t * 0.4 + 0.5) * 0.015 + Math.sin(t * 0.13) * 0.01
+  const fy = 0.12 + Math.sin(t * 0.33 + 2.1) * 0.025 + Math.sin(t * 0.17 + 0.8) * 0.015
+  scale.value = s
   freq.value = fx.toFixed(3) + ' ' + fy.toFixed(3)
-
-  if (Math.abs(scaleTarget - scaleVal) < 0.05) scaleTarget = 2 + Math.random() * 3
-  if (Math.abs(fxT - fx) < 0.001) fxT = 0.04 + Math.random() * 0.04
-  if (Math.abs(fyT - fy) < 0.001) fyT = 0.08 + Math.random() * 0.08
-
   raf = requestAnimationFrame(loop)
 }
 
