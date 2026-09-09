@@ -1,24 +1,30 @@
 <template>
   <header class="site-nav" :class="{ 'site-nav--overlay': overlay }">
-    <router-link to="/" class="nav-link" :class="{ active: activeKey === '/' }">Home</router-link>
-    <span class="nav-sep">/</span>
-    <router-link to="/websites" class="nav-link" :class="{ active: activeKey === '/websites' }">Websites</router-link>
-    <span class="nav-sep">/</span>
-    <router-link to="/cases" class="nav-link" :class="{ active: activeKey === '/cases' }">Cases</router-link>
-    <span class="nav-sep">/</span>
-    <router-link to="/sandbox" class="nav-link" :class="{ active: activeKey === '/sandbox' }">N8N Sandbox</router-link>
-    <span class="nav-sep">/</span>
-    <router-link to="/about" class="nav-link" :class="{ active: activeKey === '/about' }">About</router-link>
+    <template v-for="(link, i) in links" :key="link.key">
+      <router-link :to="link.to" class="nav-link" :class="{ active: activeKey === link.key }">
+        <DistortedWord :text="link.label" :active="activeKey === link.key" />
+      </router-link>
+      <span v-if="i < links.length - 1" class="nav-sep">/</span>
+    </template>
   </header>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
+import DistortedWord from './DistortedWord.vue'
 
 defineProps<{ overlay?: boolean }>()
 
 const route = useRoute()
+
+const links = [
+  { to: '/', key: '/', label: 'Home' },
+  { to: '/websites', key: '/websites', label: 'Websites' },
+  { to: '/cases', key: '/cases', label: 'Cases' },
+  { to: '/sandbox', key: '/sandbox', label: 'N8N Sandbox' },
+  { to: '/about', key: '/about', label: 'About' }
+]
 
 const activeKey = computed(() => {
   const p = route.path
@@ -70,7 +76,7 @@ const activeKey = computed(() => {
 
 .nav-link.active {
   opacity: 1;
-  font-weight: 600;
+  font-weight: 300;
 }
 
 .nav-sep {
