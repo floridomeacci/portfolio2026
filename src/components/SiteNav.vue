@@ -1,9 +1,12 @@
 <template>
   <header class="site-nav" :class="{ 'site-nav--overlay': overlay }">
     <template v-for="(link, i) in links" :key="link.key">
-      <router-link :to="link.to" class="nav-link" :class="{ active: activeKey === link.key }">
-        <GlitchWord :text="link.label" :active="activeKey === link.key" />
-      </router-link>
+      <router-link
+        :to="link.to"
+        class="nav-link"
+        :class="{ active: activeKey === link.key }"
+        :data-text="link.label"
+      >{{ link.label }}</router-link>
       <span v-if="i < links.length - 1" class="nav-sep">/</span>
     </template>
   </header>
@@ -12,7 +15,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import GlitchWord from './GlitchWord.vue'
 
 defineProps<{ overlay?: boolean }>()
 
@@ -60,6 +62,7 @@ const activeKey = computed(() => {
 }
 
 .nav-link {
+  position: relative;
   font-family: var(--font-ui);
   font-size: var(--text-xs);
   font-weight: 400;
@@ -77,6 +80,60 @@ const activeKey = computed(() => {
 .nav-link.active {
   opacity: 1;
   font-weight: 700;
+}
+
+/* Glitch slices */
+.nav-link::before,
+.nav-link::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  pointer-events: none;
+}
+
+.nav-link::before {
+  clip-path: polygon(0 0, 100% 0, 100% 40%, 0 40%);
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 40%, 0 40%);
+}
+
+.nav-link::after {
+  clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+  -webkit-clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+}
+
+.nav-link:hover,
+.nav-link.active {
+  animation: glitch 1s linear infinite;
+}
+
+.nav-link:hover::before,
+.nav-link.active::before {
+  animation: glitchTop 1s linear infinite;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  animation: glitchBottom 1.3s linear infinite;
+}
+
+@keyframes glitch {
+  2%, 64% { transform: translate(2px, 0) skew(0deg); }
+  4%, 60% { transform: translate(-2px, 0) skew(0deg); }
+  62% { transform: translate(0, 0) skew(2deg); }
+}
+
+@keyframes glitchTop {
+  2%, 64% { transform: translate(2px, -2px); }
+  4%, 60% { transform: translate(-2px, 2px); }
+  62% { transform: translate(4px, -1px) skew(-6deg); }
+}
+
+@keyframes glitchBottom {
+  2%, 64% { transform: translate(-2px, 0); }
+  4%, 60% { transform: translate(-2px, 0); }
+  62% { transform: translate(-5px, 2px) skew(7deg); }
 }
 
 .nav-sep {
