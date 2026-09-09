@@ -10,6 +10,9 @@
           class="case-entry"
           :class="{ open: expandedCase !== null && c.origIdx === expandedCase }"
           @click="toggleCase(c.origIdx)"
+          @mouseenter="onCaseEnter(c, $event)"
+          @mousemove="position"
+          @mouseleave="hide"
         >
           <div class="entry-bar">
             <div class="entry-text">
@@ -98,6 +101,8 @@
         </div>
       </div>
     </Transition>
+
+    <img ref="previewEl" v-show="previewSrc" class="hover-preview" :src="previewSrc || ''" alt="" />
   </div>
 </template>
 
@@ -106,8 +111,10 @@ import { ref, computed, onMounted, watch, nextTick, onBeforeUnmount } from 'vue'
 import { useRoute } from 'vue-router'
 import SiteNav from '../components/SiteNav.vue'
 import { cases as casesData, type CaseItem, orderedMedia, posterFor } from '../data/cases'
+import { useHoverPreview } from '../composables/useHoverPreview'
 
 const route = useRoute()
+const { previewSrc, previewEl, show, hide, position } = useHoverPreview()
 const expandedCase = ref<number | null>(null)
 const transitioning = ref(false)
 const mediaRef = ref<HTMLElement | null>(null)
@@ -123,6 +130,25 @@ let cooldown = false
 let prevDeltaY = 0
 
 const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+
+function thumbFor(c: CaseItem): string | null {
+  const media = orderedMedia(c)
+  for (const b of media) {
+    if (b.type === 'image' && b.src) return b.src
+    if (b.type === 'video' && b.src) return posterFor(b.src)
+    if (b.type === 'grid' && b.items && b.items.length) {
+      const it = b.items[0]
+      if (it.type === 'image' && it.src) return it.src
+      if (it.type === 'video' && it.src) return posterFor(it.src)
+    }
+  }
+  return null
+}
+
+function onCaseEnter(c: CaseItem, e: MouseEvent) {
+  const t = thumbFor(c)
+  if (t) show(t, e)
+}
 
 const toggleCase = (i: number) => {
   if (expandedCase.value === i) {

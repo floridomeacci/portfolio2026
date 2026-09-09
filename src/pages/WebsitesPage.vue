@@ -10,6 +10,9 @@
           class="site-entry"
           :class="{ open: expanded === i }"
           @click="toggleSite(i)"
+          @mouseenter="onSiteEnter(s, $event)"
+          @mousemove="position"
+          @mouseleave="hide"
         >
           <div class="entry-bar">
             <div class="entry-text">
@@ -76,6 +79,8 @@
         </div>
       </div>
     </Transition>
+
+    <img ref="previewEl" v-show="previewSrc" class="hover-preview" :src="previewSrc || ''" alt="" />
   </div>
 </template>
 
@@ -84,8 +89,12 @@ import { ref, computed, nextTick, onBeforeUnmount } from 'vue'
 import SiteNav from '../components/SiteNav.vue'
 import DesignSheet from '../components/DesignSheet.vue'
 import { websites } from '../data/websites'
+import { useHoverPreview } from '../composables/useHoverPreview'
 
 const sites = websites
+const { previewSrc, previewEl, show, hide, position } = useHoverPreview()
+
+const onSiteEnter = (s: typeof sites[number], e: MouseEvent) => show(s.preview, e)
 const expanded = ref<number | null>(null)
 const mediaRef = ref<HTMLElement | null>(null)
 const reachedBottom = ref(false)
