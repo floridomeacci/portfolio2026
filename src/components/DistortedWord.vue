@@ -30,9 +30,9 @@ let raf = 0
 
 function loop() {
   const t = performance.now() / 1000
-  const s = 3.5 + Math.sin(t * 0.5) * 1.0 + Math.sin(t * 0.21 + 1.3) * 0.6
-  const fx = 0.06 + Math.sin(t * 0.4 + 0.5) * 0.015 + Math.sin(t * 0.13) * 0.01
-  const fy = 0.12 + Math.sin(t * 0.33 + 2.1) * 0.025 + Math.sin(t * 0.17 + 0.8) * 0.015
+  const s = 3.5 + Math.sin(t * 0.16) * 1.0 + Math.sin(t * 0.07 + 1.3) * 0.6
+  const fx = 0.06 + Math.sin(t * 0.13 + 0.5) * 0.015 + Math.sin(t * 0.04) * 0.01
+  const fy = 0.12 + Math.sin(t * 0.11 + 2.1) * 0.025 + Math.sin(t * 0.05 + 0.8) * 0.015
   scale.value = s
   freq.value = fx.toFixed(3) + ' ' + fy.toFixed(3)
   raf = requestAnimationFrame(loop)
