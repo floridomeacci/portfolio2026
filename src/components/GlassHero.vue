@@ -68,7 +68,7 @@ onMounted(() => {
     const size = box.getSize(new THREE.Vector3())
     const center = box.getCenter(new THREE.Vector3())
     const maxDim = Math.max(size.x, size.y, size.z) || 1
-    const scale = 2.1 / maxDim
+    const scale = 1.2 / maxDim
 
     model.scale.setScalar(scale)
     model.position.sub(center.multiplyScalar(scale))
