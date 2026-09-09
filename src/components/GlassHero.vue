@@ -11,9 +11,7 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js'
 
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 
-const WORDS = ['FLORIDO', 'MEACCI']
 const INK = '#0e0a08'
-const BG = '#fcf5f2'
 const CAMERA_Z = 5
 
 let renderer: THREE.WebGLRenderer | null = null
@@ -29,19 +27,27 @@ onMounted(() => {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
   const scene = new THREE.Scene()
-  scene.background = new THREE.Color(BG)
   const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100)
   camera.position.z = CAMERA_Z
 
   const pmrem = new THREE.PMREMGenerator(renderer)
   scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture
 
-  let textTexture: THREE.CanvasTexture | null = null
-  const textPlane = new THREE.Mesh(
+  let floridoTexture: THREE.CanvasTexture | null = null
+  let meacciTexture: THREE.CanvasTexture | null = null
+
+  const makeTextPlane = () => new THREE.Mesh(
     new THREE.PlaneGeometry(1, 1),
-    new THREE.MeshBasicMaterial({ toneMapped: false })
+    new THREE.MeshBasicMaterial({ toneMapped: false, transparent: true })
   )
-  scene.add(textPlane)
+
+  const floridoPlane = makeTextPlane()
+  const meacciPlane = makeTextPlane()
+  scene.add(floridoPlane)
+  scene.add(meacciPlane)
+
+  let visibleWidth = 1
+  let slideStart = 0
 
   const glassMaterial = new THREE.MeshPhysicalMaterial({
     color: 0xffffff,
@@ -83,53 +89,75 @@ onMounted(() => {
   loader.setDRACOLoader(draco)
   loader.load('/models/hero.glb', onModelLoaded, undefined, () => {})
 
-  const drawText = (width: number, height: number) => {
+  const drawWord = (word: string, size: number, yCenter: number, width: number, height: number) => {
     const dpr = Math.min(window.devicePixelRatio, 2)
     const tc = document.createElement('canvas')
     const ctx = tc.getContext('2d')
-    if (!ctx) return
+    if (!ctx) return null
     tc.width = Math.round(width * dpr)
     tc.height = Math.round(height * dpr)
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-    ctx.fillStyle = BG
-    ctx.fillRect(0, 0, width, height)
+    ctx.clearRect(0, 0, width, height)
     ctx.fillStyle = INK
     ctx.textAlign = 'center'
     ctx.textBaseline = 'middle'
+    ctx.font = `900 ${size}px "Inter Tight", sans-serif`
+    ctx.fillText(word, width / 2, yCenter)
+    const texture = new THREE.CanvasTexture(tc)
+    texture.colorSpace = THREE.SRGBColorSpace
+    texture.anisotropy = renderer!.capabilities.getMaxAnisotropy()
+    return texture
+  }
 
+  const drawText = (width: number, height: number) => {
     const maxWidth = width * 0.55
     const maxHeight = height * 0.45
     const baseSize = 70
     const maxFont = 140
     const lineGap = 1.0
 
-    ctx.font = `900 ${baseSize}px "Inter Tight", sans-serif`
-    const sizes = WORDS.map((line) => Math.min(maxFont, baseSize * (maxWidth / Math.max(1, ctx.measureText(line).width))))
-    const totalHeight = sizes.reduce((sum, size) => sum + size * lineGap, 0)
-    const fit = Math.min(1, maxHeight / totalHeight)
+    const mctx = document.createElement('canvas').getContext('2d')
+    if (!mctx) return
+    mctx.font = `900 ${baseSize}px "Inter Tight", sans-serif`
+    const s1 = Math.min(maxFont, baseSize * (maxWidth / Math.max(1, mctx.measureText('FLORIDO').width)))
+    const s2 = Math.min(maxFont, baseSize * (maxWidth / Math.max(1, mctx.measureText('MEACCI').width)))
+    const total = s1 * lineGap + s2 * lineGap
+    const fit = Math.min(1, maxHeight / total)
+    const size1 = s1 * fit
+    const size2 = s2 * fit
 
-    let y = height / 2 - (totalHeight * fit) / 2
-    WORDS.forEach((line, i) => {
-      const size = sizes[i] * fit
-      ctx.font = `900 ${size}px "Inter Tight", sans-serif`
-      y += (size * lineGap) / 2
-      ctx.fillText(line, width / 2, y)
-      y += (size * lineGap) / 2
-    })
+    const y1 = height / 2 - (size2 * lineGap) / 2
+    const y2 = height / 2 + (size1 * lineGap) / 2
 
-    if (textTexture) textTexture.dispose()
-    textTexture = new THREE.CanvasTexture(tc)
-    textTexture.colorSpace = THREE.SRGBColorSpace
-    textTexture.anisotropy = renderer!.capabilities.getMaxAnisotropy()
-    const mat = textPlane.material as THREE.MeshBasicMaterial
-    mat.map = textTexture
-    mat.needsUpdate = true
+    if (floridoTexture) floridoTexture.dispose()
+    if (meacciTexture) meacciTexture.dispose()
+    floridoTexture = drawWord('FLORIDO', size1, y1, width, height)
+    meacciTexture = drawWord('MEACCI', size2, y2, width, height)
+
+    const fm = floridoPlane.material as THREE.MeshBasicMaterial
+    const mm = meacciPlane.material as THREE.MeshBasicMaterial
+    fm.map = floridoTexture
+    fm.needsUpdate = true
+    mm.map = meacciTexture
+    mm.needsUpdate = true
   }
 
   const AMP = THREE.MathUtils.degToRad(30)
 
+  const slideProgress = () => {
+    if (reducedMotion) return 1
+    if (!slideStart) return 0
+    const t = (performance.now() - slideStart) / 1000
+    return 1 - Math.pow(1 - Math.min(1, t / 0.9), 3)
+  }
+
   const tick = () => {
     const t = clock.getElapsedTime()
+
+    const e = slideProgress()
+    floridoPlane.position.x = -visibleWidth * (1 - e)
+    meacciPlane.position.x = visibleWidth * (1 - e)
+
     if (model) {
       if (!reducedMotion) {
         model.rotation.y = (Math.sin(t * 0.4) * 0.6 + pointer.x * 0.4) * AMP
@@ -150,8 +178,9 @@ onMounted(() => {
     camera.updateProjectionMatrix()
 
     const visibleHeight = 2 * CAMERA_Z * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2))
-    const visibleWidth = visibleHeight * camera.aspect
-    textPlane.scale.set(visibleWidth, visibleHeight, 1)
+    visibleWidth = visibleHeight * camera.aspect
+    floridoPlane.scale.set(visibleWidth, visibleHeight, 1)
+    meacciPlane.scale.set(visibleWidth, visibleHeight, 1)
     drawText(w, h)
   }
 
@@ -173,6 +202,7 @@ onMounted(() => {
 
   document.fonts.ready.then(() => {
     resize()
+    slideStart = performance.now()
     if (reducedMotion) {
       tick()
     } else {
@@ -184,7 +214,8 @@ onMounted(() => {
     window.removeEventListener('pointermove', onPointerMove)
     window.removeEventListener('resize', onResize)
     renderer?.setAnimationLoop(null)
-    textTexture?.dispose()
+    floridoTexture?.dispose()
+    meacciTexture?.dispose()
     renderer?.dispose()
     renderer = null
   }

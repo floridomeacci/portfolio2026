@@ -483,6 +483,19 @@ onUnmounted(() => {
   max-width: 900px;
   margin: 0 auto;
   padding: 0 32px;
+  animation: hero-sub-in 0.8s var(--ease-out) both;
+  animation-delay: 0.7s;
+}
+
+@keyframes hero-sub-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Section headers (CV style) */
