@@ -136,17 +136,16 @@ onMounted(() => {
     visibleWidth = visibleHeight * camera.aspect
     const worldK = visibleWidth / w
 
-    const maxWidth = w * 0.55
-    const maxHeight = h * 0.45
+    const maxWidth = w * 0.92
+    const maxHeight = h * 0.72
     const baseSize = 70
-    const maxFont = 140
     const lineGap = 1.0
 
     const mctx = document.createElement('canvas').getContext('2d')
     if (!mctx) return
     mctx.font = `900 ${baseSize}px "Inter Tight", sans-serif`
-    const s1 = Math.min(maxFont, baseSize * (maxWidth / Math.max(1, mctx.measureText('FLORIDO').width)))
-    const s2 = Math.min(maxFont, baseSize * (maxWidth / Math.max(1, mctx.measureText('MEACCI').width)))
+    const s1 = baseSize * (maxWidth / Math.max(1, mctx.measureText('FLORIDO').width))
+    const s2 = baseSize * (maxWidth / Math.max(1, mctx.measureText('MEACCI').width))
     const total = s1 * lineGap + s2 * lineGap
     const fit = Math.min(1, maxHeight / total)
     const size1 = s1 * fit
