@@ -165,8 +165,6 @@ onMounted(() => {
     }
   }
 
-  const AMP = THREE.MathUtils.degToRad(30)
-
   const slideProgress = () => {
     if (reducedMotion) return 1
     if (!slideStart) return 0
@@ -183,11 +181,11 @@ onMounted(() => {
 
     if (model) {
       if (!reducedMotion) {
-        model.rotation.y = (Math.sin(t * 0.4) * 0.6 + pointer.x * 0.4) * AMP
-        model.rotation.x = (Math.sin(t * 0.3) * 0.6 + pointer.y * 0.4) * AMP
-        model.rotation.z = Math.sin(t * 0.2) * AMP * 0.4
+        model.rotation.y = t * 0.4 + pointer.x * 0.3
+        model.rotation.x = t * 0.2 + pointer.y * 0.2
+        model.rotation.z = 0
       } else {
-        model.rotation.set(0, 0, 0)
+        model.rotation.set(0.3, 0.4, 0)
       }
     }
     renderer!.render(scene, camera)
