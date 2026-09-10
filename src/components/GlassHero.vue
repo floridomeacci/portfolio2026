@@ -66,7 +66,7 @@ onMounted(() => {
     const size = box.getSize(new THREE.Vector3())
     const center = box.getCenter(new THREE.Vector3())
     const maxDim = Math.max(size.x, size.y, size.z) || 1
-    const scale = 1.2 / maxDim
+    const scale = 1.5 / maxDim
 
     model.scale.setScalar(scale)
     model.position.sub(center.multiplyScalar(scale))
@@ -139,7 +139,7 @@ onMounted(() => {
     const maxWidth = w * 0.92
     const maxHeight = h * 0.72
     const baseSize = 70
-    const lineGap = 1.0
+    const lineGap = 0.85
 
     const mctx = document.createElement('canvas').getContext('2d')
     if (!mctx) return
