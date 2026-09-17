@@ -167,5 +167,23 @@ export const websites: Site[] = [
       fonts: { headline: 'Onest', body: 'Onest', label: 'Onest' },
       custom: { kind: 'slider', label: 'Grain intensity' }
     }
+  },
+  {
+    url: 'https://gardenofchow.com',
+    label: 'Garden of Chow',
+    desc: 'A gift box shop for foodies. Spicy sauces, sour candy, sweet treats and gag-worthy snacks, one box and one price, ready to gift. I built it with Next.js.',
+    github: 'https://github.com/floridomeacci/gardenofchow',
+    tags: ['E-commerce', 'Next.js', 'Gifting'],
+    preview: '/images/gardenofchow-preview.webp',
+    spec: {
+      palette: {
+        primary: { name: 'Primary', hex: '#00559b' },
+        secondary: { name: 'Secondary', hex: '#ffbd6b' },
+        tertiary: { name: 'Tertiary', hex: '#e11d6e' },
+        neutral: { name: 'Neutral', hex: '#fff6eb' }
+      },
+      fonts: { headline: 'Baloo 2', body: 'Poppins', label: 'Poppins' },
+      custom: { kind: 'search', placeholder: 'Search boxes…' }
+    }
   }
 ]
