@@ -205,7 +205,7 @@ const passionProjects = [
   { url: 'https://colino.work', label: 'colino.work', desc: 'A job search that filters live openings down to the roles that actually match your CV. Upload your resume and it ranks the jobs that fit.' },
   { url: 'https://mlnpx.com', label: 'million.pixels', desc: 'A one-million-pixel canvas painted by AI agents and the people who direct them. A live demo of WebMCP.', noEmbed: true, thumb: 'millionpixels.webp' },
   { url: 'https://www.figma.com/community/plugin/1626934504810261537', label: 'Filters & Grain', desc: 'A Figma plugin for color grading, film grain and vignette. No Photoshop needed.', noEmbed: true, thumb: 'figma.webp' },
-  { url: 'https://gardenofchow.com', label: 'Garden of Chow', desc: 'A gift box shop for foodies. Spicy sauces, sour candy, sweet treats and weird snacks, one box and one price.' },
+  { url: 'https://gardenofchow.com', label: 'Garden of Chow', desc: 'A gift box shop for foodies. Spicy sauces, sour candy, sweet treats and weird snacks, one box and one price.', noEmbed: true, thumb: 'gardenofchow-preview.webp' },
 ]
 
 const loopPassion = computed(() => [...passionProjects, ...passionProjects, ...passionProjects])

@@ -175,6 +175,8 @@ export const websites: Site[] = [
     github: 'https://github.com/floridomeacci/gardenofchow',
     tags: ['E-commerce', 'Next.js', 'Gifting'],
     preview: '/images/gardenofchow-preview.webp',
+    noEmbed: true,
+    thumb: 'gardenofchow-preview.webp',
     spec: {
       palette: {
         primary: { name: 'Primary', hex: '#00559b' },
