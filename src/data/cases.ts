@@ -143,10 +143,14 @@ export const cases: CaseItem[] = [
     tags: ['AI', 'React', 'n8n', 'Fashion', 'Web App'],
     blocks: [
       { type: 'video', src: '/cases/videos/nasa_ss26.mp4' },
+      { type: 'image', src: img('nasa_thumb.webp') },
       { type: 'text', text: 'Below is the n8n flow that tied it all together.' },
       { type: 'image', src: img('nasa_n8n_flow.webp') },
       { type: 'text', text: "You take a selfie, and you're transported to Palm Beach." },
-      { type: 'image', src: img('nasa2.webp') }
+      { type: 'grid', cols: 2, rows: 1, aspect: '9:16', items: [
+        { type: 'video', src: '/cases/videos/nasa_ss26_916.mp4' },
+        { type: 'image', src: img('nasa2.webp') }
+      ] }
     ]
   },
   {
@@ -156,10 +160,22 @@ export const cases: CaseItem[] = [
     tags: ['AI', 'React', 'Video Gen', 'Installation'],
     blocks: [
       { type: 'video', src: '/cases/videos/abdul_ui.mp4' },
+      { type: 'image', src: img('abdul_hero.webp') },
       { type: 'grid', cols: 2, rows: 1, aspect: '9:16', items: [
         { type: 'video', src: '/cases/videos/abdul_ai.mp4' },
-        { type: 'image', src: img('abdul_thumb.webp') }
-      ] }
+        { type: 'video', src: '/cases/videos/abdul_dubai.mp4' }
+      ] },
+      { type: 'image', src: img('abdul_second.webp') },
+      { type: 'image', src: img('abdul1.webp') },
+      { type: 'image', src: img('abdul2.webp') },
+      { type: 'image', src: img('abdul3.webp') },
+      { type: 'image', src: img('abdul4.webp') },
+      { type: 'image', src: img('abdul5.webp') },
+      { type: 'image', src: img('abdul6.webp') },
+      { type: 'image', src: img('abdul7.webp') },
+      { type: 'image', src: img('abdul8.webp') },
+      { type: 'image', src: img('abdul9.webp') },
+      { type: 'image', src: img('abdul10.webp') }
     ]
   },
   {
@@ -277,6 +293,8 @@ export const cases: CaseItem[] = [
     description: "Hand-built a full arcade cabinet for the TBWA\\X office. MDF frame, lasercut panels, hand-painted finish. All wiring and electronics. Runs RetroPie on a Raspberry Pi 4. Also created the intro video in Cinema 4D.",
     tags: ['Hardware', 'Craftsmanship', 'Design'],
     blocks: [
+      { type: 'video', src: '/cases/videos/arcade_splash.mp4' },
+      { type: 'image', src: img('arcade_splash_hero.webp') },
       { type: 'grid', cols: 3, rows: 3, aspect: '9:16', items: [
         { type: 'image', src: img('arcade3.webp') },
         { type: 'image', src: img('arcade4.webp') },

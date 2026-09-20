@@ -56,6 +56,17 @@
 
             <DesignSheet :spec="sites[expanded].spec" />
 
+            <div v-if="sites[expanded].gallery && sites[expanded].gallery.length" class="site-gallery">
+              <span class="preview-label">Screenshots</span>
+              <img
+                v-for="(g, gi) in sites[expanded].gallery"
+                :key="gi"
+                :src="g"
+                :alt="sites[expanded].label + ' screenshot'"
+                loading="lazy"
+              />
+            </div>
+
             <div class="site-preview">
               <span class="preview-label">Live preview</span>
               <div v-if="sites[expanded].noEmbed" class="preview-fallback">
@@ -453,6 +464,21 @@ onBeforeUnmount(() => {
   text-transform: uppercase;
   letter-spacing: 1.2px;
   color: var(--ink-faint);
+}
+
+.site-gallery {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.site-gallery img {
+  width: 100%;
+  display: block;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-sub);
 }
 
 .site-preview iframe {

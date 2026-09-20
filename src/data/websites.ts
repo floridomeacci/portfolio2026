@@ -31,6 +31,7 @@ export interface Site {
   github?: string
   tags: string[]
   preview: string
+  gallery?: string[]
   noEmbed?: boolean
   thumb?: string
   spec: SiteSpec
@@ -44,6 +45,14 @@ export const websites: Site[] = [
     github: 'https://github.com/floridomeacci/TLguide',
     tags: ['Reviews', 'AI Pipeline', 'Full-stack'],
     preview: '/images/tlguide-preview.webp',
+    gallery: [
+      '/images/tlguide-01.webp',
+      '/images/tlguide-02.webp',
+      '/images/tlguide-03.webp',
+      '/images/tlguide-04.webp',
+      '/images/tlguide-05.webp',
+      '/images/tlguide-06.webp'
+    ],
     spec: {
       palette: {
         primary: { name: 'Primary', hex: '#09090b' },
@@ -80,6 +89,16 @@ export const websites: Site[] = [
     github: 'https://github.com/floridomeacci/creditSwapV2',
     tags: ['Marketplace', 'AI', 'Fintech'],
     preview: '/images/creditswap-preview.webp',
+    gallery: [
+      '/images/creditswap-01.webp',
+      '/images/creditswap-02.webp',
+      '/images/creditswap-03.webp',
+      '/images/creditswap-04.webp',
+      '/images/creditswap-05.webp',
+      '/images/creditswap-06.webp',
+      '/images/creditswap-07.webp',
+      '/images/creditswap-08.webp'
+    ],
     spec: {
       palette: {
         primary: { name: 'Primary', hex: '#111827' },
@@ -175,6 +194,16 @@ export const websites: Site[] = [
     github: 'https://github.com/floridomeacci/gardenofchow',
     tags: ['E-commerce', 'Next.js', 'Gifting'],
     preview: '/images/gardenofchow-preview.webp',
+    gallery: [
+      '/images/gardenofchow-01.webp',
+      '/images/gardenofchow-02.webp',
+      '/images/gardenofchow-03.webp',
+      '/images/gardenofchow-04.webp',
+      '/images/gardenofchow-05.webp',
+      '/images/gardenofchow-06.webp',
+      '/images/gardenofchow-07.webp',
+      '/images/gardenofchow-08.webp'
+    ],
     noEmbed: true,
     thumb: 'gardenofchow-preview.webp',
     spec: {
