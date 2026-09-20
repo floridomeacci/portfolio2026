@@ -58,13 +58,21 @@
 
             <div v-if="sites[expanded].gallery && sites[expanded].gallery.length" class="site-gallery">
               <span class="preview-label">Screenshots</span>
-              <img
-                v-for="(g, gi) in sites[expanded].gallery"
+              <div
+                v-for="(grid, gi) in sites[expanded].gallery"
                 :key="gi"
-                :src="g"
-                :alt="sites[expanded].label + ' screenshot'"
-                loading="lazy"
-              />
+                class="site-gallery-grid"
+                :style="{ gridTemplateColumns: 'repeat(' + grid.cols + ', 1fr)' }"
+              >
+                <img
+                  v-for="(img, ii) in grid.items"
+                  :key="ii"
+                  :src="img"
+                  :alt="sites[expanded].label + ' screenshot'"
+                  loading="lazy"
+                  :style="{ aspectRatio: grid.aspect.replace(':', '/') }"
+                />
+              </div>
             </div>
 
             <div class="site-preview">
@@ -473,8 +481,15 @@ onBeforeUnmount(() => {
   gap: 12px;
 }
 
-.site-gallery img {
+.site-gallery-grid {
+  display: grid;
+  gap: 8px;
+}
+
+.site-gallery-grid img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
   display: block;
   border: 1px solid var(--border);
   border-radius: 6px;

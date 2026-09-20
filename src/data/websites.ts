@@ -31,7 +31,7 @@ export interface Site {
   github?: string
   tags: string[]
   preview: string
-  gallery?: string[]
+  gallery?: { cols: number; aspect: string; items: string[] }[]
   noEmbed?: boolean
   thumb?: string
   spec: SiteSpec
@@ -46,12 +46,14 @@ export const websites: Site[] = [
     tags: ['Reviews', 'AI Pipeline', 'Full-stack'],
     preview: '/images/tlguide-preview.webp',
     gallery: [
-      '/images/tlguide-01.webp',
-      '/images/tlguide-02.webp',
-      '/images/tlguide-03.webp',
-      '/images/tlguide-04.webp',
-      '/images/tlguide-05.webp',
-      '/images/tlguide-06.webp'
+      { cols: 3, aspect: '16:10', items: [
+        '/images/tlguide-01.webp',
+        '/images/tlguide-02.webp',
+        '/images/tlguide-03.webp',
+        '/images/tlguide-04.webp',
+        '/images/tlguide-05.webp',
+        '/images/tlguide-06.webp'
+      ] }
     ],
     spec: {
       palette: {
@@ -90,14 +92,16 @@ export const websites: Site[] = [
     tags: ['Marketplace', 'AI', 'Fintech'],
     preview: '/images/creditswap-preview.webp',
     gallery: [
-      '/images/creditswap-01.webp',
-      '/images/creditswap-02.webp',
-      '/images/creditswap-03.webp',
-      '/images/creditswap-04.webp',
-      '/images/creditswap-05.webp',
-      '/images/creditswap-06.webp',
-      '/images/creditswap-07.webp',
-      '/images/creditswap-08.webp'
+      { cols: 4, aspect: '16:10', items: [
+        '/images/creditswap-01.webp',
+        '/images/creditswap-02.webp',
+        '/images/creditswap-03.webp',
+        '/images/creditswap-04.webp',
+        '/images/creditswap-05.webp',
+        '/images/creditswap-06.webp',
+        '/images/creditswap-07.webp',
+        '/images/creditswap-08.webp'
+      ] }
     ],
     spec: {
       palette: {
@@ -195,14 +199,40 @@ export const websites: Site[] = [
     tags: ['E-commerce', 'Next.js', 'Gifting'],
     preview: '/images/gardenofchow-preview.webp',
     gallery: [
-      '/images/gardenofchow-01.webp',
-      '/images/gardenofchow-02.webp',
-      '/images/gardenofchow-03.webp',
-      '/images/gardenofchow-04.webp',
-      '/images/gardenofchow-05.webp',
-      '/images/gardenofchow-06.webp',
-      '/images/gardenofchow-07.webp',
-      '/images/gardenofchow-08.webp'
+      { cols: 4, aspect: '16:10', items: [
+        '/images/gardenofchow-01.webp',
+        '/images/gardenofchow-02.webp',
+        '/images/gardenofchow-03.webp',
+        '/images/gardenofchow-04.webp',
+        '/images/gardenofchow-05.webp',
+        '/images/gardenofchow-06.webp',
+        '/images/gardenofchow-07.webp',
+        '/images/gardenofchow-08.webp'
+      ] },
+      { cols: 4, aspect: '1:1', items: [
+        '/images/gardenofchow-ig1.webp',
+        '/images/gardenofchow-ig2.webp',
+        '/images/gardenofchow-ig3.webp',
+        '/images/gardenofchow-ig4.webp',
+        '/images/gardenofchow-ig5.webp',
+        '/images/gardenofchow-ig6.webp',
+        '/images/gardenofchow-ig7.webp',
+        '/images/gardenofchow-ig8.webp'
+      ] },
+      { cols: 6, aspect: '2:3', items: [
+        '/images/gardenofchow-card1.webp',
+        '/images/gardenofchow-card2.webp',
+        '/images/gardenofchow-card3.webp',
+        '/images/gardenofchow-card4.webp',
+        '/images/gardenofchow-card5.webp',
+        '/images/gardenofchow-card6.webp',
+        '/images/gardenofchow-card7.webp',
+        '/images/gardenofchow-card8.webp',
+        '/images/gardenofchow-card9.webp',
+        '/images/gardenofchow-gummyskull.webp',
+        '/images/gardenofchow-insects.webp',
+        '/images/gardenofchow-poison.webp'
+      ] }
     ],
     noEmbed: true,
     thumb: 'gardenofchow-preview.webp',

@@ -159,23 +159,26 @@ export const cases: CaseItem[] = [
     description: "Built the software for an interactive touchscreen installation at an exhibition. Users picked options and the screen played AI-generated videos. The whole app ran locally with no internet. React frontend, custom offline video pipeline. UI/UX by Rex Amesbury.",
     tags: ['AI', 'React', 'Video Gen', 'Installation'],
     blocks: [
-      { type: 'video', src: '/cases/videos/abdul_ui.mp4' },
       { type: 'image', src: img('abdul_hero.webp') },
-      { type: 'grid', cols: 2, rows: 1, aspect: '9:16', items: [
-        { type: 'video', src: '/cases/videos/abdul_ai.mp4' },
-        { type: 'video', src: '/cases/videos/abdul_dubai.mp4' }
-      ] },
       { type: 'image', src: img('abdul_second.webp') },
-      { type: 'image', src: img('abdul1.webp') },
-      { type: 'image', src: img('abdul2.webp') },
-      { type: 'image', src: img('abdul3.webp') },
-      { type: 'image', src: img('abdul4.webp') },
-      { type: 'image', src: img('abdul5.webp') },
-      { type: 'image', src: img('abdul6.webp') },
-      { type: 'image', src: img('abdul7.webp') },
-      { type: 'image', src: img('abdul8.webp') },
-      { type: 'image', src: img('abdul9.webp') },
-      { type: 'image', src: img('abdul10.webp') }
+      { type: 'video', src: '/cases/videos/abdul_dubai.mp4' },
+      { type: 'grid', cols: 2, aspect: '1:1', items: [
+        { type: 'video', src: '/cases/videos/abdul_ai.mp4' },
+        { type: 'image', src: img('abdul_thumb.webp') }
+      ] },
+      { type: 'text', text: 'UI screens for the touchscreen installation. Visitors answer a few prompts, and the screen plays a matching AI-generated video.' },
+      { type: 'grid', cols: 5, aspect: '4:3', items: [
+        { type: 'image', src: img('abdul1.webp') },
+        { type: 'image', src: img('abdul2.webp') },
+        { type: 'image', src: img('abdul3.webp') },
+        { type: 'image', src: img('abdul4.webp') },
+        { type: 'image', src: img('abdul5.webp') },
+        { type: 'image', src: img('abdul6.webp') },
+        { type: 'image', src: img('abdul7.webp') },
+        { type: 'image', src: img('abdul8.webp') },
+        { type: 'image', src: img('abdul9.webp') },
+        { type: 'image', src: img('abdul10.webp') }
+      ] }
     ]
   },
   {
@@ -293,9 +296,12 @@ export const cases: CaseItem[] = [
     description: "Hand-built a full arcade cabinet for the TBWA\\X office. MDF frame, lasercut panels, hand-painted finish. All wiring and electronics. Runs RetroPie on a Raspberry Pi 4. Also created the intro video in Cinema 4D.",
     tags: ['Hardware', 'Craftsmanship', 'Design'],
     blocks: [
-      { type: 'video', src: '/cases/videos/arcade_splash.mp4' },
-      { type: 'image', src: img('arcade_splash_hero.webp') },
-      { type: 'grid', cols: 3, rows: 3, aspect: '9:16', items: [
+      { type: 'text', text: 'I first drafted the design in SketchUp. The cabinet follows the same slant as the TBWA backslash logo, and it runs on a Raspberry Pi 4B.' },
+      { type: 'grid', cols: 2, aspect: '4:3', items: [
+        { type: 'image', src: img('arcade2.webp') },
+        { type: 'image', src: img('arcade1.webp') }
+      ] },
+      { type: 'grid', cols: 3, aspect: '4:3', items: [
         { type: 'image', src: img('arcade3.webp') },
         { type: 'image', src: img('arcade4.webp') },
         { type: 'image', src: img('arcade5.webp') },
@@ -303,9 +309,8 @@ export const cases: CaseItem[] = [
         { type: 'image', src: img('arcade7.webp') },
         { type: 'image', src: img('arcade8.webp') }
       ] },
-      { type: 'text', text: 'I first drafted the design in SketchUp. The cabinet follows the same slant as the TBWA backslash logo, and it runs on a Raspberry Pi 4B.' },
-      { type: 'image', src: img('arcade1.webp') },
-      { type: 'image', src: img('arcade2.webp') }
+      { type: 'text', text: 'The splash screen that plays when the machine boots up.' },
+      { type: 'video', src: '/cases/videos/arcade_splash.mp4' }
     ]
   }
 ]
