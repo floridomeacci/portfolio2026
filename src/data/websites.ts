@@ -253,6 +253,8 @@ export const websites: Site[] = [
     desc: 'A design direction generator. It spins up fresh websites, dashboards, palettes and typography, and you export the CSS for whatever works. I built it with React and Vite.',
     tags: ['Design Tool', 'React', 'Generative'],
     preview: '/images/cmdx-preview.webp',
+    noEmbed: true,
+    thumb: 'cmdx-preview.webp',
     spec: {
       palette: {
         primary: { name: 'Primary', hex: '#171b19' },
