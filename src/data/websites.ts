@@ -246,5 +246,41 @@ export const websites: Site[] = [
       fonts: { headline: 'Baloo 2', body: 'Poppins', label: 'Poppins' },
       custom: { kind: 'search', placeholder: 'Search boxes…' }
     }
+  },
+  {
+    url: 'https://cmdx.dev',
+    label: 'cut.design',
+    desc: 'A design direction generator. It spins up fresh websites, dashboards, palettes and typography, and you export the CSS for whatever works. I built it with React and Vite.',
+    tags: ['Design Tool', 'React', 'Generative'],
+    preview: '/images/cmdx-preview.webp',
+    spec: {
+      palette: {
+        primary: { name: 'Primary', hex: '#171b19' },
+        secondary: { name: 'Secondary', hex: '#bd4223' },
+        tertiary: { name: 'Tertiary', hex: '#64685d' },
+        neutral: { name: 'Neutral', hex: '#fcfcf9' }
+      },
+      fonts: { headline: 'Georgia', body: 'Arial', label: 'JetBrains Mono' },
+      custom: { kind: 'input', placeholder: 'Describe a direction…' }
+    }
+  },
+  {
+    url: 'https://adoptastork.com',
+    label: 'Adopt A Stork',
+    desc: 'A stork adoption gift. A keepsake card and a wild journey, a simple way to welcome a little one. I built it with Next.js.',
+    tags: ['E-commerce', 'Next.js', 'Gifting'],
+    preview: '/images/adoptastork-preview.webp',
+    noEmbed: true,
+    thumb: 'adoptastork-preview.webp',
+    spec: {
+      palette: {
+        primary: { name: 'Primary', hex: '#394732' },
+        secondary: { name: 'Secondary', hex: '#9b653f' },
+        tertiary: { name: 'Tertiary', hex: '#303b29' },
+        neutral: { name: 'Neutral', hex: '#fffdf5' }
+      },
+      fonts: { headline: 'Fraunces', body: 'DM Sans', label: 'Kalam' },
+      custom: { kind: 'input', placeholder: 'Adopt a stork…' }
+    }
   }
 ]

@@ -206,6 +206,8 @@ const passionProjects = [
   { url: 'https://mlnpx.com', label: 'million.pixels', desc: 'A one-million-pixel canvas painted by AI agents and the people who direct them. A live demo of WebMCP.', noEmbed: true, thumb: 'millionpixels.webp' },
   { url: 'https://www.figma.com/community/plugin/1626934504810261537', label: 'Filters & Grain', desc: 'A Figma plugin for color grading, film grain and vignette. No Photoshop needed.', noEmbed: true, thumb: 'figma.webp' },
   { url: 'https://gardenofchow.com', label: 'Garden of Chow', desc: 'A gift box shop for foodies. Spicy sauces, sour candy, sweet treats and weird snacks, one box and one price.', noEmbed: true, thumb: 'gardenofchow-preview.webp' },
+  { url: 'https://cmdx.dev', label: 'cut.design', desc: 'A design direction generator. It spins up fresh websites, dashboards, palettes and typography, and you export the CSS.' },
+  { url: 'https://adoptastork.com', label: 'Adopt A Stork', desc: 'A stork adoption gift. A keepsake card and a wild journey, a simple way to welcome a little one.', noEmbed: true, thumb: 'adoptastork-preview.webp' },
 ]
 
 const loopPassion = computed(() => [...passionProjects, ...passionProjects, ...passionProjects])
