@@ -255,6 +255,8 @@ export const websites: Site[] = [
     preview: '/images/cmdx-preview.webp',
     noEmbed: true,
     thumb: 'cmdx-preview.webp',
+    noEmbed: true,
+    thumb: 'cmdx-preview.webp',
     spec: {
       palette: {
         primary: { name: 'Primary', hex: '#171b19' },
