@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://www.floridomeacci.xyz/sitemap.xml
+Sitemap: https://floridomeacci.xyz/sitemap.xml
